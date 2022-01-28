@@ -86,7 +86,7 @@
 		<!-- contactUsForm -->
 		<div class="contactUsForm container">
 			<div class="contactUsFormHeader text-center pb-3">Get in touch with us</div>
-			<form action="../index.php" method="post">
+			<form action='http://localhost/helperland/1st_submission/?controller=Helperland&function=Contactus' method="post">
 			<input type="hidden" name="action" value="insert">
 				<div class="row align-items-center justify-content-center g-2">
 					<div class="form-item col-12 col-sm-6">
@@ -115,14 +115,19 @@
 					<div class="form-item col-12">
 						<select class="form-select" aria-label="Subect" name="subject">
 							<option selected>Subject</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
+							<option value="1">General</option>
+							<option value="2">Inquiry</option>
+							<option value="3">Renewal</option>
+							<option value="4">Revocation</option>
 						</select>
 					</div>
 					<div class="form-item col-12">
 						<textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message" required></textarea>
 					</div>
+					<div class="upload-btn-wrapper">
+						<button class="btn">Upload a file</button>
+						<input type="file" name="image" />
+						</div>
 					<button class="submit rounded-pill border-0 outline-0">Submit</button>
 				</div>
 			</form>

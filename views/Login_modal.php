@@ -23,7 +23,7 @@
                     <button class="btn">Login</button>
                     <div class="lowerpart">
                         <div> <a type="button" data-bs-toggle="modal" data-bs-target="#myModal2" href="">Forgot Password?</a></div>
-                        <div><span>Dont Have an account?<span> <a href="./CreateAccount/createAccount.html">Create an account<a></div>
+                        <div><span>Dont Have an account?<span> <a href="./views/create_account.php">Create an account<a></div>
                     </div>
 
                 </div>

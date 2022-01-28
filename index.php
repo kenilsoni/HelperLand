@@ -1,58 +1,8 @@
  <?php
 
-
-
 $controller='Helperland';
-$function='HomePage';
+$function='Homepage';
 $parameter='';
-
-
-
-
-
-$action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
-   
-if(isset($action)){
-
-    include "models/Connection.php";
-    $obj1=new Helperland();
-
-    function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-      }
-      
-    $fname =test_input($_POST['fname']);
-    $lname =test_input($_POST['lname']) ;
-    $subject =test_input($_POST['subject']);
-    $mobile = test_input($_POST['mobile']);
-    $email = test_input($_POST['email']);
-    $name = $fname. " ".$lname;
-    $message =test_input($_POST['message']);
-
-
-   
-
-
-    switch($action) {
-        case 'insert':       
-    
-            if ($name && $mobile && $email && $message && $subject) {
-             
-                $obj1-> insert_contact($name, $mobile, $email,$message,$subject);
-              
-            } else {
-                $error_message = 'Invalid city data. Check all fields and resubmit.';
-                
-                echo $error_message;
-            }
-            break;
-        }
-    
-}
-
 
 if(isset($_GET['controller']) && $_GET['controller'] !=''){
     $controller= $_GET['controller'];
@@ -72,10 +22,12 @@ if(file_exists('Controller/'.$controller.'Controller.php')){
 
     if(method_exists($class,$function)){
         if($parameter){
-      
+        
             $obj->$function($parameter);
+           
           }else{
            $obj->$function();
+         
           }
     }else{
         echo '<h1>Function not found</h1>';
