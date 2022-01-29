@@ -7,6 +7,15 @@
 	font-family: "Roboto", sans-serif !important;
 }
 
+input:disabled {
+    background: #eee;
+}
+
+
+.validate_cus {
+	color: #a94442;
+	font-size: small;
+  }
 html {
 	scroll-behavior: smooth;
 }
@@ -14,7 +23,7 @@ html {
 body {
 	overflow-x: hidden;
 }
-/* Navbar css */
+
 nav {
 	min-height: 64px;
 	position: sticky;
@@ -30,8 +39,8 @@ nav {
 	padding-left: 15px;
 }
 .divlogo img{
-    width:73px;
-    height:54px;
+    width: 73px;
+    height: 54px;
 }
 .navItem.highlight a:hover{
 	background-color: white;
@@ -55,202 +64,35 @@ nav {
 	background: #29626d;
 }
 
-.navItem.active a,
-.navItem.navItem.active a:hover {
-	border: 1px solid white !important;
-	background: transparent !important;
-}
 
-.navItem.active a,
-.navItem.navItem.active a:hover {
-	border: 1px solid white !important;
-	background: transparent !important;
-}
 
-/* image */
-
-.priceimg img {
-	width: 100%;
-	height: auto;
-}
-/* PriceHeader css */
-.pricesHeader {
-	max-width: 1140px;
-}
-
-.pricesHeader hr {
-	height: 3px;
-	color: #dcdcdc;
-	margin: 51px 0 47px;
-}
-
-.pricesHeaderText,
-.cleaningServicesHeaderText,
-.whyHelperlandHeaderText {
+.contactUsHeaderText {
 	font-size: 36px;
 	margin: 39px 0px 9px 0px;
 	font-weight: 700;
 	color: #4f4f4f;
 }
 
-.pricesHeaderDecoration span,
-.cleaningServicesHeaderDecoration span,
-.whyHelperlandHeaderDecoration span {
+.contactUsHeaderDecoration span {
 	width: 62px;
 	height: 1px;
 	margin: 0 8px;
 	background: #cccccc;
 }
 
-.pricesHeaderDecoration,
-.cleaningServicesHeaderDecoration,
-.whyHelperlandHeaderDecoration {
-	margin-bottom: 42px;
-}
-/* priceCard Css */
-.priceCard {
-	max-width: 553px;
-	margin: auto;
-	border: 1px solid #b0c9ce;
-	padding-bottom: 10px;
-	transition: transform 0.35s;
+.contactUsHeaderDecoration {
+	margin-bottom: 52px;
 }
 
-.priceCard:hover {
-	transform: scale(1.07);
+.contactUsHeader {
+	max-width: 1140px;
 }
 
-.priceCardHeader {
-	font-size: 28px;
-	font-weight: bold;
-	color: #fff;
-	padding: 12px 0 13px;
-	background: #1d7a8c;
+.contactUsHeader hr {
+	height: 3px;
+	color: #e1e1e1;
+	margin-bottom: 30px;
 }
-
-.priceCardText {
-	position: relative;
-	font-size: 48px;
-	font-weight: bold;
-	color: #646464;
-	line-height: 48px;
-	margin: 18px 0 30px;
-}
-
-.priceCardText::before {
-	content: "\20AC";
-	margin-right: 8px;
-}
-
-.priceCardText::after {
-	content: "/hr";
-	font-size: 30px;
-	font-weight: normal;
-	align-self: flex-end;
-	line-height: 38px;
-}
-
-.priceCardDescriptionItem {
-	max-width: 553px;
-	margin: auto;
-	font-size: 17px;
-	margin-bottom: 24px;
-	color: #646464;
-}
-
-.priceCardDescriptionItem img {
-	margin-right: 9px;
-}
-/* extraServices css */
-.service {
-	margin: 0 54px;
-	margin-bottom: 56px;
-}
-
-.serviceImage {
-	border: 1px solid #b0c9ce;
-	width: 108px;
-	height: 108px;
-	margin: auto;
-}
-
-.serviceText {
-	font-size: 16px;
-	margin: 17px 0 9px;
-	color: #646464;
-}
-
-.serviceTime {
-	font-size: 18px;
-	color: #1d7a8c;
-	font-weight: bold;
-}
-/* What we include in cleaning css */
-.cleaningServices {
-	background: #f6f6f6;
-	padding-bottom: 41px;
-	padding-top: 73px;
-}
-
-.cleaningServicesHeaderText {
-	margin-top: 0 !important;
-}
-
-.cleaningServicesCard {
-	margin: 0 10px;
-	max-width: 360px;
-	margin-bottom: 40px;
-}
-
-.cleaningServicesCardHeader {
-	margin: 20px 0 20px;
-	font-size: 20px;
-	font-weight: bold;
-	color: #4f4f4f;
-}
-
-.cleaningServicesCardsDescriptionItem {
-	font-size: 16px;
-	color: #4f4f4f;
-	margin-bottom: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-}
-
-.cleaningServicesCardsDescriptionItem::before {
-	content: "";
-	background-image: url("../Images/right_arrow.png");
-	height: 22px;
-	width: 22px;
-	margin-right: 9px;
-}
-
-.bestCleaningServiceSvg {
-	margin: 0 46px;
-	width: 329px;
-}
-/* whyHelperland css start */
-.whyHelperlandHeaderText {
-	margin-top: 71px;
-}
-
-.whyDescriptionItem {
-	max-width: 337px;
-}
-.whyDescriptionItemHeader {
-	font-size: 20px;
-	font-weight: bold;
-	color: #646464;
-	margin-bottom: 10px;
-}
-
-.whyDescriptionItemText {
-	font-size: 14px;
-	color: #646464;
-	margin-bottom: 47px;
-}
-
 
 /* newsletter css */
 .newsletterHeader {
@@ -279,7 +121,8 @@ nav {
 	padding: 11px 21px 13px 23px;
 	font-size: 14px;
 }
-/* footer start */
+
+
 footer {
 	margin-top: 53px;
 	padding: 20px 123px 26px 115px;
@@ -293,16 +136,15 @@ footer hr {
 	margin: 19px 0 25px 0;
 }
 
-.footerMenuItem a:hover{
-	color: #1d7a8c;
-}
 .footerMenuItem a {
 	display: block;
 	text-decoration: none;
 	color: #f1f1f1;
 	margin: 0 10px;
 }
-
+.footerMenuItem a:hover{
+    color: #1d7a8c;
+}
 .socialMedia a:nth-child(1) {
 	margin-right: 20px;
 }
@@ -316,7 +158,37 @@ footer hr {
 	color: #9ba0a3;
 }
 
-@media screen and (max-width: 992px) {
+.contactUsForm {
+	max-width: 641px;
+}
+
+.form-item {
+	margin-bottom: 15px;
+}
+
+.form-control,
+.form-select {
+	padding: 14px 15px;
+	font-size: 16px;
+	color: #a0a0a0;
+}
+
+.submit {
+	font-size: 20px;
+	color: #fff;
+	padding: 10px 50px;
+	background: #1d7a8c;
+	width: 163px;
+	margin-bottom: 20px;
+}
+
+.form-control::placeholder {
+	color: #a0a0a0;
+}
+
+
+
+@media screen and (max-width: 1024px) {
 	nav {
 		flex-direction: column;
 		justify-content: center;
@@ -355,16 +227,7 @@ footer hr {
 		margin-left: 10px;
 	}
 
-	.whyDescription {
-		flex-direction: column;
-	}
-
-	.whyDescriptionItem {
-		max-width: 100%;
-	}
-
-
-	.tgle_class  {
+	.tgle_class {
 		position: relative;
 		height: 30px;
 		width: 30px;
@@ -395,15 +258,16 @@ footer hr {
 		transition: all 0.3s;
 	}
 
-	.tgle_class .open::before {
+	.tgle_class.open::before {
 		transform: translateY(0) rotate(45deg);
 		box-shadow: none;
 	}
 
-	.tgle_class .open::after {
+	.tgle_class.open::after {
 		transform: translateY(0) rotate(-45deg);
 	}
 
+	
 	footer {
 		padding: 25px;
 	}
@@ -422,6 +286,12 @@ footer hr {
 }
 
 @media screen and (max-width: 575px) {
+	
+
+	.contactUsHeader hr {
+		margin-bottom: 30px;
+	}
+
 	.footerMain {
 		flex-direction: column !important;
 	}
@@ -430,27 +300,14 @@ footer hr {
 		margin-bottom: 15px;
 	}
 
-	.bestCleaningServiceSvg {
-		transform: scale(0.85);
-	}
-
-	.cleaningServicesCard img,
-	.cleaningServicesCard {
-		max-width: 100%;
-	}
-
 	.footer_Menu {
 		margin: 15px 0;
 	}
 
-	.newsletterForm {
-		flex-direction: column;
-	}
 
-	.newsletterForm button {
-		margin-top: 10px;
-	}
 }
+
+
 /* modal css */
 .modal-dialog{
     width: 400px;

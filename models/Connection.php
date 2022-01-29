@@ -18,27 +18,26 @@ class Helperland
         }
     }
 
-    public function EmailExists($email)
-    {
-        $sql = "select * from customer_details where Email = $email";
-        $stmt =  $this->conn->prepare($sql);
-        $stmt->execute();
-        $count = $stmt->rowCount();
-        if ($count = 1) {
-            echo "Email Available";
-        } else {
-            echo 'Email Already Exists Please Try Another Email';
-        }
-    }
+
     public function insert_contact($name, $mobile, $email, $message, $subject)
     {
 
         $sql = "INSERT INTO contactus (Name,PhoneNumber,Email,Message,Subject)
         VALUES ('$name', '$mobile', '$email','$message','$subject')";
-        // use exec() because no results are returned
         $this->conn->exec($sql);
         $function = 'contact';
         echo "<script>alert('Mail send Successfully');
-                window.location.href = 'http://localhost/helperland/1st_submission/views/contact.php'; </script>";
+                window.location.href = '?function=contactpage'; </script>";
+    }
+    public function insert_user($fname, $lname, $mobile, $email, $password, $UserTypeId)
+    {
+        // for userprovider set usertypeid to 1
+        // for serviceprovider set usertypeid to 2
+        $sql = "INSERT INTO user (FirstName,LastName,Email,Password,Mobile,UserTypeId)
+        VALUES ('$fname', '$lname', '$email','$password','$mobile','$UserTypeId')";
+        $this->conn->exec($sql);
+
+        echo "<script>alert('Account created successfully');
+                window.location.href = '?function=Homepage' </script>";
     }
 }

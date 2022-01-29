@@ -8,11 +8,12 @@
                     <h3 class="title">Login </h3>
                     <p class="description">Login here Using Email & Password</p>
                     <div class="form-group">
-                       
+                    <span class="input-icon"><img src="./assets/Images/download.png" style="width: 25px;"></span>
                         <input type="email" class="form-control" placeholder="Enter email">
                     </div>
                     <div class="form-group">
-                       
+                    <span class="input-icon"><img src="./assets/Images/password.png"
+									style="width:25px; height: 22px;"/></span>
                         <input type="password" class="form-control" placeholder="Password">
                     </div>
                     <div class="form-group checkbox">
@@ -23,7 +24,7 @@
                     <button class="btn">Login</button>
                     <div class="lowerpart">
                         <div> <a type="button" data-bs-toggle="modal" data-bs-target="#myModal2" href="">Forgot Password?</a></div>
-                        <div><span>Dont Have an account?<span> <a href="./views/create_account.php">Create an account<a></div>
+                        <div><span>Dont Have an account?<span> <a href="?function=createaccountpage"">Create an account<a></div>
                     </div>
 
                 </div>
@@ -39,7 +40,7 @@
                     <h3 class="title">Forgot Password </h3>
 
                     <div class="form-group">
-                      
+                    <span class="input-icon"><img src="./assets/Images/download.png" style="width: 25px;"></span>
                         <input type="email" class="form-control" placeholder="Enter email">
                     </div>
 

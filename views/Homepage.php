@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 
@@ -22,12 +22,12 @@
 
 <body>
 
-    <section id="header" >
+    <section id="header">
 
         <!-- Navbar start -->
         <nav class=" d-flex justify-content-between text-white fixed-top" id="vlr">
             <div class="logoDiv imsize">
-                <a class="d-block" href="#">
+                <a class="d-block" href="?function=Homepage">
                     <img id="new" src="./assets/Images/white-logo-transparent-background.png" alt="logo" />
                 </a>
                 <div class="tgle_class h1 me-5"></div>
@@ -35,12 +35,12 @@
 
             <div class="navMenu text-white d-flex justify-content-center align-items-center align-items-start ">
                 <div class="navItem active"><a href="#">Book a Cleaner</a></div>
-                <div class="navItem"><a href="./views/price.php">Prices</a></div>
+                <div class="navItem"><a href="?function=pricepage">Prices</a></div>
                 <div class="navItem"><a href="#">Our Guarantee</a></div>
                 <div class="navItem"><a href="#">Blog</a></div>
-                <div class="navItem"><a href="./views/contact.php">Contact us</a></div>
+                <div class="navItem"><a href="?function=contactpage">Contact us</a></div>
                 <div class="navItem active"><a type="button" data-bs-toggle="modal" data-bs-target="#myModal">Login</a></div>
-                <div class="navItem active"><a href="../BecomeAProvider/BecomeAprovider.html">Become a Helper</a></div>
+                <div class="navItem active"><a href="?function=become_providerpage">Become a Helper</a></div>
                 <div class="dropdown">
                     <div class="d-flex" type="button" id="languageChanger" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="languageFlag">
@@ -76,7 +76,7 @@
             </div>
 
         </nav>
-    <?php include "Login_modal.php"; ?>
+        <?php include "Login_modal.php"; ?>
 
         <!-- Navbar end -->
         <div class="title">
@@ -323,7 +323,7 @@
         <div class="newsletter my-5 container d-flex flex-column align-items-center justify-content-center">
             <div class="newsletterHeader">GET OUR NEWSLETTER</div>
             <div class="newsletterForm d-flex flex-wrap align-items-center justify-content-center">
-                <input type="email" class="rounded-pill" name="email" id="email" placeholder="Your Email" required/>
+                <input type="email" class="rounded-pill" name="email" id="email" placeholder="Your Email" required />
                 <button class="send rounded-pill" type="submit">Submit</button>
             </div>
         </div>
@@ -340,9 +340,9 @@
         </div>
         <div class="footerMenu d-flex flex-wrap align-items-center justify-content-center">
             <div class="footerMenuItem"><a href="#">HOME</a></div>
-            <div class="footerMenuItem"><a href="./views/about.php">ABOUT</a></div>
+            <div class="footerMenuItem"><a href="?function=aboutpage">ABOUT</a></div>
             <div class="footerMenuItem"><a href="#">TESTIMONIALS</a></div>
-            <div class="footerMenuItem"><a href="./views/faq.php">FAQS</a></div>
+            <div class="footerMenuItem"><a href="?function=faqpage">FAQS</a></div>
             <div class="footerMenuItem"><a href="#">INSURANCE POLICY</a></div>
             <div class="footerMenuItem"><a href="#">IMPRESSUM</a></div>
         </div>

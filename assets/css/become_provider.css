@@ -6,6 +6,9 @@
 	box-sizing: border-box;
 	font-family: "Roboto", sans-serif !important;
 }
+#vlr{
+    transition:all 0.5s ;
+}
 
 html {
 	scroll-behavior: smooth;
@@ -14,29 +17,32 @@ html {
 body {
 	overflow-x: hidden;
 }
-/* Navbar css */
+
 nav {
 	min-height: 64px;
-	position: sticky;
+	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 2000;
 	width: 100%;
-	background: #525252;
+	background: transparent;
+	transition: background 0.5s;
 }
 
-.divlogo {
+.bg-grey {
+	background: #525252 !important;
+}
+
+.logoDiv {
 	padding-top: 6px;
 	padding-left: 15px;
 }
-.divlogo img{
-    width:73px;
-    height:54px;
+
+.logoDiv img {
+	width: 138px;
+	height: 102px;
 }
-.navItem.highlight a:hover{
-	background-color: white;
-	color: #0d6efd;
-}
+
 .navItem a {
 	display: block;
 	text-decoration: none;
@@ -47,217 +53,271 @@ nav {
 	border-radius: 50px;
 	transition: border 0.4s, background 0.4s;
 	border: 1px solid transparent;
+	background: transparent;
 }
 
-.navItem.highlight a,
 .navItem a:hover {
 	border: 1px solid white;
+}
+
+.navItem.active a{
+	border: 1px solid white !important;
+}
+.navItem.active a:hover{
+	
+    background-color:white;
+    color: #005f71;
+}
+
+/* .navItem.active a,
+.navItem.navItem.active a:hover {
+	border: 1px solid white !important;
+	background: transparent !important;
+} */
+
+input:disabled {
+    background: #eee;
+}
+
+
+.validate_cus {
+	color: #a94442;
+	font-size: small;
+  }
+.languageFlag {
+	cursor: pointer;
+}
+
+#languageChanger .arrowBottom {
+	margin: 0 15px 0 7px;
+}
+
+header {
+	background: url("../Images/becomeAProviderHeaderImage.png") center center no-repeat;
+	padding-top: 152px;
+	padding-bottom: 30px;
+	background-size: cover;
+}
+
+header > svg {
+	cursor: pointer;
+	margin-top: 44px;
+}
+
+header form {
+	max-width: 430px;
+	width: 100%;
+	padding: 19px 34px;
+	background-color: #fff;
+	box-shadow: 0 0 16px #00000026;
+	border-radius: 4px;
+}
+
+.formHeader {
+	color: #4f4f4f;
+	font-weight: bold;
+	font-size: 24px;
+	margin-bottom: 24px;
+}
+
+form .form-control {
+	border-radius: 4px;
+	margin-bottom: 15px;
+	padding: 13px 15px 14px 15px;
+	height: 46px;
+}
+
+#countryCode {
+	background: #f4f4f4;
+	outline: none;
+	border-right: transparent;
+	height: 46px;
+}
+
+#countryCode::placeholder {
+	color: #4f4f4f;
+}
+
+#phone {
+	border-left: transparent;
+}
+
+form .form-control::placeholder {
+	color: #a0a0a0;
+	font-size: 16px;
+}
+
+form .form-check {
+	margin-bottom: 10px;
+}
+
+form .form-check .form-check-input {
+	margin-right: 7px;
+}
+
+form .form-check .form-check-label {
+	color: #4f4f4f;
+	font-size: 16px;
+}
+
+form .form-check .form-check-label a {
+	color: #1fb6ff;
+	text-decoration: none;
+}
+
+form img {
+	margin: 5px 0 20px;
+	max-width: 100%;
+	height: auto;
+}
+
+form .become {
+	outline: none;
+	border: none;
+	background: #1d7a8c;
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 13px 19px 14px 27px;
+}
+
+form .become svg {
+	margin-left: 8px;
+	transition: transform 0.3s;
+}
+
+form .become:hover svg {
+	transform: translateX(7px);
+}
+
+.howItWorksCard {
+	max-width: 748px;
+	width: 100%;
+	color: #4f4f4f;
+	margin-bottom: 20px;
+}
+
+.howItWorksHeader {
+	font-size: 40px;
+	color: #4f4f4f;
+	margin: 68px auto 73px;
+}
+
+.howItWorksCardHeader {
+	font-size: 36px;
+	margin-bottom: 16px;
+}
+
+.howItWorksCardText {
+	font-size: 18px;
+	margin-bottom: 48px;
+}
+
+.info .readMore {
+	text-decoration: none;
+	font-size: 18px;
+	color: #4f4f4f;
+}
+
+.info .readMore svg {
+	margin-left: 10px;
+	transition: transform 0.3s;
+}
+
+.info .readMore:hover svg {
+	transform: translateX(7px);
+}
+
+.howItWorks > svg {
+	position: absolute;
+	z-index: -50;
+}
+
+.howItWorks > svg:nth-child(odd) {
+	left: 0;
+}
+
+.howItWorks > svg:nth-child(even) {
+	right: 0;
+}
+
+.howItWorks > svg:nth-child(1) {
+	top: 27px;
+}
+.howItWorks > svg:nth-child(2) {
+	top: 20px;
+}
+.howItWorks > svg:nth-child(3) {
+	top: 461px;
+}
+.howItWorks > svg:nth-child(4) {
+	top: 426px;
+}
+.howItWorks > svg:nth-child(5) {
+	top: 866px;
+}
+.howItWorks > svg:nth-child(6) {
+	top: 962px;
+}
+
+footer {
+	margin-top: 53px;
+	padding: 20px 123px 26px 115px;
+	background: #111111;
+}
+
+footer hr {
+	display: block;
+	height: 1px;
+	background: #424242;
+	margin: 19px 0 25px 0;
+}
+
+.tooltip-inner {
+	background: #fff !important;
+	color: #000 !important;
+}
+
+.tooltip-arrow::before {
+	border-top-color: #fff !important;
+}
+
+.footerMenuItem a {
+	display: block;
+	text-decoration: none;
+	color: #f1f1f1;
+	margin: 0 10px;
+	transition: color 0.5s;
+}
+
+.footerMenuItem a:hover {
+	color: #1d7a8c;
+}
+
+.socialMedia a {
+	width: 40px;
+	height: 40px;
+	transition: background 0.4s;
+}
+
+.socialMedia a:hover {
 	background: #29626d;
 }
 
-.navItem.active a,
-.navItem.navItem.active a:hover {
-	border: 1px solid white !important;
-	background: transparent !important;
+.terms {
+	color: #9ba0a3;
 }
 
-.navItem.active a,
-.navItem.navItem.active a:hover {
-	border: 1px solid white !important;
-	background: transparent !important;
+.terms a {
+	text-decoration: none;
+	color: #9ba0a3;
 }
 
-/* image */
-
-.priceimg img {
-	width: 100%;
-	height: auto;
-}
-/* PriceHeader css */
-.pricesHeader {
-	max-width: 1140px;
-}
-
-.pricesHeader hr {
-	height: 3px;
-	color: #dcdcdc;
-	margin: 51px 0 47px;
-}
-
-.pricesHeaderText,
-.cleaningServicesHeaderText,
-.whyHelperlandHeaderText {
-	font-size: 36px;
-	margin: 39px 0px 9px 0px;
-	font-weight: 700;
-	color: #4f4f4f;
-}
-
-.pricesHeaderDecoration span,
-.cleaningServicesHeaderDecoration span,
-.whyHelperlandHeaderDecoration span {
-	width: 62px;
-	height: 1px;
-	margin: 0 8px;
-	background: #cccccc;
-}
-
-.pricesHeaderDecoration,
-.cleaningServicesHeaderDecoration,
-.whyHelperlandHeaderDecoration {
-	margin-bottom: 42px;
-}
-/* priceCard Css */
-.priceCard {
-	max-width: 553px;
-	margin: auto;
-	border: 1px solid #b0c9ce;
-	padding-bottom: 10px;
-	transition: transform 0.35s;
-}
-
-.priceCard:hover {
-	transform: scale(1.07);
-}
-
-.priceCardHeader {
-	font-size: 28px;
-	font-weight: bold;
-	color: #fff;
-	padding: 12px 0 13px;
-	background: #1d7a8c;
-}
-
-.priceCardText {
-	position: relative;
-	font-size: 48px;
-	font-weight: bold;
-	color: #646464;
-	line-height: 48px;
-	margin: 18px 0 30px;
-}
-
-.priceCardText::before {
-	content: "\20AC";
-	margin-right: 8px;
-}
-
-.priceCardText::after {
-	content: "/hr";
-	font-size: 30px;
-	font-weight: normal;
-	align-self: flex-end;
-	line-height: 38px;
-}
-
-.priceCardDescriptionItem {
-	max-width: 553px;
-	margin: auto;
-	font-size: 17px;
-	margin-bottom: 24px;
-	color: #646464;
-}
-
-.priceCardDescriptionItem img {
-	margin-right: 9px;
-}
-/* extraServices css */
-.service {
-	margin: 0 54px;
-	margin-bottom: 56px;
-}
-
-.serviceImage {
-	border: 1px solid #b0c9ce;
-	width: 108px;
-	height: 108px;
-	margin: auto;
-}
-
-.serviceText {
-	font-size: 16px;
-	margin: 17px 0 9px;
-	color: #646464;
-}
-
-.serviceTime {
-	font-size: 18px;
-	color: #1d7a8c;
-	font-weight: bold;
-}
-/* What we include in cleaning css */
-.cleaningServices {
-	background: #f6f6f6;
-	padding-bottom: 41px;
-	padding-top: 73px;
-}
-
-.cleaningServicesHeaderText {
-	margin-top: 0 !important;
-}
-
-.cleaningServicesCard {
-	margin: 0 10px;
-	max-width: 360px;
-	margin-bottom: 40px;
-}
-
-.cleaningServicesCardHeader {
-	margin: 20px 0 20px;
-	font-size: 20px;
-	font-weight: bold;
-	color: #4f4f4f;
-}
-
-.cleaningServicesCardsDescriptionItem {
-	font-size: 16px;
-	color: #4f4f4f;
-	margin-bottom: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-}
-
-.cleaningServicesCardsDescriptionItem::before {
-	content: "";
-	background-image: url("../Images/right_arrow.png");
-	height: 22px;
-	width: 22px;
-	margin-right: 9px;
-}
-
-.bestCleaningServiceSvg {
-	margin: 0 46px;
-	width: 329px;
-}
-/* whyHelperland css start */
-.whyHelperlandHeaderText {
-	margin-top: 71px;
-}
-
-.whyDescriptionItem {
-	max-width: 337px;
-}
-.whyDescriptionItemHeader {
-	font-size: 20px;
-	font-weight: bold;
-	color: #646464;
-	margin-bottom: 10px;
-}
-
-.whyDescriptionItemText {
-	font-size: 14px;
-	color: #646464;
-	margin-bottom: 47px;
-}
-
-
-/* newsletter css */
 .newsletterHeader {
 	font-size: 17px;
 	color: #353548;
 	margin-bottom: 16px;
-	margin-top: 30px;
+	margin-top: 77px;
 	font-weight: 500;
 }
 
@@ -279,49 +339,14 @@ nav {
 	padding: 11px 21px 13px 23px;
 	font-size: 14px;
 }
-/* footer start */
-footer {
-	margin-top: 53px;
-	padding: 20px 123px 26px 115px;
-	background: #111111;
-}
 
-footer hr {
-	display: block;
-	height: 1px;
-	background: #424242;
-	margin: 19px 0 25px 0;
-}
-
-.footerMenuItem a:hover{
-	color: #1d7a8c;
-}
-.footerMenuItem a {
-	display: block;
-	text-decoration: none;
-	color: #f1f1f1;
-	margin: 0 10px;
-}
-
-.socialMedia a:nth-child(1) {
-	margin-right: 20px;
-}
-
-.terms {
-	color: #9ba0a3;
-}
-
-.terms a {
-	text-decoration: none;
-	color: #9ba0a3;
-}
-
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1200px) {
 	nav {
 		flex-direction: column;
 		justify-content: center;
+       
 	}
-	.divlogo {
+	.logoDiv {
 		width: 100%;
 		height: 100%;
 		display: flex;
@@ -329,42 +354,36 @@ footer hr {
 		justify-content: space-between;
 	}
 
-	.navmenu {
-		overflow: hidden;
+	.navMenu {
+        overflow: hidden;
 		height: 0;
 		width: 100%;
 		padding-left: 15px;
 		background: #525252;
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 		margin-top: 0;
 		transition: height 0.5s ease-in-out;
 		pointer-events: none;
+        
 	}
 
-	.navmenu.open {
-		height: 400px;
+	.navMenu.open {
+		height: 435px;
+        display: flex;
+        justify-content: center;
 		pointer-events: all;
 	}
-
+   
 	.navItem a,
-	.navmenu .dropdown {
+	.navMenu .dropdown {
 		margin: 5px 0;
 	}
-	.navmenu .dropdown {
+	.navMenu .dropdown {
 		margin-left: 10px;
 	}
 
-	.whyDescription {
-		flex-direction: column;
-	}
-
-	.whyDescriptionItem {
-		max-width: 100%;
-	}
-
-
-	.tgle_class  {
+	.tgle_class {
 		position: relative;
 		height: 30px;
 		width: 30px;
@@ -395,12 +414,12 @@ footer hr {
 		transition: all 0.3s;
 	}
 
-	.tgle_class .open::before {
+	.tgle_class.open::before {
 		transform: translateY(0) rotate(45deg);
 		box-shadow: none;
 	}
 
-	.tgle_class .open::after {
+	.tgle_class.open::after {
 		transform: translateY(0) rotate(-45deg);
 	}
 
@@ -412,7 +431,7 @@ footer hr {
 		justify-content: space-evenly !important;
 	}
 
-	.footer_Menu {
+	.footerMenu {
 		flex-direction: column;
 	}
 
@@ -421,7 +440,21 @@ footer hr {
 	}
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 576px) {
+	form {
+		padding: 15px 10px !important;
+	}
+
+	.howItWorksCardImage img {
+		width: 100%;
+		height: auto;
+	}
+
+	.howItWorks > svg {
+		display: none;
+		pointer-events: none;
+	}
+
 	.footerMain {
 		flex-direction: column !important;
 	}
@@ -430,16 +463,7 @@ footer hr {
 		margin-bottom: 15px;
 	}
 
-	.bestCleaningServiceSvg {
-		transform: scale(0.85);
-	}
-
-	.cleaningServicesCard img,
-	.cleaningServicesCard {
-		max-width: 100%;
-	}
-
-	.footer_Menu {
+	.footerMenu {
 		margin: 15px 0;
 	}
 
@@ -447,10 +471,30 @@ footer hr {
 		flex-direction: column;
 	}
 
+	.newsletterForm input {
+		margin-right: 0;
+		width: 100%;
+	}
+
 	.newsletterForm button {
 		margin-top: 10px;
 	}
 }
+
+@media screen and (max-width: 767px) {
+	.howItWorksCardText {
+		margin-bottom: 10px;
+	}
+
+	.readMore {
+		margin-bottom: 30px;
+	}
+
+	.howItWorksCardImage {
+		margin-bottom: 25px;
+	}
+}
+
 /* modal css */
 .modal-dialog{
     width: 400px;
@@ -526,7 +570,7 @@ footer hr {
     font-size: 17px;
     height: 45px;
     width: 100%;
-	padding: 6px 0 6px 50px;
+    padding: 6px 0 6px 50px;
     margin: 0 auto;
     border: 2px solid #eee;
     border-radius: 5px;
