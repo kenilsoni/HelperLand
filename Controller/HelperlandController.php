@@ -27,7 +27,7 @@ class HelperlandController
     public function faqpage()
     {
         include("./views/faq.php");
-    } 
+    }
     public function createaccountpage()
     {
         include("./views/create_account.php");
@@ -36,77 +36,86 @@ class HelperlandController
     {
         include("./views/become_provider.php");
     }
+    public function service_historypage()
+    {
+        include("./views/servicehistory.php");
+    }
+    public function logout(){
+        include("./views/logout.php");
+    }
+    public function upcoming_servicepage()
+    {
+        include("./views/upcomingservice.php");
+    }
+    public function bookservice_page(){
+        include("./views/bookservice.php");
+    }
+    public function mysettingpage(){
+        include("./views/servicehistory_mysetting.php");
+    }
+    public function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
     public function createaccount_user()
     {
         if (isset($_POST['fname'])) {
+            $fname = $this->test_input($_POST['fname']);
+            $lname = $this->test_input($_POST['lname']);
+            $password = $this->test_input($_POST['password']);
+            $cpassword = $this->test_input($_POST['confirmPassword']);
+            $mobile = $this->test_input($_POST['mobile']);
+            $email = $this->test_input($_POST['email']);
+            $UserTypeId = $this->test_input($_POST['usertype']);
 
-     
-            function test_input($data)
-            {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
-
-            $fname = test_input($_POST['fname']);
-            $lname = test_input($_POST['lname']);
-            $password = test_input($_POST['password']);
-            $cpassword = test_input($_POST['confirmPassword']);
-            $mobile = test_input($_POST['mobile']);
-            $email = test_input($_POST['email']);
-            $UserTypeId=test_input($_POST['usertype']);
-
-            if($cpassword == $password){
+            if ($cpassword == $password) {
                 if ($fname && $lname && $mobile && $email && $password && $UserTypeId) {
 
-                    $this->model->insert_user ($fname,$lname, $mobile, $email, $password,$UserTypeId);
+                    $this->model->insert_user($fname, $lname, $mobile, $email, $password, $UserTypeId);
                 } else {
                     $error_message = 'Invalid city data. Check all fields and resubmit.';
-    
+
                     echo $error_message;
                 }
-            
-            
-            }
-            else{
+            } else {
                 echo "<script>alert('Please check the password');
                 window.location.href = '?function=createaccountpage'; </script>";
             }
-        
-        
-        
         }
-           
-        
     }
     public function insert_contactus()
     {
         if (isset($_POST['fname'])) {
-
-
-            function test_input($data)
-            {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
-
-            $fname = test_input($_POST['fname']);
-            $lname = test_input($_POST['lname']);
-            $subject = test_input($_POST['subject']);
-            $mobile = test_input($_POST['mobile']);
-            $email = test_input($_POST['email']);
+            $fname = $this->test_input($_POST['fname']);
+            $lname = $this->test_input($_POST['lname']);
+            $subject = $this->test_input($_POST['subject']);
+            $mobile = $this->test_input($_POST['mobile']);
+            $email = $this->test_input($_POST['email']);
             $name = $fname . " " . $lname;
-            $message = test_input($_POST['message']);
-
+            $message = $this->test_input($_POST['message']);
 
             if ($name && $mobile && $email && $message && $subject) {
-
                 $this->model->insert_contact($name, $mobile, $email, $message, $subject);
             } else {
                 $error_message = 'Invalid city data. Check all fields and resubmit.';
+                echo $error_message;
+            }
+        }
+    }
+
+    public function login()
+    {
+        if (isset($_POST['email'])) {
+            $email = $this->test_input($_POST['email']);
+            $password = $this->test_input($_POST['password']);
+            if ($email && $password) {
+
+                $this->model->check_login($email, $password);
+            } else {
+                $error_message = 'Invalid data';
 
                 echo $error_message;
             }

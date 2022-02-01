@@ -23,9 +23,10 @@ class Helperland
     {
 
         $sql = "INSERT INTO contactus (Name,PhoneNumber,Email,Message,Subject)
-        VALUES ('$name', '$mobile', '$email','$message','$subject')";
-        $this->conn->exec($sql);
-        $function = 'contact';
+        VALUES (?,?,?,?,?)";
+        $stmt= $this->conn->prepare($sql);
+        $stmt->execute([$name, $mobile, $email, $message, $subject]);
+
         echo "<script>alert('Mail send Successfully');
                 window.location.href = '?function=contactpage'; </script>";
     }
@@ -33,11 +34,48 @@ class Helperland
     {
         // for userprovider set usertypeid to 1
         // for serviceprovider set usertypeid to 2
-        $sql = "INSERT INTO user (FirstName,LastName,Email,Password,Mobile,UserTypeId)
-        VALUES ('$fname', '$lname', '$email','$password','$mobile','$UserTypeId')";
-        $this->conn->exec($sql);
+        $stmt = $this->conn->prepare("SELECT * FROM user WHERE Email=?");
+        $stmt->execute([$email]); 
+        $user = $stmt->fetch();
+        if($user){
+            echo "<script>alert('Email is already exist'); window.location.href = '?function=Homepage';</script>";
+        }
+        else{
+              $sql = "INSERT INTO user (FirstName,LastName,Email,Password,Mobile,UserTypeId)
+        VALUES (?,?,?,?,?,?)";
+        $stmt= $this->conn->prepare($sql);
+        $stmt->execute([$fname, $lname,$email,$password, $mobile,$UserTypeId]);
 
         echo "<script>alert('Account created successfully');
-                window.location.href = '?function=Homepage' </script>";
+                window.location.href = '?function=Homepage'; </script>";
+        }
+    
+      
+    }
+    public function check_login($email,$password){
+        $query = "select * from user where Email=? and Password=?";
+        $stmt= $this->conn->prepare($query);
+        $stmt->execute([$email,$password]); 
+        $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       
+        if($user){
+            session_start();
+            foreach ($user as $users) {
+                    $user_id=$users['UserTypeId'] ;
+                    $_SESSION['user_name']=$users['FirstName'] ;
+            }
+            if($user_id == 1){
+                  header("location:?function=service_historypage");
+            }
+            if($user_id == 2){
+                header("location:?function=upcoming_servicepage");
+            }
+        }
+        else{
+            echo "<script>alert('Please check email or password');
+            window.location.href = '?function=Homepage';</script>";
+        
+        }
+
     }
 }

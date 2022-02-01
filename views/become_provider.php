@@ -17,59 +17,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
 	</head>
 	<body>
-		<nav class="d-flex justify-content-between text-white" id="vlr">
-			<div class="logoDiv">
-				<a class="d-block" href="?function=Homepage">
-					<img id="new" src="./assets/Images/white-logo-transparent-background.png" alt="logo" />
-				</a>
-				<div class="tgle_class h1 me-5"></div>
-			</div>
-			<div class="navMenu text-white d-flex justify-content-center align-items-center align-items-start ">
-				<div class="navItem active"><a href="../BookService/BookService.html">Book a Cleaner</a></div>
-				<div class="navItem"><a href="?function=pricepage">Prices</a></div>
-				<div class="navItem"><a href="#">Our Guarantee</a></div>
-				<div class="navItem"><a href="#">Blog</a></div>
-				<div class="navItem"><a href="?function=contactpage">Contact us</a></div>
-				<div class="navItem active"><a  type="button" data-bs-toggle="modal" data-bs-target="#myModal">Login</a></div>
-				<div class="navItem active"><a href="?function=become_providerpage">Become a Helper</a></div>
-				<div class="dropdown">
-					<div class="d-flex" type="button" id="languageChanger" data-bs-toggle="dropdown" aria-expanded="false">
-						<div class="languageFlag">
-							<img src="./assets/Images/flag.png" alt="flag" />
-						</div>
-						<div class="arrowBottom">
-							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="7">
-								<image
-									width="12"
-									height="7"
-									xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHCAQAAACWu2SvAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQflCxILOC+3huDXAAAAa0lEQVQI103NoQoCYQDD8VkMggYRLYLFt7rmI10ziMVkEs6m2ZcwWQQRsdh/huM73dL+jC0qjYn8eaSxijNu5h2euuISA0c8LUUs3HEybFt7fMyMvXEQKQMbvDywa8nvsgbrknvSaZt+qhK+nGpkpn2sFJAAAAAASUVORK5CYII="
-								/>
-							</svg>
-						</div>
-					</div>
-					<ul class="dropdown-menu mt-3 me-1" aria-labelledby="languageChanger">
-						<li class="languageFlag d-flex align-items-center justify-content-center dropdown-item">
-							<div class="me-2">
-								<img src="./assets/Images/flag.png" alt="flag" />
-							</div>
-							<div class="countryName">Japan</div>
-						</li>
-						<li class="languageFlag d-flex align-items-center justify-content-center dropdown-item">
-							<div class="me-2">
-								<img src="./assets/Images/flag.png" alt="flag" />
-							</div>
-							<div class="countryName">Dubai</div>
-						</li>
-						<li class="languageFlag d-flex align-items-center justify-content-center dropdown-item">
-							<div class="me-2">
-								<img src="./assets/Images/flag.png" alt="flag" />
-							</div>
-							<div class="countryName">France</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+	<?php include "header-2.php"; ?>
 
 
 	<?php include "Login_modal.php"; ?>
@@ -266,39 +214,6 @@
 		crossorigin="anonymous"
 	></script>
 	<script src="./assets/js/password_validator.js"></script>
-	<script>
-		const nav = document.querySelector("nav");
-		const tgle_class = document.querySelector(".tgle_class");
-		
-		const navMenu = document.querySelector(".navMenu");
-		
-
-        const scrollDown = document.querySelector("#scrollDown");
-        const howItWorks = document.querySelector(".howItWorks");
-
-
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
-
-		window.addEventListener("scroll", () => {
-			if (window.scrollY > 70) {
-				nav.classList.add("bg-grey");
-				document.getElementById("new").style.maxHeight="64px";
-                   
-                document.getElementById("new").style.maxWidth="93px";
-			} else {
-				nav.classList.remove("bg-grey");
-				document.getElementById("new").style.maxHeight="102px";
-                   
-                document.getElementById("new").style.maxWidth="138px";
-			}
-		});
-        scrollDown.addEventListener("click", () => {
-            scrollDown.scrollIntoView();
-        });
-		tgle_class.addEventListener("click", () => {
-			tgle_class.classList.toggle("open");
-			navMenu.classList.toggle("open");
-		});
+	<script src="./assets/js/become_provider.js">
 	</script>
 </html>

@@ -24,58 +24,7 @@
 
     <section id="header">
 
-        <!-- Navbar start -->
-        <nav class=" d-flex justify-content-between text-white fixed-top" id="vlr">
-            <div class="logoDiv imsize">
-                <a class="d-block" href="?function=Homepage">
-                    <img id="new" src="./assets/Images/white-logo-transparent-background.png" alt="logo" />
-                </a>
-                <div class="tgle_class h1 me-5"></div>
-            </div>
-
-            <div class="navMenu text-white d-flex justify-content-center align-items-center align-items-start ">
-                <div class="navItem active"><a href="#">Book a Cleaner</a></div>
-                <div class="navItem"><a href="?function=pricepage">Prices</a></div>
-                <div class="navItem"><a href="#">Our Guarantee</a></div>
-                <div class="navItem"><a href="#">Blog</a></div>
-                <div class="navItem"><a href="?function=contactpage">Contact us</a></div>
-                <div class="navItem active"><a type="button" data-bs-toggle="modal" data-bs-target="#myModal">Login</a></div>
-                <div class="navItem active"><a href="?function=become_providerpage">Become a Helper</a></div>
-                <div class="dropdown">
-                    <div class="d-flex" type="button" id="languageChanger" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="languageFlag">
-                            <img src="./assets/Images/flag.png" alt="flag" />
-                        </div>
-                        <div class="arrowBottom">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="7">
-                                <image width="12" height="7" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHCAQAAACWu2SvAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQflCxILOC+3huDXAAAAa0lEQVQI103NoQoCYQDD8VkMggYRLYLFt7rmI10ziMVkEs6m2ZcwWQQRsdh/huM73dL+jC0qjYn8eaSxijNu5h2euuISA0c8LUUs3HEybFt7fMyMvXEQKQMbvDywa8nvsgbrknvSaZt+qhK+nGpkpn2sFJAAAAAASUVORK5CYII=" />
-                            </svg>
-                        </div>
-                    </div>
-                    <ul class="dropdown-menu mt-3 me-1" aria-labelledby="languageChanger">
-                        <li class="languageFlag d-flex align-items-center justify-content-center dropdown-item">
-                            <div class="me-2">
-                                <img src="./assets/Images/flag.png" alt="flag" />
-                            </div>
-                            <div class="countryName">Japan</div>
-                        </li>
-                        <li class="languageFlag d-flex align-items-center justify-content-center dropdown-item">
-                            <div class="me-2">
-                                <img src="./assets/Images/flag.png" alt="flag" />
-                            </div>
-                            <div class="countryName">Dubai</div>
-                        </li>
-                        <li class="languageFlag d-flex align-items-center justify-content-center dropdown-item">
-                            <div class="me-2">
-                                <img src="./assets/Images/flag.png" alt="flag" />
-                            </div>
-                            <div class="countryName">France</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </nav>
+        <?php include "header-2.php"; ?>
         <?php include "Login_modal.php"; ?>
 
         <!-- Navbar end -->
@@ -88,7 +37,7 @@
             </ul>
         </div>
         <div class="text-center mt-5">
-            <a class="button center-btn" type="button">Let's Book a Cleaner</a>
+            <a class="button center-btn" type="button" href="?function=bookservice_page">Let's Book a Cleaner</a>
         </div>
 
         <div class="row process">
