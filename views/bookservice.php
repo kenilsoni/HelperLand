@@ -9,10 +9,11 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 	<link rel="stylesheet" href="./assets/css/bookservice.css" />
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-	<?php include "header.php"; ?>
+	<?php include "header.php";  ?>
 	<?php include "Login_modal.php"; ?>
 	<!-- Image  -->
 	<section class="priceimg">
@@ -53,17 +54,339 @@
 			</div>
 
 			<div id="shawdata">
+	
+				<div class="pincode-check" id="first">
+					<form action="?controller=Bookservice&function=checkpincode" method="post">
+						<label class="pin-label" for="pincode">
+							Please enter your zip code:
+						</label>
+						<br>
+						<input class="pincode-input-box" type="number" name="pincode" placeholder="Postal code">
+						<input class="pin-btn" type="submit">
+					</form>
+				</div>
+			
+				<?php if(isset($_GET['flag'])) { if($_GET['flag'] == "second") {?>
+					<script>
+						$("#first").hide();
+						$("#1,#3,#4").removeClass("add");
+						$("#2").addClass("add-color add");
+						$("#3,#4").removeClass("add-color");
+						$("#img2").attr("src", "./assets/Images/schedule-white.png");
+						$("#img3").attr("src", "./assets/Images/details.png");
+						$("#img4").attr("src", "./assets/Images/payment.png");
+						$(document).on("click", "#insideCabinetCheck", function() {
+							if ($(this).prop("checked") == true) {
+								$("#insideCabinetImg").attr("src", "./assets/Images/3-green.png");
+							} else if ($(this).prop("checked") == false) {
+								$("#insideCabinetImg").attr("src", "./assets/Images/3.png");
+							}
+						});
 
+						$(document).on("click", "#insideFridgeCheck", function() {
+							if ($(this).prop("checked") == true) {
+								$("#insideFridgeImg").attr("src", "./assets/Images/5-green.png");
+							} else if ($(this).prop("checked") == false) {
+								$("#insideFridgeImg").attr("src", "./assets/Images/5.png");
+							}
+						});
+
+						$(document).on("click", "#insideOvenCheck", function() {
+							if ($(this).prop("checked") == true) {
+								$("#insideOvenImg").attr("src", "./assets/Images/4-green.png");
+							} else if ($(this).prop("checked") == false) {
+								$("#insideOvenImg").attr("src", "./assets/Images/4.png");
+							}
+						});
+
+
+						$(document).on("click", "#laundryCheck", function() {
+							if ($(this).prop("checked") == true) {
+								$("#laundryImg").attr("src", "./assets/Images/2-green.png");
+							} else if ($(this).prop("checked") == false) {
+								$("#laundryImg").attr("src", "./assets/Images/2.png");
+							}
+						});
+
+
+						$(document).on("click", "#interiorCheck", function() {
+							if ($(this).prop("checked") == true) {
+								$("#interiorImg").attr("src", "./assets/Images/1-green.png");
+							} else if ($(this).prop("checked") == false) {
+								$("#interiorImg").attr("src", "./assets/Images/1.png");
+							}
+						});
+					</script>
+					<div class="schedule-plan" id="second">
+						<form action="?controller=Bookservice&function=scheduleplan" method="post">
+							<label for="selectRoomAndBath">
+								Select number of rooms and bath
+							</label>
+							<br />
+							<div>
+								<select name="numberOfRoom">
+									<option value="1">1 bed</option>
+									<option value="2">2 bed</option>
+									<option value="3">3 bed</option>
+									<option value="4">4 bed</option>
+									<option value="5">5 bed</option>
+								</select>
+								<select name="numberOfBath">
+									<option value="1">1 bath</option>
+									<option value="2">2 bath</option>
+									<option value="3">3 bath</option>
+									<option value="4">4 bath</option>
+									<option value="5">5 bath</option>
+								</select>
+							</div>
+							<div class="selectRoomAndBath">
+								<div>
+									<label for="dateAndtime"> When do you need cleaner? </label>
+									<div style="display: flex">
+										<div class="date-input">
+											<img src="./assets/Images/calendar.png" alt="calender" />
+											<input type="date" name="date" required/>
+										</div>
+										<input type="time" name="time" required />
+									</div>
+								</div>
+								<div class="totalTime">
+									<label for="dateAndtime"> When do you need cleaner? </label>
+									<br />
+									<select name="range">
+										<option value="1">1.0 Hrs</option>
+										<option value="2">2.0 Hrs</option>
+										<option value="3">3.0 Hrs</option>
+										<option value="4">4.0 Hrs</option>
+										<option value="5">5.0 Hrs</option>
+									</select>
+								</div>
+							</div>
+							<div class="extraService-checkbox">
+								<h4>Extra services</h4>
+								<div id="custom-checkboxes">
+									<div class="checkbox">
+										<input type="checkbox" name="insideCabinet" id="insideCabinetCheck" class="htmlcheckbox" value="1">
+										<label for="insideCabinetCheck"><img src="./assets/Images/3.png" id="insideCabinetImg" alt=""></label>
+										<p>inside cabinets</p>
+									</div>
+
+									<div class="checkbox">
+										<input type="checkbox" id="insideFridgeCheck" name="insideFridge"  value="2" class="htmlcheckbox">
+										<label for="insideFridgeCheck"><img src="./assets/Images/5.png" id="insideFridgeImg" alt=""></label>
+										<p>inside Fridge</p>
+									</div>
+
+									<div class="checkbox">
+										<input type="checkbox" name="insideOven" value="3" id="insideOvenCheck" class="htmlcheckbox">
+										<label for="insideOvenCheck"><img src="./assets/Images/4.png" id="insideOvenImg" alt=""></label>
+										<p>inside Oven</p>
+									</div>
+
+									<div class="checkbox">
+										<input type="checkbox" id="laundryCheck" name="laundry" value="4" class="htmlcheckbox">
+										<label for="laundryCheck"><img src="./assets/Images/2.png" id="laundryImg" alt=""></label>
+										<p>Laundry Wash & Dry</p>
+									</div>
+
+									<div class="checkbox">
+										<input type="checkbox" id="interiorCheck" name="interior" value="5"class="htmlcheckbox">
+										<label for="interiorCheck"><img src="./assets/Images/1.png" id="interiorImg" alt=""></label>
+										<p>interior Windows</p>
+									</div>
+								</div>
+							</div>
+							<div class="comment-box">
+								<label for="comment">
+									Comments
+								</label>
+								<br>
+								<textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+								<br>
+								<input type="checkbox" name="haveapat" value="1"> <label class="have-pet">I have pets at home</label>
+							</div>
+
+							<div style="text-align: right;"><button class="continue" type="submit" name="submit" value="Continue">Continue</button></div>
+
+						</form>
+					</div>
+
+
+
+				<?php } }?>
+				<?php if(isset($_GET['flag'])) { if($_GET['flag'] == "third") { ?>
+					
+
+					<script>
+					$("#first").hide();
+					$("#second").hide();	
+					$(document).on("click", ".add-address-btn", function () {
+						$(".add-address-box").css("display", "block");
+						$(this).hide();
+					});
+					$("#2,#3").addClass("add-color");
+					$("#3").addClass("add");
+					$("#1,#2,#4").removeClass("add");
+					$("#img3").attr("src", "./assets/Images/details-white.png");
+					$("#4").removeClass("add-color");
+					$("#img4").attr("src", "./assets/Images/payment.png");
+					$("#img2").attr("src", "./assets/Images/schedule-white.png");
+					</script>
+					<div id="address-list">
+						<form action="?controller=Bookservice&function=customer_details" method="post">
+							<label for="Address">
+								Enter your details, so we can serve you in better way!
+							</label>
+							<div class="address-check-box">
+								<span><input type="radio" name="address1"></span>
+								<span>
+									<p><strong>Address: </strong><?php 
+									//  session_start();
+									 if(isset($_SESSION['addressdata']))
+									 {
+										$data=$_SESSION['addressdata'];
+										foreach ($data as $users) { echo $users['AddressLine1'].' '.$users['AddressLine2'].' '.$users['City'].' '.$users['State'].' '.$users['PostalCode'] ;}
+									 }
+																		
+									
+									 ?> </p>
+									<p><strong>Phone number: </strong><?php 
+									//  session_start();
+									 if(isset($_SESSION['addressdata']))
+									 {
+										foreach ($data as $users) { echo $users['Mobile'];}
+									 }?></p>
+								</span>
+							</div>
+
+							<div class="address-check-box">
+								<span><input type="radio" name="address1"></span>
+								<span>
+									<p><strong>Address: </strong> </p>
+									<p><strong>Phone number: </strong></p>
+								</span>
+							</div>
+
+							<button type="button" class="add-address-btn">+ Add New Address</button>
+							<div class="add-address-box" action="" method="post">
+								<div class="address-taker-box">
+									<div>
+										<label for="streetname">
+											Street name
+										</label>
+										<br>
+										<input type="text" name="streetname" placeholder="Street name">
+									</div>
+									<div>
+										<label for="housename">
+											House number
+										</label>
+										<br>
+
+										<input type="text" name="housename" placeholder="House name">
+									</div>
+								</div>
+								<div class="address-taker-box">
+									<div>
+										<label for="postalcode">
+											Postal code
+										</label>
+										<br>
+										<input type="text" name="postalcode" placeholder="Postal code">
+
+									</div>
+									<div>
+										<label for="city">
+											City
+										</label>
+										<br>
+										<input type="text" name="city" placeholder="City">
+									</div>
+								</div>
+								<div class="address-taker-box tel">
+									<div>
+										<label for="phonenumber">
+											Phone number
+										</label>
+										<br>
+										<div class="tel-box">
+											<span class="tel-icon">
+												+49
+											</span>
+											<input type="tel" name="phonenumber" placeholder="Phone number">
+										</div>
+									</div>
+									<div id="tel2">
+
+									</div>
+								</div>
+								<div class="Button">
+									<button class="save-btn" type="submit">Save</button>
+									<button class="clear-btn">Cancel</button>
+								</div>
+							</div>
+							<h4 class="favourite-title">Your Favourite Service Providers</h4>
+							<div class="favourite-box">
+								<label for="comment">
+									Your can choose your favourite service provider from the below list
+								</label>
+								<div class="favourite-worker">
+									<div style="text-align: center; width:20%;">
+										<img class="favourite-worker-img" src="./assets/Images/cap.png" alt="cap">
+										<p class="mb-2">Sandip Patel</p>
+										<button class="btn btn-outline-secondary" type="button">Select</button>
+									</div>
+								</div>
+
+							</div>
+							
+						<div style="text-align: right;"><input class="continue" type="submit" name="submit" value="Continue"></div>
+						</form>
+			
+					
+					</div>
+
+
+		<?php } }?>
+		<?php if(isset($_GET['flag'])) { if($_GET['flag'] == "four") { ?>
+			<script>
+			$("#first").hide();
+			$("#second").hide();
+			$("#address-list").hide();
+			$("#4").addClass("add");
+			$("#1,#2,#3").removeClass("add");
+			$("#2,#3,#4").addClass("add-color");
+			$("#img4").attr("src", "./assets/Images/payment-white.png");
+			$("#img3").attr("src", "./assets/Images/details-white.png");
+			$("#img2").attr("src", "./assets/Images/schedule-white.png");
+
+			</script>
+
+			<div id="make-payment">
+
+				<h4>Pay sechurely with Helperland payment gateway!</h4>
+
+
+				<form action="?controller=Bookservice&function=payment_done" method="post">
+
+					<input class="form-control make-payment-input" type="text" placeholder="card number" name="confirm" required>
+
+					<div class="payment-condition">
+						<input type="checkbox" name="acceptPrivacyPolicy" id="acceptPrivacyPolicy" required>
+						<label for="acceptPrivacyPolicy">
+							I accepted <a href="">terms and conditions</a>, the cancellation policy and the <a href="">privacy policy</a>. I confirm that Helperland starts to execute the contract before the expiry of the withdrawal period and I lose my right of withdrawal as a consumer with full performance of the contract.
+						</label>
+					</div>
+
+					<div style="text-align:right"><input type="submit" class="complete" value="Complete Booking" name="submit"></div>
+
+				</form>
+			</div>
+		<?php }} ?>
 			</div>
 
 
-
-
-
-
-
-
-		</div>
+	</div>
 		<div class="setup-right">
 			<div class="price-card">
 				<h3>Payment Summary</h3>
@@ -201,9 +524,10 @@
 
 	<?php include "footer.php"; ?>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="./assets/js/bookservice.js">
 </script>
+
 </html>
