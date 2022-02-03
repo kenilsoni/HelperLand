@@ -40,18 +40,25 @@ class HelperlandController
     {
         include("./views/servicehistory.php");
     }
-    public function logout(){
+    public function logout()
+    {
         include("./views/logout.php");
     }
     public function upcoming_servicepage()
     {
         include("./views/upcomingservice.php");
     }
-    public function bookservice_page(){
+    public function bookservice_page()
+    {
         include("./views/bookservice.php");
     }
-    public function mysettingpage(){
+    public function mysettingpage()
+    {
         include("./views/servicehistory_mysetting.php");
+    }
+    public function forgotpassword_page()
+    {
+        include("./views/forgotpassword.php");
     }
     public function test_input($data)
     {
@@ -82,7 +89,7 @@ class HelperlandController
                 }
             } else {
                 echo "<script>alert('Please check the password');
-                window.location.href = '?function=createaccountpage'; </script>";
+                window.location.href = '?function=contactpage'; </script>";
             }
         }
     }
@@ -96,12 +103,15 @@ class HelperlandController
             $email = $this->test_input($_POST['email']);
             $name = $fname . " " . $lname;
             $message = $this->test_input($_POST['message']);
+            $filename=mt_rand(100000,999999). '.jpg';
+            date_default_timezone_set('Asia/Kolkata');
+            $date = date('d-m-y h:i:s');
 
-            if ($name && $mobile && $email && $message && $subject) {
-                $this->model->insert_contact($name, $mobile, $email, $message, $subject);
+            if ($name && $mobile && $email && $message && $subject && $date && $filename) {
+                $this->model->insert_contact($name, $mobile, $email, $message, $subject, $date,$filename);
             } else {
-                $error_message = 'Invalid city data. Check all fields and resubmit.';
-                echo $error_message;
+                echo "<script>alert('Invalid city data. Check all fields and resubmit');
+                window.location.href='?function=createaccountpage'</script>";
             }
         }
     }
@@ -111,13 +121,33 @@ class HelperlandController
         if (isset($_POST['email'])) {
             $email = $this->test_input($_POST['email']);
             $password = $this->test_input($_POST['password']);
+            $remember = $_POST['remember'];
             if ($email && $password) {
 
-                $this->model->check_login($email, $password);
+                $this->model->check_login($email, $password, $remember);
             } else {
                 $error_message = 'Invalid data';
 
                 echo $error_message;
+            }
+        }
+    }
+    public function forgot_password()
+    {
+        if (isset($_POST['submit'])) {
+            $emailid = $this->test_input($_POST['email']);
+            if ($emailid != ' ') {
+                $this->model->check_email($emailid);
+            } else {
+                echo "Kindly enter your email";
+            }
+        }
+        if (isset($_POST['setbtn'])) {
+            $password = $this->test_input($_POST['password']);
+            $cpassword = $this->test_input($_POST['confirmPassword']);
+            $id = $_POST['id'];
+            if (($password == $cpassword) && $password != ' ') {
+                $this->model->update_password($password, $id);
             }
         }
     }
