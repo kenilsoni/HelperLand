@@ -6,6 +6,42 @@
 	box-sizing: border-box;
 	font-family: "Roboto", sans-serif !important;
 }
+/* new */
+.notifications {
+	margin-right: 0;
+}
+.notifications .badge {
+	width: 18px;
+	height: 18px;
+	font-size: 10px;
+	font-weight: bold;
+	background: #ff1616;
+	padding: 5px;
+	top: 5px;
+	right: 15px;
+}
+
+.notifications {
+	padding: 9px 25px 7px 16px;
+	border-left: 1px solid #e1e1e1;
+	border-right: 1px solid #e1e1e1;
+	margin-right: 18px;
+	cursor: pointer;
+}
+
+.userInfo {
+	cursor: pointer;
+	height: 64px;
+}
+
+.userInfo svg:nth-child(2) {
+	margin: 0 14px 0 7px;
+}
+.userInfoItem{
+	cursor: pointer;
+	color: #0d6efd;
+
+}
 
 html {
 	scroll-behavior: smooth;

@@ -1,3 +1,6 @@
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+var popoverList = popoverTriggerList.map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
+
 const scrollDown = document.querySelector("#scrollDown");
 const tgle_class1 = document.querySelector(".tgle_class");
 

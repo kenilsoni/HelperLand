@@ -1,4 +1,6 @@
 // Navbar Toggle
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+var popoverList = popoverTriggerList.map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
 
 const tgle_nav = document.querySelector(".tgle_class");
 const navmenu = document.querySelector(".navmenu");
@@ -46,7 +48,7 @@ const fetchFaqs = (data) => {
 							aria-expanded="false"
 							aria-controls="collapse${j}"
 						>
-							<img src="../assets/Images/right_arrow.png" alt="expandImage" />
+							<img src="./assets/Images/right_arrow.png" alt="expandImage" />
 							<span class="question">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl nunc, iaculis mattis tellus ac ut non
 								imperdiet velit?
