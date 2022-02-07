@@ -672,7 +672,26 @@ footer hr {
   .address-check-box span:last-child{
 	margin-left:20px;
   }
+  .address-check-box1{
+	display: flex;
+	justify-content:flex-start;
+	align-items: center;
+	border:solid 1px #C8C8C8;
+	padding:10px;
+	margin-top:20px;
+	border-radius: 5px;
+   
+  }
   
+  
+  .address-check-box1 p{
+	text-align: left;
+	margin:0;
+  }
+  
+  .address-check-box1 span:last-child{
+	margin-left:20px;
+  }
   .add-address-btn{
 	color:#1D7A8C;
 	border:solid 2px #1d7a8c;
@@ -846,19 +865,37 @@ footer hr {
 	text-align: center;
 	margin: 0 15px;
   }
-  
+
   #custom-checkboxes .checkbox label{
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 108px;
 	height: 108px;
-	border: 1px solid #C8C8C8;
+	/* border: 1px solid #C8C8C8 ; */
 	border-radius: 50%;
 	position: relative;
 	cursor: pointer;
   }
-  
+  .label1{
+	border: 1px solid #C8C8C8 ;
+  }
+  .label2{
+	border: 1px solid #C8C8C8 ;
+}
+.label3{
+	border: 1px solid #C8C8C8 ;
+}
+.label4{
+	border: 1px solid #C8C8C8 ;
+}
+.label5{
+	border: 1px solid #C8C8C8 ;
+}
+  /* label{
+	
+	border: 1px solid #C8C8C8 ;
+  } */
   #custom-checkboxes .checkbox label:before {
 	background-color: white;
 	color: white;
@@ -1054,7 +1091,7 @@ footer hr {
   .duration {
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-end;
+	flex-direction: column;
 	margin-right: 18px;
 	margin-left: 18px;
 	padding-bottom: 18px;
