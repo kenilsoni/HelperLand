@@ -69,7 +69,9 @@ class HelperlandController
     }
     public function createaccount_user()
     {
-        if (isset($_POST['fname'])) {
+        if (isset($_POST['submit'])) {
+            date_default_timezone_set('Asia/Kolkata');
+            $date = date('d-m-y h:i:s');
             $fname = $this->test_input($_POST['fname']);
             $lname = $this->test_input($_POST['lname']);
             $password = $this->test_input($_POST['password']);
@@ -77,11 +79,22 @@ class HelperlandController
             $mobile = $this->test_input($_POST['mobile']);
             $email = $this->test_input($_POST['email']);
             $UserTypeId = $this->test_input($_POST['usertype']);
-
+            $data = array(
+                'FirstName' => $fname,
+                'LastName' => $lname,
+                'Email' =>  $email,
+                'Password' => $password,
+                'Mobile' => $mobile,
+                'UserTypeId' => $UserTypeId,
+                'CreatedDate' => $date
+            );
+            $email = array(
+                'Email' =>  $email,
+            );
             if ($cpassword == $password) {
                 if ($fname && $lname && $mobile && $email && $password && $UserTypeId) {
 
-                    $this->model->insert_user($fname, $lname, $mobile, $email, $password, $UserTypeId);
+                    $this->model->insert_user($data, $email);
                 } else {
                     $error_message = 'Invalid city data. Check all fields and resubmit.';
 
@@ -95,7 +108,9 @@ class HelperlandController
     }
     public function insert_contactus()
     {
-        if (isset($_POST['fname'])) {
+        if (isset($_POST['submit'])) {
+            date_default_timezone_set('Asia/Kolkata');
+            $date = date('d-m-y h:i:s');
             $fname = $this->test_input($_POST['fname']);
             $lname = $this->test_input($_POST['lname']);
             $subject = $this->test_input($_POST['subject']);
@@ -103,12 +118,19 @@ class HelperlandController
             $email = $this->test_input($_POST['email']);
             $name = $fname . " " . $lname;
             $message = $this->test_input($_POST['message']);
-            $filename=mt_rand(100000,999999). '.jpg';
-            date_default_timezone_set('Asia/Kolkata');
-            $date = date('d-m-y h:i:s');
+            $filename = mt_rand(100000, 999999) . '.jpg';
+            $data = array(
+                'Name' => $name,
+                'PhoneNumber' => $mobile,
+                'Email' =>  $email,
+                'Message' => $message,
+                'Subject' => $subject,
+                'CreatedOn' => $date,
+                'UploadFileName' => $filename
+            );
 
             if ($name && $mobile && $email && $message && $subject && $date && $filename) {
-                $this->model->insert_contact($name, $mobile, $email, $message, $subject, $date,$filename);
+                $this->model->insert_contact($data);
             } else {
                 echo "<script>alert('Invalid city data. Check all fields and resubmit');
                 window.location.href='?function=createaccountpage'</script>";
@@ -121,14 +143,18 @@ class HelperlandController
         if (isset($_POST['email'])) {
             $email = $this->test_input($_POST['email']);
             $password = $this->test_input($_POST['password']);
-            $remember = $_POST['remember'];
+            if (isset($_POST['remember'])) {
+                $remember = 1;
+            } else {
+                $remember = 0;
+            }
             if ($email && $password) {
 
                 $this->model->check_login($email, $password, $remember);
             } else {
-                $error_message = 'Invalid data';
 
-                echo $error_message;
+                echo "<script>alert('Invalid data');
+                window.location.href='?function=createaccountpage'</script>";
             }
         }
     }
@@ -139,7 +165,8 @@ class HelperlandController
             if ($emailid != ' ') {
                 $this->model->check_email($emailid);
             } else {
-                echo "Kindly enter your email";
+                echo "<script>alert('Kindly enter your email');
+                window.location.href='?controller=Helperland&function=HomePage';</script>";
             }
         }
         if (isset($_POST['setbtn'])) {

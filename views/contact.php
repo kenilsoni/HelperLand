@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href='./assets/css/Contact.css'/>
     <link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -18,6 +19,23 @@
 	<?php include "header.php"; ?>
 
 	<?php include "Login_modal.php"; ?>
+	<?php if(isset($_SESSION['contact'])){if($_SESSION['contact']==1){?>
+							<script>
+							swal({
+								title: "Good job! ",
+								text: "Your query is send successfully!",
+								icon: "success",
+								});
+								</script>
+						<?php unset($_SESSION['contact']);}elseif($_SESSION['contact']==2){?>
+							<script>
+							swal({
+								title: "Sorry!",
+								text: "Something went wrong!",
+								icon: "error",
+								});
+								</script>
+					<?php	unset($_SESSION['contact']);} } ?>
         <!-- Contact Image -->
 		<section class="contactusCarousel">
 			<img src="./assets/Images/contactUsImage.png" alt="aboutHeaderImage" />
@@ -111,7 +129,7 @@
 						<button class="btn">Upload a file</button>
 						<input type="file" name="image" />
 						</div>
-					<button class="submit rounded-pill border-0 outline-0">Submit</button>
+					<button class="submit rounded-pill border-0 outline-0" name="submit">Submit</button>
 				</div>
 			</form>
 		</div>

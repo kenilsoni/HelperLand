@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="./assets/css/bookservice.css" />
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -57,16 +58,34 @@
 	
 				<div class="pincode-check" id="first">
 					<form action="?controller=Bookservice&function=checkpincode" method="post">
+						<?php if(isset($_SESSION['pincode'])){?>
+							<script>
+							swal({
+								title: "Sorry!! ",
+								text: "Service is not available here!",
+								icon: "warning",
+								});
+								</script>
+						<?php unset($_SESSION['pincode']);} ?>
 						<label class="pin-label" for="pincode">
 							Please enter your zip code:
 						</label>
 						<br>
-						<input class="pincode-input-box" type="number" name="pincode" placeholder="Postal code">
+						<input class="pincode-input-box" type="number" name="pincode" placeholder="Postal code" required>
 						<input class="pin-btn" type="submit">
 					</form>
 				</div>
 			
-				<?php if(isset($_GET['flag'])) { if($_GET['flag'] == "second") {?>
+				<?php if(isset($_GET['flag'])) { if($_GET['flag'] == "second") {
+					 if(isset($_SESSION['login'])){?>
+						<script>
+						swal({
+							title: "Login!! ",
+							text: "Please login first !",
+							icon: "warning",
+							});
+							</script>
+					<?php unset($_SESSION['login']);} ?>
 					<script>
 						$("#first").hide();
 						$("#1,#3,#4").removeClass("add");
@@ -78,24 +97,37 @@
 						$(document).on("click", "#insideCabinetCheck", function() {
 							if ($(this).prop("checked") == true) {
 								$("#insideCabinetImg").attr("src", "./assets/Images/3-green.png");
+								$(".label1").css({"border":"2px solid #1D7A8C","border-radius":"50%"});
+								$("#extra-item").append("<p  class='five' style='display: flex;justify-content: space-between;'>Inside Cabinet <span style='text-align: right;''>30 Mins &nbsp;</span></p>");
 							} else if ($(this).prop("checked") == false) {
 								$("#insideCabinetImg").attr("src", "./assets/Images/3.png");
+								$(".label1").css({"border":"2px solid #C8C8C8","border-radius":"50%"});
+								$(".five").hide();
 							}
+							
 						});
 
 						$(document).on("click", "#insideFridgeCheck", function() {
 							if ($(this).prop("checked") == true) {
 								$("#insideFridgeImg").attr("src", "./assets/Images/5-green.png");
+								$(".label2").css({"border":"2px solid #1D7A8C","border-radius":"50%"});
+								$("#extra-item").append("<p  class='four' style='display: flex;justify-content: space-between;'>Inside Fridge <span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 							} else if ($(this).prop("checked") == false) {
 								$("#insideFridgeImg").attr("src", "./assets/Images/5.png");
+								$(".label2").css({"border":"2px solid #C8C8C8","border-radius":"50%"});
+								$(".four").hide();
 							}
 						});
 
 						$(document).on("click", "#insideOvenCheck", function() {
 							if ($(this).prop("checked") == true) {
 								$("#insideOvenImg").attr("src", "./assets/Images/4-green.png");
+								$(".label3").css({"border":"2px solid #1D7A8C","border-radius":"50%"});
+								$("#extra-item").append("<p  class='three' style='display: flex;justify-content: space-between;'>Inside Oven<span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 							} else if ($(this).prop("checked") == false) {
 								$("#insideOvenImg").attr("src", "./assets/Images/4.png");
+								$(".label3").css({"border":"2px solid #C8C8C8","border-radius":"50%"});
+								$(".three").hide();
 							}
 						});
 
@@ -103,18 +135,33 @@
 						$(document).on("click", "#laundryCheck", function() {
 							if ($(this).prop("checked") == true) {
 								$("#laundryImg").attr("src", "./assets/Images/2-green.png");
+								$(".label4").css({"border":"2px solid #1D7A8C","border-radius":"50%"});
+								$("#extra-item").append("<p  class='one' style='display: flex;justify-content: space-between;'>Laundry & Wash <span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 							} else if ($(this).prop("checked") == false) {
 								$("#laundryImg").attr("src", "./assets/Images/2.png");
+								$(".label4").css({"border":"2px solid #C8C8C8","border-radius":"50%"});
+								$(".one").hide();
 							}
 						});
 
-
+						
 						$(document).on("click", "#interiorCheck", function() {
 							if ($(this).prop("checked") == true) {
 								$("#interiorImg").attr("src", "./assets/Images/1-green.png");
+								$(".label5").css({"border":"2px solid #1D7A8C","border-radius":"50%"});
+								$("#extra-item").append("<p  class='two' style='display: flex;justify-content: space-between;'>Interior Cleaning <span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 							} else if ($(this).prop("checked") == false) {
 								$("#interiorImg").attr("src", "./assets/Images/1.png");
+								$(".label5").css({"border":"2px solid #C8C8C8","border-radius":"50%"});
+								$(".two").hide();
 							}
+						});
+						$(document).on("change","select,input",function(){
+								$bed=$(".bed").val();
+								$bath=$(".bath").val();
+								$date=$(".date").val();
+								$time=$(".time").val();
+								$(".details").html('<p>'+$date+' '+' '+$time+ '<span>'+' '+$bed+' bed'+' '+$bath+' bath.'+'</span></p>');
 						});
 					</script>
 					<div class="schedule-plan" id="second">
@@ -124,14 +171,14 @@
 							</label>
 							<br />
 							<div>
-								<select name="numberOfRoom">
+								<select name="numberOfRoom" class="bed">
 									<option value="1">1 bed</option>
 									<option value="2">2 bed</option>
 									<option value="3">3 bed</option>
 									<option value="4">4 bed</option>
 									<option value="5">5 bed</option>
 								</select>
-								<select name="numberOfBath">
+								<select name="numberOfBath" class="bath">
 									<option value="1">1 bath</option>
 									<option value="2">2 bath</option>
 									<option value="3">3 bath</option>
@@ -143,17 +190,17 @@
 								<div>
 									<label for="dateAndtime"> When do you need cleaner? </label>
 									<div style="display: flex">
-										<div class="date-input">
+										<div class="date-input" >
 											<img src="./assets/Images/calendar.png" alt="calender" />
-											<input type="date" name="date" required/>
+											<input type="date" name="date" class="date" required/>
 										</div>
-										<input type="time" name="time" required />
+										<input type="time" name="time" class="time" required />
 									</div>
 								</div>
 								<div class="totalTime">
 									<label for="dateAndtime"> When do you need cleaner? </label>
 									<br />
-									<select name="range">
+									<select name="range" >
 										<option value="1">1.0 Hrs</option>
 										<option value="2">2.0 Hrs</option>
 										<option value="3">3.0 Hrs</option>
@@ -167,31 +214,31 @@
 								<div id="custom-checkboxes">
 									<div class="checkbox">
 										<input type="checkbox" name="insideCabinet" id="insideCabinetCheck" class="htmlcheckbox" value="1">
-										<label for="insideCabinetCheck"><img src="./assets/Images/3.png" id="insideCabinetImg" alt=""></label>
+										<label for="insideCabinetCheck" class="label1"><img src="./assets/Images/3.png" id="insideCabinetImg" alt=""></label>
 										<p>inside cabinets</p>
 									</div>
 
 									<div class="checkbox">
 										<input type="checkbox" id="insideFridgeCheck" name="insideFridge"  value="2" class="htmlcheckbox">
-										<label for="insideFridgeCheck"><img src="./assets/Images/5.png" id="insideFridgeImg" alt=""></label>
+										<label for="insideFridgeCheck" class="label2"><img src="./assets/Images/5.png" id="insideFridgeImg" alt=""></label>
 										<p>inside Fridge</p>
 									</div>
 
 									<div class="checkbox">
 										<input type="checkbox" name="insideOven" value="3" id="insideOvenCheck" class="htmlcheckbox">
-										<label for="insideOvenCheck"><img src="./assets/Images/4.png" id="insideOvenImg" alt=""></label>
+										<label for="insideOvenCheck" class="label3"><img src="./assets/Images/4.png" id="insideOvenImg" alt=""></label>
 										<p>inside Oven</p>
 									</div>
 
 									<div class="checkbox">
 										<input type="checkbox" id="laundryCheck" name="laundry" value="4" class="htmlcheckbox">
-										<label for="laundryCheck"><img src="./assets/Images/2.png" id="laundryImg" alt=""></label>
+										<label for="laundryCheck" class="label4"><img src="./assets/Images/2.png" id="laundryImg" alt=""></label>
 										<p>Laundry Wash & Dry</p>
 									</div>
 
 									<div class="checkbox">
 										<input type="checkbox" id="interiorCheck" name="interior" value="5"class="htmlcheckbox">
-										<label for="interiorCheck"><img src="./assets/Images/1.png" id="interiorImg" alt=""></label>
+										<label for="interiorCheck" class="label5"><img src="./assets/Images/1.png" id="interiorImg" alt=""></label>
 										<p>interior Windows</p>
 									</div>
 								</div>
@@ -224,6 +271,24 @@
 						$(".add-address-box").css("display", "block");
 						$(this).hide();
 					});
+					$(document).on("click", ".clear-btn", function () {
+						$(".add-address-box").hide();
+						$(".add-address-btn").show();
+					});
+					$(document).on("click", ".save-btn", function () {
+						$street=$(".street").val().replace(/\s/g, "").trim(); 
+					
+						$house=$(".house").val().replace(/\s/g, "").trim(); 
+						$postal=$(".postal").val().replace(/\s/g, "").trim(); 
+						$city=$(".city").val().replace(/\s/g, "").trim(); 
+						$phone=$(".phone").val().replace(/\s/g, "").trim(); 
+						$(".box").append('<div class="address-check-box"><span><input type="radio" name="address1" value="'+$street+' '+$house+' '+$postal+' '+$city+' '+$phone+'" required></span><span><p><strong>Address</strong>:'+' ' +$street+ ' ' + $house+' '+ $city+' '+$postal+ '</p><p><strong>Phone number:</strong><a name="phone">'+' '+$phone+ '</a></p></span>	</div>');
+						$(".add-address-box").hide();
+						$(".add-address-btn").show();
+						
+								
+						
+					});
 					$("#2,#3").addClass("add-color");
 					$("#3").addClass("add");
 					$("#1,#2,#4").removeClass("add");
@@ -231,51 +296,62 @@
 					$("#4").removeClass("add-color");
 					$("#img4").attr("src", "./assets/Images/payment.png");
 					$("#img2").attr("src", "./assets/Images/schedule-white.png");
+					// $(".clear-btn").click(function(){
+					// 	$(".add-address-box").hide();
+					// });
 					</script>
 					<div id="address-list">
 						<form action="?controller=Bookservice&function=customer_details" method="post">
 							<label for="Address">
 								Enter your details, so we can serve you in better way!
 							</label>
-							<div class="address-check-box">
-								<span><input type="radio" name="address1"></span>
+							<?php if(isset($_SESSION['addressdata']))
+								 {
+									$data=$_SESSION['addressdata'];
+								
+									foreach ($data as $users) {
+							?>
+							<div class="address-check-box1">
+								<span><input type="radio" name="address1" value="<?php
+								 
+								
+								echo $users['AddressLine1'].' '.$users['AddressLine2'].' '.$users['City'].' '.$users['PostalCode'] ; ?>" required></span>
 								<span>
-									<p><strong>Address: </strong><?php 
-									//  session_start();
-									 if(isset($_SESSION['addressdata']))
-									 {
-										$data=$_SESSION['addressdata'];
-										foreach ($data as $users) { echo $users['AddressLine1'].' '.$users['AddressLine2'].' '.$users['City'].' '.$users['State'].' '.$users['PostalCode'] ;}
-									 }
+									<p><strong>Address: </strong>
+									<?php 
+									
+									 echo $users['AddressLine1'].' '.$users['AddressLine2'].' '.$users['City'].' '.$users['PostalCode'] ;
 																		
 									
 									 ?> </p>
-									<p><strong>Phone number: </strong><?php 
-									//  session_start();
-									 if(isset($_SESSION['addressdata']))
-									 {
-										foreach ($data as $users) { echo $users['Mobile'];}
-									 }?></p>
+									<p><strong>Phone number: </strong>
+									<?php 
+									
+								
+									
+										 echo $users['Mobile'];
+									
+									 
+									 ?></p>
 								</span>
+							
 							</div>
+							<?php }
+									 }?>
+							<div class="box" >
 
-							<div class="address-check-box">
-								<span><input type="radio" name="address1"></span>
-								<span>
-									<p><strong>Address: </strong> </p>
-									<p><strong>Phone number: </strong></p>
-								</span>
 							</div>
+							
 
 							<button type="button" class="add-address-btn">+ Add New Address</button>
-							<div class="add-address-box" action="" method="post">
+							<div class="add-address-box" >
 								<div class="address-taker-box">
 									<div>
 										<label for="streetname">
 											Street name
 										</label>
 										<br>
-										<input type="text" name="streetname" placeholder="Street name">
+										<input type="text" name="streetname" class="street" placeholder="Street name">
 									</div>
 									<div>
 										<label for="housename">
@@ -283,7 +359,7 @@
 										</label>
 										<br>
 
-										<input type="text" name="housename" placeholder="House name">
+										<input type="text" name="housename" class="house" placeholder="House name">
 									</div>
 								</div>
 								<div class="address-taker-box">
@@ -292,7 +368,7 @@
 											Postal code
 										</label>
 										<br>
-										<input type="text" name="postalcode" placeholder="Postal code">
+										<input type="text" name="postalcode" class="postal" placeholder="Postal code" > 
 
 									</div>
 									<div>
@@ -300,7 +376,7 @@
 											City
 										</label>
 										<br>
-										<input type="text" name="city" placeholder="City">
+										<input type="text" name="city" class="city" placeholder="City">
 									</div>
 								</div>
 								<div class="address-taker-box tel">
@@ -313,7 +389,7 @@
 											<span class="tel-icon">
 												+49
 											</span>
-											<input type="tel" name="phonenumber" placeholder="Phone number">
+											<input type="tel" name="phonenumber" class="phone" placeholder="Phone number">
 										</div>
 									</div>
 									<div id="tel2">
@@ -321,8 +397,8 @@
 									</div>
 								</div>
 								<div class="Button">
-									<button class="save-btn" type="submit">Save</button>
-									<button class="clear-btn">Cancel</button>
+									<button class="save-btn" type="button">Save</button>
+									<button class="clear-btn" type="button">Cancel</button>
 								</div>
 							</div>
 							<h4 class="favourite-title">Your Favourite Service Providers</h4>
@@ -391,12 +467,14 @@
 			<div class="price-card">
 				<h3>Payment Summary</h3>
 				<div class="details">
-					<p>01/01/2018 @ 4:00 pm <span>1 bed, 1 bath.</span></p>
+					<!-- <p>01/01/2018 @ 4:00 pm <span>1 bed, 1 bath.</span></p> -->
 				</div>
 				<h4>Duration</h4>
-				<div class="duration">
-					<p>Basic <span>Inside cabinets (extra)</span></p>
-					<p style="text-align: right">3 Hrs <span>30 Mins</span></p>
+				
+				<p style="display: flex;justify-content: space-between;">Basic <span style="text-align: right;">3 Hrs 30 Mins &nbsp;</span</p>
+				<p>Extra Services</p>
+				<div class="duration" id="extra-item">
+				
 				</div>
 				<div class="cover">
 					<div class="totalhour">

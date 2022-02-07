@@ -29,6 +29,7 @@
             <div class="navItem active"><a href="?function=pricepage">Prices & Services</a></div>
             <div class="navItem"><a href="#">Warranty</a></div>
             <div class="navItem"><a href="#">Blog</a></div>
+            
             <div class="navItem"><a href="?function=contactpage">Contact</a></div>
             <div class="navItem highlight"><a href="?function=become_providerpage">Become a Helper</a></div>
             <div class="loggedInMenu d-flex align-items-center justify-content-center">

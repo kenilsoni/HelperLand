@@ -16,12 +16,22 @@
 		<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	</head>
 	<body>
       
 	<?php include "header.php"; ?>
 			<?php include "Login_modal.php"; ?>  
+			<?php if(isset($_SESSION['emailexist'])){?>
+							<script>
+							swal({
+								title: "sorry! ",
+								text: "Email is already exist!",
+								icon: "warning",
+								});
+								</script>
+						<?php unset($_SESSION['emailexist']); } ?>
     
 		<div class="contactUsHeader container flex-column d-flex align-items-center justify-content-center">
 			<div class="contactUsHeaderText text-center ">Create Account</div>
@@ -76,7 +86,7 @@
      					 </span>
 					</div>
 					
-					<button class="submit rounded-pill border-0 outline-0" type="submit">Register</button>
+					<button class="submit rounded-pill border-0 outline-0" type="submit" name="submit">Register</button>
                     <div style="color: #A3A3A3; text-align: center;">Already Registered? <br/><a type="button" data-bs-toggle="modal" data-bs-target="#myModal" style="color: #0d6efd;">Login now</a></div>
 				</div>
 			</form>

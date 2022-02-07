@@ -17,7 +17,7 @@
 
 
     <link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="./assets/css/Homepage.css" />
 
 <body>
@@ -26,7 +26,124 @@
 
         <?php include "header-2.php"; ?>
         <?php include "Login_modal.php"; ?>
+        <?php if (isset($_SESSION['fpassword'])) {
+            if ($_SESSION['fpassword'] == 1) { ?>
 
+                <script>
+                    swal({
+                        title: "Great Job",
+                        text: "Password Updated",
+                        icon: "success",
+                    });
+                </script>
+            <?php unset($_SESSION['fpassword']);
+            } elseif ($_SESSION['fpassword'] == 2) { ?>
+
+                <script>
+                    swal({
+                        title: "sorry!",
+                        text: "something went wrong",
+                        icon: "warning",
+                    });
+                </script>
+
+        <?php unset($_SESSION['fpassword']);
+            }
+        } ?>
+
+
+        <?php if (isset($_SESSION['sendmail'])) {
+            if ($_SESSION['sendmail'] == 1) { ?>
+
+                <script>
+                    swal({
+                        title: "Great Job",
+                        text: "Send mail successfully",
+                        icon: "success",
+                    });
+                </script>
+            <?php unset($_SESSION['sendmail']);
+            } elseif ($_SESSION['sendmail'] == 2) { ?>
+
+                <script>
+                    swal({
+                        title: "sorry!",
+                        text: "something went wrong",
+                        icon: "warning",
+                    });
+                </script>
+
+            <?php unset($_SESSION['sendmail']);
+            } elseif ($_SESSION['sendmail'] == 3) { ?>
+
+                <script>
+                    swal({
+                        title: "sorry!",
+                        text: "Email is not exist in our record!",
+                        icon: "warning",
+                    });
+                </script>
+
+        <?php unset($_SESSION['sendmail']);
+            }
+        } ?>
+
+
+
+
+        <?php if (isset($_SESSION['checkemail'])) { ?>
+            <script>
+                swal({
+                    title: "sorry!",
+                    text: "Please check email or password!",
+                    icon: "warning",
+                });
+            </script>
+        <?php unset($_SESSION['checkemail']);
+        } ?>
+        <?php if (isset($_SESSION['booking'])) {
+            if ($_SESSION['booking'] == 1) { ?>
+                <script>
+                    swal({
+                        title: "Good job!",
+                        text: "Your booking is successfully!",
+                        icon: "success",
+                    });
+                </script>
+            <?php unset($_SESSION['booking']);
+            } elseif ($_SESSION['booking'] == 2) { ?>
+                <script>
+                    swal({
+                        title: "Good job!",
+                        text: "Your booking is successfully!",
+                        icon: "success",
+                    });
+                </script>
+        <?php unset($_SESSION['booking']);
+            }
+        } ?>
+        <?php if (isset($_SESSION['registration'])) {
+            if ($_SESSION['registration'] == 1) { ?>
+                <script>
+                    swal({
+                        title: "Good job! ",
+                        text: "Account created successfully!",
+                        icon: "success",
+                    });
+                </script>
+            <?php unset($_SESSION['registration']);
+            } elseif ($_SESSION['registration'] == 2) { ?>
+                <script>
+                    swal({
+                        title: "Sorry! ",
+                        text: "Something went wrong!",
+                        icon: "error",
+                    });
+                </script>
+        <?php
+                unset($_SESSION['registration']);
+            }
+        } ?>
         <!-- Navbar end -->
         <div class="title">
             <h1>Lorem ipsum dolor.</h1>

@@ -15,12 +15,44 @@
 		<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	</head>
 	<body>
 	<?php include "header-2.php"; ?>
 
 
 	<?php include "Login_modal.php"; ?>
+	<?php if (isset($_SESSION['registration'])) {
+            if ($_SESSION['registration'] == 1) { ?>
+                <script>
+                    swal({
+                        title: "Good job! ",
+                        text: "Account created successfully!",
+                        icon: "success",
+                    });
+                </script>
+            <?php unset($_SESSION['registration']);
+            } elseif ($_SESSION['registration'] == 2) { ?>
+                <script>
+                    swal({
+                        title: "Sorry! ",
+                        text: "Something went wrong!",
+                        icon: "error",
+                    });
+                </script>
+        <?php
+                unset($_SESSION['registration']);
+            }
+        } ?>
+		<?php if(isset($_SESSION['emailexist'])){?>
+							<script>
+							swal({
+								title: "sorry! ",
+								text: "Email is already exist!",
+								icon: "warning",
+								});
+								</script>
+						<?php unset($_SESSION['emailexist']); } ?>
 		<header class="container-fluid d-flex align-items-center justify-content-center flex-column">
 			<form action="?function=createaccount_user" method="post" id="signup-form">
 				<h2 class="formHeader text-center">Register Now!</h2>
@@ -58,7 +90,7 @@
 					</label>
 				</div>
 				<img src="./assets/Images/iAmNotRobot.png" alt="i am not robot image" />
-				<button class="become rounded-pill m-auto d-flex align-items-center justify-content-center" type="submit">
+				<button class="become rounded-pill m-auto d-flex align-items-center justify-content-center" name="submit" type="submit">
 					<span>Get Started</span>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="11">
 						<path
