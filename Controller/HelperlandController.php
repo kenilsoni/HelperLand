@@ -79,6 +79,7 @@ class HelperlandController
             $mobile = $this->test_input($_POST['mobile']);
             $email = $this->test_input($_POST['email']);
             $UserTypeId = $this->test_input($_POST['usertype']);
+            $name = $fname . " " . $lname;
             $data = array(
                 'FirstName' => $fname,
                 'LastName' => $lname,
@@ -92,23 +93,53 @@ class HelperlandController
                 'Email' =>  $email,
             );
             if ($cpassword == $password) {
-                if ($fname && $lname && $mobile && $email && $password && $UserTypeId) {
-
-                    $this->model->insert_user($data, $email);
+                if (!preg_match('/^[0-9]{10}+$/', $mobile)) {
+                    session_start();
+                    $_SESSION['user'] = 2;
+                    if($UserTypeId==1){
+                        header("location:?function=createaccountpage");
+                    }elseif($UserTypeId==2){
+                        header("location:?function=become_providerpage");
+                    }
+                    
+                } elseif (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+                    session_start();
+                    $_SESSION['user'] = 3;
+                    if($UserTypeId==1){
+                        header("location:?function=createaccountpage");
+                    }elseif($UserTypeId==2){
+                        header("location:?function=become_providerpage");
+                    }
                 } else {
-                    $error_message = 'Invalid city data. Check all fields and resubmit.';
+                    if ($fname && $lname && $mobile && $email && $password && $UserTypeId) {
 
-                    echo $error_message;
+                        $this->model->insert_user($data, $email);
+                    } else {
+                        if($UserTypeId==1){
+                            echo "<script>alert('Please check the data');
+                            window.location.href = '?function=createaccountpage'; </script>";
+                        }elseif($UserTypeId==2){
+                            echo "<script>alert('Please check the data');
+                            window.location.href = '?function=become_providerpage; </script>";
+                        }
+                       
+                    }
                 }
             } else {
-                echo "<script>alert('Please check the password');
-                window.location.href = '?function=contactpage'; </script>";
+                if($UserTypeId==1){
+                    echo "<script>alert('Please check the password');
+                    window.location.href = '?function=createaccountpage'; </script>";
+                }elseif($UserTypeId==2){
+                    echo "<script>alert('Please check the password');
+                    window.location.href = '?function=become_providerpage; </script>";
+                }
             }
         }
     }
     public function insert_contactus()
     {
         if (isset($_POST['submit'])) {
+
             date_default_timezone_set('Asia/Kolkata');
             $date = date('d-m-y h:i:s');
             $fname = $this->test_input($_POST['fname']);
@@ -119,6 +150,7 @@ class HelperlandController
             $name = $fname . " " . $lname;
             $message = $this->test_input($_POST['message']);
             $filename = mt_rand(100000, 999999) . '.jpg';
+
             $data = array(
                 'Name' => $name,
                 'PhoneNumber' => $mobile,
@@ -129,11 +161,21 @@ class HelperlandController
                 'UploadFileName' => $filename
             );
 
-            if ($name && $mobile && $email && $message && $subject && $date && $filename) {
-                $this->model->insert_contact($data);
+            if (!preg_match('/^[0-9]{10}+$/', $mobile)) {
+                session_start();
+                $_SESSION['contact'] = 3;
+                header("location:?function=contactpage");
+            } elseif (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+                session_start();
+                $_SESSION['contact'] = 4;
+                header("location:?function=contactpage");
             } else {
-                echo "<script>alert('Invalid city data. Check all fields and resubmit');
-                window.location.href='?function=createaccountpage'</script>";
+                if ($name && $mobile && $email && $message && $subject && $date && $filename) {
+                    $this->model->insert_contact($data);
+                } else {
+                    echo "<script>alert('Invalid city data. Check all fields and resubmit');
+                    window.location.href='?function=contactpage'</script>";
+                }
             }
         }
     }
