@@ -18,7 +18,9 @@ $(document).on("click", "#step4", function (e) {
 		url: "?controller=Bookservice&function=payment_done",
 		datatype: "json",
 		data: $("#form-4").serialize(),
-		
+		beforeSend: function () {
+			$('#loader').removeClass('hidden')
+		},		
 		success: function (data) {
 			if (data == 1) {
 
@@ -32,6 +34,9 @@ $(document).on("click", "#step4", function (e) {
 					icon: 'error',
 				});
 			}
+		},
+		complete: function () {
+			$('#loader').addClass('hidden')
 		},
 		
 	});
