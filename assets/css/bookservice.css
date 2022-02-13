@@ -92,7 +92,9 @@ nav {
 	border: 1px solid white;
 	background: #29626d;
 }
-
+.popover{
+	z-index: 1111111;
+}
 .navItem.active a,
 .navItem.navItem.active a:hover {
 	border: 1px solid white !important;
@@ -209,7 +211,9 @@ footer hr {
 	text-decoration: none;
 	color: #9ba0a3;
 }
-
+/* .media{
+	margin-right: auto;
+} */
 @media screen and (max-width: 992px) {
 	
 
@@ -325,16 +329,27 @@ footer hr {
 	}
 
 }
+
+
+
+  .part1{
+	  display: flex;
+  }
 @media screen and (max-width: 747px){
 	
 	.selectRoomAndBath{
-		padding: 20px;
-		display: inline-flex;
+		/* padding: 20px; */
+		display: flex;
+		/* flex-direction: column; */
+		/* align-items: center; */
 
 	}
-	.date-input{
+	/* .totalTime{
+		all: initial;
+	} */
+	/* .date-input{
 		position: absolute;
-	}
+	} */
 
 	.comment-box{
 		padding: 20px;
@@ -356,6 +371,31 @@ footer hr {
 
 }
 @media screen and (max-width: 575px) {
+	.selectRoomAndBath{
+	flex-direction: column;
+    align-items: center;
+	}
+	.totalTime{
+
+	display: flex;
+    flex-direction: column;
+	margin-left: 0px;
+	margin-top: 20px;
+	text-align: center;
+	width: 100%;
+	margin-right: 50px;
+
+	}
+	.media{
+		width: 100%;
+	
+	}
+	.schedule-plan input{
+		width:100%;
+	}
+	.datelbl{
+		width: 100%;
+	}
 	.footerMain {
 		flex-direction: column !important;
 	}
@@ -363,7 +403,12 @@ footer hr {
 	.footerLogo {
 		margin-bottom: 15px;
 	}
-
+	.part1{
+		flex-direction: column;
+	}
+	.labl{
+		margin-top: 10px;
+	}
 	.bestCleaningServiceSvg {
 		transform: scale(0.85);
 	}
@@ -529,7 +574,9 @@ footer hr {
 
 
 /* extra000 */
-
+.payment-small{
+	display: none;
+}
 .setup {
 	display: flex;
 	margin-top: 49px;
@@ -738,7 +785,7 @@ footer hr {
   
   .schedule-plan label {
 	color: #4f4f4f;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: bold;
 	margin-bottom: 5px;
   }
@@ -760,29 +807,29 @@ footer hr {
 	border-radius: 3px;
 	margin-left: 0px;
 	margin-right: 5px;
-	padding: 13px 5px;
+	padding: 11px;
   }
   
   .selectRoomAndBath {
 	display: flex;
-	border-top: solid 1px #e1e1e1;
+	/* border-top: solid 1px #e1e1e1; */
 	border-bottom: solid 1px #e1e1e1;
-	margin-top: 30px;
-	padding-top: 35px;
-	padding-bottom: 50px;
+	/* margin-top: 30px;
+	padding-top: 35px; */
+	padding-bottom: 30px;
   }
   
-  .selectRoomAndBath input[type="date"] {
+  /* .selectRoomAndBath input[type="date"] {
 	border: none;
 	padding: 0px;
-  }
+  } */
   
   .date-input {
-	border: solid 1px #e1e1e1;
+	/* border: solid 1px #e1e1e1;
 	padding: 10px 5px;
 	text-align: center;
 	height: 46px;
-	border-radius: 3px;
+	border-radius: 3px; */
 	margin-right: 10px;
   }
   
@@ -1420,6 +1467,42 @@ footer hr {
   @media (max-width:1030px){
 	.setup-right{
 	  display: none;
+	 
+	}
+	.payment-small{
+		display: block;
+		margin-top: 57px;
+	}
+	.h2{
+		margin: 0;
+		background: #1d7a8c;
+		color: #fff;
+		font-size: 18px;
+		line-height: 22px;
+	}
+	.price-card{
+		margin: -64px -40px 0px -41px;
+	}
+	.modal-header{
+	    margin: 0;
+    background: #1d7a8c;
+    color: #fff;
+    font-size: 18px;
+    line-height: 22px;
+	}
+	.modal-body {
+		padding: 0px;
+		/* padding: 60px 40px 40px !important; */
+	}
+	.btn-primary{
+		border-radius: 50px;
+		color: #fff;
+	
+		padding: 14px;
+	}
+	.btn-primary:focus{
+		
+		box-shadow:none;
 	}
 	.setup{
 	  width:80%;
@@ -1478,4 +1561,52 @@ footer hr {
   
    
   }
+  /* body {
+	background: #ececec;
+} */
+    /*Hidden class for adding and removing*/
+    .lds-dual-ring.hidden {
+        display: none;
+    }
+
+    /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+		width: 100vw;
+		height: 100vh;
+		
+        background: rgba(13, 13, 13, 0.4);
+        z-index: 9999999999999;
+        opacity: 1;
+        transition: all 0.5s;
+    }
+    
+    /*Spinner Styles*/
+    .lds-dual-ring {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+    }
+    .lds-dual-ring:after {
+        content: " ";
+		top:50%;
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 20% auto;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        border-color: #1d7a8c transparent #1d7a8c transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
  

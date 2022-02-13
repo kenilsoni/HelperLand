@@ -379,13 +379,22 @@ div.dataTables_paginate {
 .cancel:hover::after {
 	border-left: 6px solid #000;
 }
-
+.popover{
+	z-index: 1111111;
+}
 .tableHeader {
 	font-size: 22px;
 	color: #646464;
 	float: left;
 	margin-bottom: 13px;
 }
+.tableHeader1{
+	font-size: 22px;
+	color: #646464;
+	float: left;
+	margin-bottom: 13px;
+}
+
 
 .heading {
 	font-size: 30px;
@@ -615,7 +624,12 @@ label{
 	scroll-behavior: smooth;
 	overflow-x: hidden;
   }
-
+.dashboard{
+	display:none;
+}
+.favourite{
+	display: none;
+}
  .line {
 	padding-top: 10px;
 	border-bottom: 2px solid #ccc;

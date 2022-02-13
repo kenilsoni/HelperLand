@@ -650,6 +650,9 @@ footer hr {
 	top: 5px;
 	right: 15px;
 }
+.popover{
+	z-index: 1111111;
+}
 
 .notifications {
 	padding: 9px 25px 7px 16px;

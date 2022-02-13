@@ -10,7 +10,9 @@
 input:disabled {
     background: #eee;
 }
-
+.popover{
+	z-index: 1111111;
+}
 
 .validate_cus {
 	color: #a94442;

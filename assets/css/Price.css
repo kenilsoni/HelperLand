@@ -19,6 +19,8 @@
 	padding: 5px;
 	top: 5px;
 	right: 15px;
+}.popover{
+	z-index: 1111111;
 }
 
 .notifications {

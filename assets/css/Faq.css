@@ -50,6 +50,8 @@ html {
 
 body {
 	overflow-x: hidden;
+}.popover{
+	z-index: 1111111;
 }
 /* Navbar css */
 nav {
