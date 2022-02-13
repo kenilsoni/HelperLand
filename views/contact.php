@@ -35,7 +35,29 @@
 								icon: "error",
 								});
 								</script>
-					<?php	unset($_SESSION['contact']);} } ?>
+					<?php	unset($_SESSION['contact']);} 
+					elseif($_SESSION['contact']==3){?>
+						<script>
+						swal({
+							title: "Sorry!",
+							text: "Please enter valid mobile number!",
+							icon: "error",
+							});
+							</script>
+					
+					
+					<?php unset($_SESSION['contact']);	}elseif($_SESSION['contact']==4){
+						?>
+						<script>
+						swal({
+							title: "Sorry!",
+							text: "Please enter valid name!",
+							icon: "error",
+							});
+							</script><?php
+				unset($_SESSION['contact']);	}	
+				}
+					?>
         <!-- Contact Image -->
 		<section class="contactusCarousel">
 			<img src="./assets/Images/contactUsImage.png" alt="aboutHeaderImage" />
@@ -94,11 +116,11 @@
 						<input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" required />
 					</div>
 					<div class="form-item col-12 col-sm-6">
-						<input type="text" class="form-control" name="lname" id="fname" placeholder="Last Name" required />
+						<input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" required />
 					</div>
 					<div class="form-item col-12 col-sm-6">
 						<div class="input-group mx-0 row">
-							<input type="text" class="input-group-text col-2 px-0" id="countryCode" placeholder="+91" />
+							<input type="number" class="input-group-text col-2 px-0 " id="countryCode" placeholder="+91" disabled/>
 							<input
 								type="text"
 								name="mobile"
@@ -107,6 +129,7 @@
 								aria-label="Mobile Number"
 								aria-describedby="basic-addon1"
 								required
+								maxlength="10" 
 							/>
 						</div>
 					</div>

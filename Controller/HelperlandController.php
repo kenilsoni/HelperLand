@@ -2,7 +2,7 @@
 class HelperlandController
 {
 
-    var $model;
+
     function __construct()
     {
         include('models/Connection.php');

@@ -47,7 +47,7 @@ class Helperland
         $stmt->execute($email);
         $user = $stmt->fetch();
         if ($user) {
-            $_SESSION['emailexist'] = 1;
+            $_SESSION['user'] = 1;
             if ($usertype == 1) {
                 echo "<script>window.location.href = '?function=createaccountpage';</script>";
             } else {
@@ -121,28 +121,23 @@ class Helperland
         $user = $stmt->fetch();
         if ($user) {
             setcookie("pincode", $pincode, time() + 3600);
-            header("location:?controller=Helperland&function=bookservice_page&flag=second");
+            echo 1;      
         } else {
-            session_start();
-            $_SESSION['pincode'] = 1;
-            echo "<script>
-            window.location.href='?controller=Helperland&function=bookservice_page';</script>";
+            echo 0;
         }
     }
-    public function getaddress($userid)
+    public function getaddress($userid,$postalcode)
     {
-        $query = "select AddressLine1,AddressLine2,City,State,PostalCode,Mobile	 from useraddress where UserId=? limit 2";
+        $query = "select AddressLine1,AddressLine2,City,State,PostalCode,Mobile	 from useraddress where UserId=? and PostalCode=?";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$userid]);
+        $stmt->execute([$userid,$postalcode]);
         $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($user) {
-            // foreach ($user as $users) { echo $users['AddressLine1'];}
-
+        if ($user) {       
+            
             $_SESSION['addressdata'] = $user;
-            header("location:?controller=Helperland&function=bookservice_page&flag=third");
+            echo 1;          
         } else {
-            echo "<script>
-            window.location.href='?controller=Helperland&function=bookservice_page';</script>";
+            echo 0;
         }
     }
     public function insertschedule($service_data, $extraservice, $address)
@@ -168,15 +163,13 @@ class Helperland
         $success4 = $stmt4->execute($address);
 
         if ($success2 && $success1 && $success3 && $success4) {
+            session_start();   
             $_SESSION['booking'] = 1;
-            echo "<script>
-                window.location.href='?controller=Helperland&function=HomePage';
-                </script>";
+            echo 1;
+            
         } else {
-            $_SESSION['booking'] = 2;
-            echo "<script>
-            window.location.href='?controller=Helperland&function=HomePage';
-            </script>";
+            echo 0;
+           
         }
     }
     public function check_email($emailid)
@@ -190,7 +183,7 @@ class Helperland
                 $id = $users['UserId'];
             }
             require "vendor/autoload.php";
-            $email = new \SendGrid\Mail\Mail();
+            $email = new \SendGrid\Mail\Mail("hide due to security reason");
             $email->setFrom("comicbykenil@gmail.com", "HelperLand");
             $email->setSubject("Forgot Password");
             $email->addTo($emailid);

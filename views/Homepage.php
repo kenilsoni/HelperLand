@@ -88,7 +88,16 @@
             }
         } ?>
 
-
+<?php if (isset($_SESSION['user_unset'])) { ?>
+            <script>
+swal({
+					title: "Login!! ",
+					text: "Please login first !",
+					icon: "warning",
+				});
+            </script>
+        <?php unset($_SESSION['user_unset']);
+        } ?>
 
 
         <?php if (isset($_SESSION['checkemail'])) { ?>

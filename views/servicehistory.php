@@ -17,6 +17,7 @@ if(!isset($_SESSION['user_name'])){
 	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/rg-1.1.4/datatables.min.css" />
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -94,17 +95,18 @@ if(!isset($_SESSION['user_name'])){
 	<div class="container position-relative d-flex align-items-start justify-content-center">
 		<div class="verticalNavbar d-none d-md-block">
 			<ul class="verticalNavItems p-0 m-0">
-				<li class="verticalNavItem" id="dashboard">Dashboard</li>
-				<li class="verticalNavItem active" id="service">Service History</li>
+				<li class="verticalNavItem" id="dashboardbtn">Dashboard</li>
+				<li class="verticalNavItem active" id="servicebtn">Service History</li>
 				<li class="verticalNavItem">Service Schedule</li>
-				<li class="verticalNavItem" id="favourite">Favourite Providers</li>
+				<li class="verticalNavItem" id="favouritebtn">Favourite Providers</li>
 				<li class="verticalNavItem">Invoices</li>
 				<li class="verticalNavItem">Notifications</li>
 			</ul>
 		</div>
 		<div class="serviceHistoryTableContainer" id="demo">
-
+		<div class="service_history">																										
 			<h2 class="tableHeader">Service History</h2>
+			
 			<table id="serviceHistoryTable">
 				<thead>
 					<tr>
@@ -117,7 +119,46 @@ if(!isset($_SESSION['user_name'])){
 				</thead>
 				<tbody></tbody>
 			</table>
+		</div>
+			
+			<div class="dashboard">
+						
+					<h2 class="tableHeader1">Service History</h2>
+				<table id="serviceHistoryTable">
+					<thead>
+						<tr>
+							<th>Service ID</th>
+							<th>Service Date</th>
+							<th>Service Provider</th>
+							<th>Payment</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+																											
+			</div>	
+			<div class="favourite">
+			
+			<div class="row ">
+<div class="card m-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+<div class="card m-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
 
+
+</div>
+			</div>																									
 		</div>
 
 	</div>
@@ -156,65 +197,32 @@ if(!isset($_SESSION['user_name'])){
 	</footer>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <script>
-	$(document).ready(function() {
-		function loadcontent() {
-			$.ajax({
-				url: "./views/servicehistory_table.php",
-				success: function(result) {
-					$("#demo").html(result);
-				}
-
-			});
-		}
-
-
-		$("#Mysetting").click(function() {
-			alert("kkk");
-			jQuery.ajax({
-				url: './views/servicehistory_mysetting.php',
-				type: 'GET',
-				success: function(data) {
-					$("#demo").html(data);
-				}
-
-			});
-		});
-		$("#favourite").click(function() {
-			$(this).addClass("active");
-			$("#service").removeClass("active");
-			$("#dashboard").removeClass("active");
-			jQuery.ajax({
-				url: './views/servicehistory_favourite.php',
-				type: 'GET',
-				success: function(data) {
-					$("#demo").html(data);
-				}
-			});
-		});
-		$("#dashboard").click(function() {
-			$(this).addClass("active");
-			$("#service").removeClass("active");
-			$("#favourite").removeClass("active");
-			jQuery.ajax({
-				url: './views/servicehistory_dashboard.php',
-				type: 'GET',
-				success: function(data) {
-					$("#demo").html(data);
-				}
-			});
-		});
-		$("#service").click(function() {
-			$(this).addClass("active");
-			$("#favourite").removeClass("active");
-			$("#dashboard").removeClass("active");
-			loadcontent();
-
-		});
-
-
-	});
+		$(document).on("click","#dashboardbtn",function(){
+							$('.favourite').hide();
+							$('.service_history').hide();
+							$('.dashboard').show();
+							$('#dashboardbtn').css('background','#146371');
+							$('.verticalNavItem').removeClass('active');
+							$('#favouritebtn').css('background','none');
+						})
+						$(document).on("click","#servicebtn",function(){
+							$('.favourite').hide();
+							$('.service_history').show();
+							$('.dashboard').hide();
+							$('#servicebtn').css('background','#146371');
+							$('#dashboardbtn').css('background','none');
+							$('#favouritebtn').css('background','none');
+						})
+						$(document).on("click","#favouritebtn",function(){
+							$('.favourite').show();
+							$('.service_history').hide();
+							$('.dashboard').hide();
+							$('#favouritebtn').css('background','#146371');
+							$('#dashboardbtn').css('background','none');
+							$('.verticalNavItem').removeClass('active');
+						})
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

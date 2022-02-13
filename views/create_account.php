@@ -23,7 +23,7 @@
       
 	<?php include "header.php"; ?>
 			<?php include "Login_modal.php"; ?>  
-			<?php if(isset($_SESSION['emailexist'])){?>
+			<?php if(isset($_SESSION['user'])){if($_SESSION['user']==1){?>
 							<script>
 							swal({
 								title: "sorry! ",
@@ -31,7 +31,31 @@
 								icon: "warning",
 								});
 								</script>
-						<?php unset($_SESSION['emailexist']); } ?>
+						<?php unset($_SESSION['user']); }elseif($_SESSION['user']==2){ ?>
+							<script>
+							swal({
+								title: "sorry! ",
+								text: "Please enter valid mobile number!",
+								icon: "warning",
+								});
+								</script>
+								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==3){?>
+									<script>
+							swal({
+								title: "sorry! ",
+								text: "Please enter valid name!",
+								icon: "warning",
+								});
+								</script>
+								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==4){?>
+									<script>
+							swal({
+								title: "sorry! ",
+								text: "Please enter valid email!",
+								icon: "warning",
+								});
+								</script>
+									<?php unset($_SESSION['user']);}}?>
     
 		<div class="contactUsHeader container flex-column d-flex align-items-center justify-content-center">
 			<div class="contactUsHeaderText text-center ">Create Account</div>

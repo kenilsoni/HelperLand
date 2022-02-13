@@ -44,7 +44,7 @@
                 unset($_SESSION['registration']);
             }
         } ?>
-		<?php if(isset($_SESSION['emailexist'])){?>
+		<?php if(isset($_SESSION['user'])){if($_SESSION['user']==1){?>
 							<script>
 							swal({
 								title: "sorry! ",
@@ -52,7 +52,32 @@
 								icon: "warning",
 								});
 								</script>
-						<?php unset($_SESSION['emailexist']); } ?>
+						<?php unset($_SESSION['user']); }elseif($_SESSION['user']==2){ ?>
+							<script>
+							swal({
+								title: "sorry! ",
+								text: "Please enter valid mobile number!",
+								icon: "warning",
+								});
+								</script>
+								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==3){?>
+									<script>
+							swal({
+								title: "sorry! ",
+								text: "Please enter valid name!",
+								icon: "warning",
+								});
+								</script>
+								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==4){?>
+									<script>
+							swal({
+								title: "sorry! ",
+								text: "Please enter valid email!",
+								icon: "warning",
+								});
+								</script>
+									<?php unset($_SESSION['user']);}}?>
+    
 		<header class="container-fluid d-flex align-items-center justify-content-center flex-column">
 			<form action="?function=createaccount_user" method="post" id="signup-form">
 				<h2 class="formHeader text-center">Register Now!</h2>
@@ -71,6 +96,7 @@
 						aria-label="Phone Number"
 						aria-describedby="basic-addon1"
 						autocomplete="off"
+						maxlength="10"
 						required
 					/>
 				</div>
