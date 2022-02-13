@@ -96,8 +96,8 @@ class BookserviceController
 
             $address1 = $array[0];
             $address2 = $array[1];
-            $postal = $array[2];
-            $city = $array[3];
+            $city= $array[2];
+            $postal= $array[3];
             $phone = $array[4];
 
             $data = array(
