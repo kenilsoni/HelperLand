@@ -86,12 +86,14 @@ $(document).on("click", "#step3", function (e) {
 
 					$("#img2").attr("src", "./assets/Images/schedule-white.png");
 					$("#img3").attr("src", "./assets/Images/details.png");
+					
+					$("#img4").attr("src", "./assets/Images/payment.png");
 					$("#second").show();
 					$('#address-list').hide();
 					$("#first").hide();
 					$('#make-payment').hide();
 					$("#2").addClass("add add-color");
-					$("#3").removeClass("add add-color");
+					$("#3,#4").removeClass("add add-color");
 					$("#1").removeClass("add");
 
 					$('#3').click(false);
@@ -298,6 +300,7 @@ $(document).on("click", ".pin-btn", function (e) {
 					$("#img2").attr("src", "./assets/Images/schedule-white.png");
 					$("#img3").attr("src", "./assets/Images/details.png");
 					$("#img4").attr("src", "./assets/Images/payment.png");
+				
 					$(document).on("click", "#1", function () {
 						$("#img2").attr("src", "./assets/Images/schedule.png");
 						$("#first").show();
@@ -314,8 +317,16 @@ $(document).on("click", ".pin-btn", function (e) {
 								"border": "2px solid #1D7A8C",
 								"border-radius": "50%"
 							});
+							let hour=parseFloat($(".hour").val())+0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							$(".duration1").html("<p  class='five' style='display: flex;justify-content: space-between;'>Inside Cabinet <span style='text-align: right;''>30 Mins &nbsp;</span></p>");
 						} else if ($(this).prop("checked") == false) {
+							let hour=parseFloat($(".hour").val())-0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							HideCabinet();
 						}
 
@@ -328,8 +339,16 @@ $(document).on("click", ".pin-btn", function (e) {
 								"border": "2px solid #1D7A8C",
 								"border-radius": "50%"
 							});
+							let hour=parseFloat($(".hour").val())+0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							$(".duration2").html("<p  class='four' style='display: flex;justify-content: space-between;'>Inside Fridge <span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 						} else if ($(this).prop("checked") == false) {
+							let hour=parseFloat($(".hour").val())-0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							HideFridge();
 						}
 					});
@@ -341,8 +360,16 @@ $(document).on("click", ".pin-btn", function (e) {
 								"border": "2px solid #1D7A8C",
 								"border-radius": "50%"
 							});
+							let hour=parseFloat($(".hour").val())+0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							$(".duration3").html("<p  class='three' style='display: flex;justify-content: space-between;'>Inside Oven<span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 						} else if ($(this).prop("checked") == false) {
+							let hour=parseFloat($(".hour").val())-0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							Hideoven();
 						}
 					});
@@ -355,8 +382,16 @@ $(document).on("click", ".pin-btn", function (e) {
 								"border": "2px solid #1D7A8C",
 								"border-radius": "50%"
 							});
+							let hour=parseFloat($(".hour").val())+0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							$(".duration4").html("<p  class='one' style='display: flex;justify-content: space-between;'>Laundry & Wash <span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 						} else if ($(this).prop("checked") == false) {
+							let hour=parseFloat($(".hour").val())-0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							HideLaundry();
 						}
 					});
@@ -369,8 +404,16 @@ $(document).on("click", ".pin-btn", function (e) {
 								"border": "2px solid #1D7A8C",
 								"border-radius": "50%"
 							});
+							let hour=parseFloat($(".hour").val())+0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							$(".duration5").html("<p  class='two' style='display: flex;justify-content: space-between;'>Interior Cleaning <span style='text-align: right;''>30 Mins &nbsp;</span</p>");
 						} else if ($(this).prop("checked") == false) {
+							let hour=parseFloat($(".hour").val())-0.5;
+							$(".hour").val(hour.toFixed(1));
+							$(".hourval").html($(".hour").val());				
+							$(".total_cost").html('$'+Math.floor(parseFloat($(".hour").val())*25));
 							HideInterior();
 
 						}
