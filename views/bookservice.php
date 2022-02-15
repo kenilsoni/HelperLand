@@ -107,27 +107,26 @@
 								<label for="dateAndtime"> How long do you need your cleaner to stay?</label>
 								<br />
 								<select name="range" class="hour">
-									<option value="8">8:00</option>
+									<option value="3.0">3:00</option>
+									<option value="3.5">3:30</option>
+									<option value="4.0">4:00</option>
+									<option value="4.5">4:30</option>
+									<option value="5.0">5:00</option>
+									<option value="5.5">5:30</option>
+									<option value="6.0">6:00</option>
+									<option value="6.5">6:30</option>
+									<option value="7.0">7:00</option>
+									<option value="7.5">7:30</option>
+									<option value="8.0">8:00</option>
 									<option value="8.5">8:30</option>
-									<option value="9">9:00</option>
+									<option value="9.0">9:00</option>
 									<option value="9.5">9:30</option>
-									<option value="10">10:00</option>
+									<option value="10.0">10:00</option>
 									<option value="10.5">10:30</option>
-									<option value="11">11:00</option>
+									<option value="11.0">11:00</option>
 									<option value="11.5">11:30</option>
-									<option value="12">12:00</option>
-									<option value="12.5">12:30</option>
-									<option value="13">13:00</option>
-									<option value="13.5">13:30</option>
-									<option value="14">14:00</option>
-									<option value="14.5">14:30</option>
-									<option value="15">15:00</option>
-									<option value="15.5">15:30</option>
-									<option value="16">16:00</option>
-									<option value="16.5">16:30</option>
-									<option value="17">17:00</option>
-									<option value="17.5">17:30</option>
-									<option value="18">18:00</option>
+									<option value="12.0">12:00</option>
+									
 								</select>
 							</div>
 						</div>
@@ -338,7 +337,7 @@
 				</div>
 				<h4>Duration</h4>
 
-				<p style="display: flex;justify-content: space-between;">Basic <span style="text-align: right;">3 Hrs 30 Mins &nbsp;</span< /p>
+				<p style="display: flex;justify-content: space-between;">Basic <span style="text-align: right;">3 Hrs  &nbsp;</span</p>
 						<p>Extra Services</p>
 						<div class="duration">
 							<div class="duration1"></div>
@@ -352,14 +351,14 @@
 						<div class="cover">
 							<div class="totalhour">
 								<span><strong>Total Service Time</strong></span>
-								<span><strong>3.5 Hrs</strong></span>
+								<span><strong class="hourval">3.0 Hrs</strong></span>
 							</div>
 						</div>
 						<div class="cover">
 							<div class="pay-list">
-								<p>Per cleaning <span>Discount</span></p>
+								<p>Per cleaning </p>
 								<p style="text-align: right">
-									<strong>$87</strong><span><strong>-$27</strong></span>
+									<strong class="total_cost">$75</strong><span></span>
 								</p>
 							</div>
 						</div>
@@ -369,7 +368,7 @@
 								<span>Effective Price</span>
 							</p>
 							<p style="text-align: right">
-								<strong style="color: #1d7a8c; font-size: 42px">$63</strong><span><strong>$50.4</strong></span>
+								<strong style="color: #1d7a8c; font-size: 42px" class="total_cost">$75</strong><span><strong class="total_cost">$75</strong></span>
 							</p>
 						</div>
 						<p class="condition">
