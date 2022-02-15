@@ -52,10 +52,6 @@ class HelperlandController
     {
         include("./views/bookservice.php");
     }
-    public function mysettingpage()
-    {
-        include("./views/servicehistory_mysetting.php");
-    }
     public function forgotpassword_page()
     {
         include("./views/forgotpassword.php");
@@ -219,5 +215,12 @@ class HelperlandController
                 $this->model->update_password($password, $id);
             }
         }
+    }
+    public function mysettingpage()
+    {
+        session_start();
+        $id=$_SESSION['user_id'];
+        $this->model->getcustomer_details($id);
+        // include("./views/servicehistory.php");
     }
 }

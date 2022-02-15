@@ -62,19 +62,23 @@ class BookserviceController
                 $pet = $_POST['haveapat'];
             }
 
-
-
+            $Service=(float)$_POST['range'];
+            $ExtraHours=(Float)$Service - 3;
+            $TotalCost=(Float)$Service*25;
+            $ServiceHours=$Service - $ExtraHours;
+            $Subtotal=  $ServiceHours + $ExtraHours;
+           
             $data = array(
                 'UserId' => $_SESSION['user_id'],
                 'ServiceId' => mt_rand(100000, 999999),
                 'ServiceStartDate' => $_POST['date'],
                 'ZipCode' => $_COOKIE['pincode'],
-                'ServiceHourlyRate' => mt_rand(100, 999),
-                'ServiceHours' => mt_rand(10, 20),
-                'ExtraHours' => mt_rand(10, 20),
-                'SubTotal' => mt_rand(100, 999),
-                'Discount' => mt_rand(10, 20),
-                'TotalCost' => mt_rand(100, 999),
+                'ServiceHourlyRate' => 25,
+                'ServiceHours' => $ServiceHours,
+                'ExtraHours' => $ExtraHours,
+                'SubTotal' => $Subtotal,
+                'Discount' => 0,
+                'TotalCost' => $TotalCost,
                 'Comments' => $comment,
                 'HasPets' => $pet,
                 'CreatedDate' => date('d-m-y h:i:s'),
