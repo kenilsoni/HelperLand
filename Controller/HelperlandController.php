@@ -37,8 +37,9 @@ class HelperlandController
         include("./views/become_provider.php");
     }
     public function service_historypage()
-    {
+    {    
         include("./views/servicehistory.php");
+
     }
     public function logout()
     {
@@ -113,7 +114,7 @@ class HelperlandController
                     } else {
                         if($UserTypeId==1){
                             echo "<script>alert('Please check the data');
-                            window.location.href = '?function=createaccountpage'; </script>";
+                            window.location.href = '?function=createaccountpage'; </scriptgetdetail>";
                         }elseif($UserTypeId==2){
                             echo "<script>alert('Please check the data');
                             window.location.href = '?function=become_providerpage; </script>";
@@ -216,11 +217,5 @@ class HelperlandController
             }
         }
     }
-    public function mysettingpage()
-    {
-        session_start();
-        $id=$_SESSION['user_id'];
-        $this->model->getcustomer_details($id);
-        // include("./views/servicehistory.php");
-    }
+   
 }

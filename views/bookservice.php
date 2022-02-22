@@ -11,6 +11,7 @@
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 
 <body>
@@ -93,7 +94,7 @@
 									<div class="date-input ">
 
 										<label class="datelbl">
-											<input type="date" name="date" class="date" value="<?php echo date('Y-m-d'); ?>" />
+											<input type="date" name="date" class="date" value="<?php echo date('Y-m-d'); ?>" id="datepicker"/>
 										</label>
 									</div>
 									<div class="labl">
@@ -491,35 +492,42 @@
 									</div>
 									<h4>Duration</h4>
 
-									<p style="display: flex;justify-content: space-between;">Basic <span style="text-align: right;">3 Hrs 30 Mins &nbsp;</span< /p>
-											<p>Extra Services</p>
-											<div class="duration">
+									<h4>Duration</h4>
+
+<p style="display: flex;justify-content: space-between;">Basic <span style="text-align: right;">3 Hrs  &nbsp;</span</p>
+		<p>Extra Services</p>
+		<div class="duration">
+			<div class="duration1"></div>
+			<div class="duration2"></div>
+			<div class="duration3"></div>
+			<div class="duration4"></div>
+			<div class="duration5"></div>
 
 
-											</div>
-											<div class="cover">
-												<div class="totalhour">
-													<span><strong>Total Service Time</strong></span>
-													<span><strong>3.5 Hrs</strong></span>
-												</div>
-											</div>
-											<div class="cover">
-												<div class="pay-list">
-													<p>Per cleaning <span>Discount</span></p>
-													<p style="text-align: right">
-														<strong>$87</strong><span><strong>-$27</strong></span>
-													</p>
-												</div>
-											</div>
-											<div class="pay-list totalPay">
-												<p>
-													<span style="color: #1d7a8c; font-size: 20px; padding-bottom: 11px">Total Payment</span>
-													<span>Effective Price</span>
-												</p>
-												<p style="text-align: right">
-													<strong style="color: #1d7a8c; font-size: 42px">$63</strong><span><strong>$50.4</strong></span>
-												</p>
-											</div>
+		</div>
+		<div class="cover">
+			<div class="totalhour">
+				<span><strong>Total Service Time</strong></span>
+				<span><strong class="hourval">3.0 Hrs</strong></span>
+			</div>
+		</div>
+		<div class="cover">
+			<div class="pay-list">
+				<p>Per cleaning </p>
+				<p style="text-align: right">
+					<strong class="total_cost">$75</strong><span></span>
+				</p>
+			</div>
+		</div>
+		<div class="pay-list totalPay">
+			<p>
+				<span style="color: #1d7a8c; font-size: 20px; padding-bottom: 11px">Total Payment</span>
+				<span>Effective Price</span>
+			</p>
+			<p style="text-align: right">
+				<strong style="color: #1d7a8c; font-size: 42px" class="total_cost">$75</strong><span><strong class="total_cost">$75</strong></span>
+			</p>
+		</div>
 											<p class="condition">
 												<span style="color: red">*</span>You will save 20% according to
 												§35a EStG.
