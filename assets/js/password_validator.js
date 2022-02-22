@@ -42,9 +42,9 @@ $('#signup-form').validate({
         var id_attr = "#" + $(element).attr("id") + "1";
         $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
         $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
-        $('.form-group').css('margin-bottom', '5px');
-        $('.form').css('padding', '30px 40px');
-        $('.tab-group').css('margin', '0 0 25px 0');
+        // $('.form-group').css('margin-bottom', '5px');
+        // $('.form').css('padding', '30px 40px');
+        // $('.tab-group').css('margin', '0 0 25px 0');
         $('.help-block').css('display', '');
     },
     unhighlight: function (element) {

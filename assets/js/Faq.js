@@ -2,13 +2,19 @@
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
 var popoverList = popoverTriggerList.map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
 
-const tgle_nav = document.querySelector(".tgle_class");
-const navmenu = document.querySelector(".navmenu");
+// const tgle_nav = document.querySelector(".tgle_class");
+// const navmenu = document.querySelector(".navmenu");
 
-tgle_nav.addEventListener("click", () => {
-	tgle_nav.classList.toggle("open");
-	navmenu.classList.toggle("open");
-});
+// tgle_nav.addEventListener("click", () => {
+// 	tgle_nav.classList.toggle("open");
+// 	navmenu.classList.toggle("open");
+// });
+
+var navMenu = document.querySelector(".fullPage");
+var fullPageHidden = document.querySelector(".fullPageHidden");
+var navbarHamburger = document.querySelector(".navSm .tgle_class");
+navbarHamburger.addEventListener("click", () => navMenu.classList.add("open"));
+fullPageHidden.addEventListener("click", () => navMenu.classList.remove("open"));
 
 
 // Select Button forCustomer
