@@ -183,7 +183,7 @@ class Helperland
                 $id = $users['UserId'];
             }
             require "vendor/autoload.php";
-            $email = new \SendGrid\Mail\Mail("hide due to security reason");
+            $email = new \SendGrid\Mail\Mail();
             $email->setFrom("comicbykenil@gmail.com", "HelperLand");
             $email->setSubject("Forgot Password");
             $email->addTo($emailid);
@@ -192,7 +192,7 @@ class Helperland
                 "<h1> Please click on the given link to forgot your password </h1><br><a href='http://localhost/helperland/1st_submission/?controller=Helperland&function=forgotpassword_page&Parameter=$id'>Please Click Here to Forgot Password</a>"
 
             );
-            $sendgrid = new \SendGrid("");
+            $sendgrid = new \SendGrid("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");
             if ($sendgrid->send($email)) {
                 $_SESSION['sendmail'] = 1;
                 echo "<script>
@@ -224,4 +224,103 @@ class Helperland
             window.location.href='?controller=Helperland'</script>";
         }
     }
+    public function getcustomer_details($id){
+        $sql1="select FirstName,LastName,Email,Mobile,LanguageId,DateOfBirth from user where UserId=?";
+        $stmt1 = $this->conn->prepare($sql1);
+        $stmt1->execute([$id]);
+        $user1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+        if($user1){
+          echo  json_encode($user1);
+        }  
+        else{
+            echo 0;
+        }
+
+    }
+    public function getcustomer_address($id){
+        $sql2="select AddressId,AddressLine1,AddressLine2,City,PostalCode,Mobile from useraddress where UserId=?";
+        $stmt2 = $this->conn->prepare($sql2);
+        $stmt2->execute([$id]);
+        $user2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        if($user2){
+           echo json_encode($user2);
+
+        }
+        else{
+            echo 0;
+        }
+    }
+    public function update_address($data){
+        $sql="UPDATE useraddress SET AddressLine1=:AddressLine1,AddressLine2=:AddressLine2,City=:City,PostalCode=:PostalCode,Mobile=:Mobile where AddressId=:AddressId ";
+        $stmt= $this->conn->prepare($sql);
+        $success=$stmt->execute($data);
+        if($success){
+            echo 1;
+
+        }else{
+            echo 0;
+        }
+    
+    }
+    public function update_details($data){
+        $sql="UPDATE user SET FirstName=:FirstName,LastName=:LastName,Mobile=:Mobile,LanguageId=:LanguageId,DateOfBirth=:DateOfBirth where UserId=:UserId";
+        $stmt= $this->conn->prepare($sql);
+        $success=$stmt->execute($data);
+        if($success){
+            echo 1;
+
+        }else{
+            echo 0;
+        }
+    
+    }
+    public function check_password($oldpassword,$newpassword,$id){
+        $sql="select Password from user where Password=?";
+        $stmt= $this->conn->prepare($sql);
+        $stmt->execute([$oldpassword]);
+        $success = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($success){
+            $sql = "UPDATE user SET Password=? where UserId=?";
+            $stmt = $this->conn->prepare($sql);
+            $user = $stmt->execute([$newpassword,$id]);
+            if($user){
+                echo 1;
+            }
+        }
+        else{
+            echo 0;
+        }
+
+
+    }
+    public function addaddress($data){
+        $sql="INSERT INTO useraddress ( `AddressLine1`, `AddressLine2`, `City`,  `PostalCode`,`Mobile`,`UserId`) VALUES (:AddressLine1, :AddressLine2, :City,  :PostalCode, :Mobile,:UserId)";
+        $stmt = $this->conn->prepare($sql);
+        $user = $stmt->execute($data);
+        if($user){
+            echo 1;
+        }
+        else{
+            echo 0;
+        }
+    
+    
+    
+    }
+    public function delete_address($id){
+        $sql="DELETE FROM `useraddress` WHERE AddressId=?";
+        $stmt = $this->conn->prepare($sql);
+        $user = $stmt->execute([$id]);
+        if($user){
+            echo 1;
+        }else{
+            echo 0;
+        }
+
+    }
+
+
+
+
+
 }
