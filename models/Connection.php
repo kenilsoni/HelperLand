@@ -192,7 +192,7 @@ class Helperland
                 "<h1> Please click on the given link to forgot your password </h1><br><a href='http://localhost/helperland/1st_submission/?controller=Helperland&function=forgotpassword_page&Parameter=$id'>Please Click Here to Forgot Password</a>"
 
             );
-            $sendgrid = new \SendGrid("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");
+            $sendgrid = new \SendGrid("hide");
             if ($sendgrid->send($email)) {
                 $_SESSION['sendmail'] = 1;
                 echo "<script>
