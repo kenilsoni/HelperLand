@@ -23,7 +23,7 @@ window.addEventListener("resize", () => {
 	verticalNavbar.style.minHeight = `${window.innerHeight - document.querySelector("nav").clientHeight - document.querySelector("heading") - 60}px`;
 });
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 10; i++) {
 	tbody.innerHTML += `<tr>
 					<td class="serviceId">${Math.floor(Math.random() * 3000 * i)}</td>
 					<td>
@@ -89,3 +89,131 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
 		return b - a;
 	},
 });
+$(document).on("click",".mysetting_btn",function(){
+$(".mysetting").show();
+$("#tab2").hide();
+$("#tab1").show();
+$("#btn1").css('border-bottom','3px solid #1d7a8c');
+$("#btn2").css('border-bottom','3px solid #e1e1e1');
+$('.dashboard_btn,.newservice_btn,.upcomingservice_btn,.schedule_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
+$(".dashboard,.upcoming_service,.newservicereq,.service_schedule,.service_history,.my_ratings,.block_customer").hide();
+});
+$(document).on("click","#btn2",function(){
+	$("#btn2").css('border-bottom','3px solid #1d7a8c');
+$("#btn1").css('border-bottom','3px solid #e1e1e1');
+	$("#tab1").hide();
+	$("#tab2").show();
+});
+$(document).on("click","#btn1",function(){
+	$("#btn1").css('border-bottom','3px solid #1d7a8c');
+$("#btn2").css('border-bottom','3px solid #e1e1e1');
+	$("#tab2").hide();
+	$("#tab1").show();
+});
+
+$(document).on("click", "#female_logo", function () {
+	if ($(this).prop("checked") == true) {
+		$(".first").css({
+			"border": "2px solid #1D7A8C",
+			"border-radius": "50%"
+		});
+		$(".avatar_main").attr("src","./assets/Images/avatar-female.png");
+		$(".second,.third,.four,.five,.six").css("border","none");
+	}
+})
+$(document).on("click", "#car_logo", function () {
+	if ($(this).prop("checked") == true) {
+		$(".second").css({
+			"border": "2px solid #1D7A8C",
+			"border-radius": "50%"
+		});
+		$(".avatar_main").attr("src","./assets/Images/avatar-car.png");
+		$(".first,.third,.four,.five,.six").css("border","none");
+	}
+})
+$(document).on("click", "#hat_logo", function () {
+	if ($(this).prop("checked") == true) {
+		$(".third").css({
+			"border": "2px solid #1D7A8C",
+			"border-radius": "50%"
+		});
+		$(".avatar_main").attr("src","./assets/Images/avatar-hat.png");
+		$(".first,.second,.four,.five,.six").css("border","none");
+	}
+})
+$(document).on("click", "#iron_logo", function () {
+	if ($(this).prop("checked") == true) {
+		$(".four").css({
+			"border": "2px solid #1D7A8C",
+			"border-radius": "50%"
+		});
+		$(".avatar_main").attr("src","./assets/Images/avatar-iron.png");
+		$(".first,.second,.third,.five,.six").css("border","none");
+	}
+})
+$(document).on("click", "#male_logo", function () {
+	if ($(this).prop("checked") == true) {
+		$(".five").css({
+			"border": "2px solid #1D7A8C",
+			"border-radius": "50%"
+		});
+		$(".avatar_main").attr("src","./assets/Images/avatar-male.png");
+		$(".first,.second,.third,.four,.six").css("border","none");
+	}
+})
+$(document).on("click", "#ship_logo", function () {
+	if ($(this).prop("checked") == true) {
+		$(".six").css({
+			"border": "2px solid #1D7A8C",
+			"border-radius": "50%"
+		});
+		$(".avatar_main").attr("src","./assets/Images/avatar-ship.png");
+		$(".first,.second,.third,.four,.five").css("border","none");
+	}
+})
+
+$(document).on("click",".dashboard_btn",function(){
+	$(".mysetting,.upcoming_service,.newservicereq,.service_schedule,.service_history,.my_ratings,.block_customer").hide();
+	$(".dashboard").show();
+	$('.dashboard_btn').css('background','#146371');
+	$('.newservice_btn,.upcomingservice_btn,.schedule_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
+
+});
+$(document).on("click",".newservice_btn",function(){
+	$('.newservice_btn').css('background','#146371');
+	$(".newservicereq").show();
+	$(".mysetting,.upcoming_service,.dashboard,.service_schedule,.service_history,.my_ratings,.block_customer").hide();
+	$('.dashboard_btn,.upcomingservice_btn,.schedule_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
+})
+$(document).on("click",".schedule_btn",function(){
+	$('.schedule_btn').css('background','#146371');
+	$(".service_schedule").show();
+	$(".mysetting,.upcoming_service,.dashboard,.newservicereq,.service_history,.my_ratings,.block_customer").hide();
+	$('.dashboard_btn,.upcomingservice_btn,.newservice_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
+})
+$(document).on("click",".shistory_btn",function(){
+	$('.shistory_btn').css('background','#146371');
+	$(".service_history").show();
+	$(".mysetting,.upcoming_service,.dashboard,.newservicereq,.service_schedule,.my_ratings,.block_customer").hide();
+	$('.dashboard_btn,.upcomingservice_btn,.newservice_btn,.schedule_btn,.blockcust_btn,.ratings_btn').css('background','none');
+})
+$(document).on("click",".ratings_btn",function(){
+	$('.ratings_btn').css('background','#146371');
+	$(".my_ratings").show();
+	$(".mysetting,.upcoming_service,.dashboard,.newservicereq,.service_schedule,.service_history,.block_customer").hide();
+	$('.dashboard_btn,.upcomingservice_btn,.newservice_btn,.schedule_btn,.blockcust_btn,.shistory_btn').css('background','none');
+})
+$(document).on("click",".blockcust_btn",function(){
+	$('.blockcust_btn').css('background','#146371');
+	$(".block_customer").show();
+	$(".mysetting,.upcoming_service,.dashboard,.newservicereq,.service_schedule,.service_history,.my_ratings").hide();
+	$('.dashboard_btn,.upcomingservice_btn,.newservice_btn,.schedule_btn,.ratings_btn,.shistory_btn').css('background','none');
+})
+
+$(document).on("click",".upcomingservice_btn",function(){
+	$('.upcomingservice_btn').css('background','#146371');
+	$(".upcoming_service").show();
+	$(".mysetting,.block_customer,.dashboard,.newservicereq,.service_schedule,.service_history,.my_ratings").hide();
+	$('.dashboard_btn,.blockcust_btn,.newservice_btn,.schedule_btn,.ratings_btn,.shistory_btn').css('background','none');
+})
+

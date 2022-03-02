@@ -453,7 +453,117 @@ footer hr {
 .tooltip-arrow::before {
 	border-top-color: #fff !important;
 }
+/* mysetting */
+.random:hover{
+	color: #1D7A8C;
+   
+  }
+  .mysetting{
+	display: none;
+}
+select {
+    width: auto;
+   
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+.Reschedule{
+    width: 100px;
+    font-size: 16px;
+    background-color: #146371;
+    color: white;
+    border-radius: 17px;
+    padding: 5px 10px;
+    box-shadow: none;
+    border: none;
+    margin-top: 10px;
+}
 
+.columnAvatar {
+    float: left;
+    cursor: pointer;
+    padding: 5px;
+}
+.columnAvatar .avatar {
+    height: 85px;
+    border-radius: 85px;
+}
+.avatar:hover{
+    border:2px solid #1d7a8c;
+}
+#btn1{
+	border-bottom: 3px solid #e1e1e1;
+	padding: 10px;
+
+}
+#btn1:hover{
+	border-bottom:3px solid #1d7a8c ;
+}
+#btn2{
+	border-bottom: 3px solid #e1e1e1;
+	padding: 10px;
+	
+}
+#btn2:hover{
+	border-bottom:3px solid #1d7a8c ;
+}
+#tab1{
+	padding: 9px 15px 12px;
+}
+/* new */
+.basic_detail{
+	display: flex;
+    justify-content: space-between;
+}
+.avtar_user{
+	position: absolute;
+    right: 5%;
+    top: 10%;
+
+}
+.dashboard{
+	display: none;
+}
+.newservicereq{
+	display: none;
+}
+.service_schedule{
+	display: none;
+}
+.service_history{
+	display: none;
+}
+.my_ratings{
+	display: none;
+}
+.block_customer{
+	display: none;
+}
+.userInfoItem{
+	cursor: pointer;
+}
+input[type=radio].htmlcheckbox{
+	display: none;
+  }
+.columnAvatar label:before{
+	background-color: white;
+	color: white;
+	content: " ";
+	display: block;
+	border-radius: 50%;
+	border: 1px solid #1d7a8c;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 28px;
+	transition-duration: 0.4s;
+	transform: scale(0);
+  }
 @media screen and (max-width: 980px) {
 	div.text-sm-wrap {
 		white-space: normal !important;

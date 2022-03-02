@@ -96,7 +96,9 @@ input:disabled {
 #btn3:hover{
 	border-bottom:3px solid #1d7a8c ;
 }
-
+#DataTables_Table_0_length{
+	display: none;
+}
 .popover {
 	z-index: 2001;
 }
@@ -239,7 +241,13 @@ tbody tr {
 .status.completed {
 	background: #67b644;
 }
+.color_complete {
+	background: #1d7a8c !important;
+}
 
+.color_cancel {
+	background: #6da9b5 !important;
+}
 .status.cancelled {
 	background: #ff6b6b;
 }
@@ -286,7 +294,7 @@ table.dataTable thead .sorting {
 table.dataTable thead th,
 table.dataTable tbody td {
 	border: none !important;
-	padding: 16px 18px !important;
+	padding: 10px 10px !important;
 }
 
 .dataTables_wrapper .dataTables_paginate a.paginate_button.current,
@@ -332,11 +340,21 @@ table.dataTable tbody td {
 	justify-content: center;
 	transition: background 0.3s, color 0.3s;
 }
-
+#service_data_length{
+	display: none;
+}
 .dataTables_filter {
 	display: none;
 }
-
+.datetime{
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 10px;
+	margin-top:10px;
+}
+.datetime input{
+	padding: 6px;
+}
 div.dataTables_info {
 	padding-top: 15px !important;
 	padding-left: 8px !important;
@@ -396,8 +414,11 @@ div.dataTables_paginate {
 	z-index: 5000;
 }
 
-.rate::before {
+.rateactive::before {
 	content: "Rate this Service Provider";
+}
+.rateactive2::before {
+	content: "You can not rate this Service provider";
 }
 .cancel::before {
 	content: "Cancel this Service";
@@ -512,21 +533,91 @@ footer hr {
 .tooltip-arrow::before {
 	border-top-color: #fff !important;
 }
-/* @media screen and (max-width: 1100px) {
-	table.dataTable tbody tr {
+/* .sd_bdr{
+	padding: 10px;
+} */
+.clean{
+	border: 1px solid #9ba0a3;
+    border-radius: 66px;
+    padding: 10px;
+}
+#close {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 32px;
+	height: 32px;
+	opacity: 0.3;
+  }
+  #close:hover {
+	opacity: 1;
+  }
+  #close:before, #close:after {
+	position: absolute;
+	left: 15px;
+	content: ' ';
+	height: 28px;
+	width: 2px;
+	background-color: #333;
+  }
+  #close:before {
+	transform: rotate(45deg);
+  }
+  #close:after {
+	transform: rotate(-45deg);
+  }
+  
+	
+@media screen and (max-width: 1100px) {
+	.tableHead{
+		display: none;
+	}
+	#service_data tr {
 		display: flex;
 		flex-direction: column;
+		justify-content: flex-start;
 		border-radius: 7px;
 		margin: 15px 0;
 		border: 1px solid #a1a0a0 !important;
 		box-shadow: 3px 5px 5px 5px #c4c2c2;
-		padding: 25px;
+		padding: 10px;
 		gap: 10px;
 	}
-	table.dataTable tbody tr {
-		background-color: #fff;
+	#dashboard_data tr{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		border-radius: 7px;
+		margin: 15px 0;
+		border: 1px solid #a1a0a0 !important;
+		box-shadow: 3px 5px 5px 5px #c4c2c2;
+		padding: 10px;
+		gap: 10px;
 	}
-} */
+	.status{
+		display: block;
+    width: 87px;
+	text-align: center;
+	align-items: center;
+    border-radius: 50px;
+	}
+	.action{
+		display: flex !important;
+		flex-direction: column !important;
+		width: 112px !important;
+	
+		
+	}
+	td:nth-of-type(1):before { content: "Service Id"; font-weight: bold;}
+	td:nth-of-type(2):before { content: "Service Date"; font-weight: bold;}
+	td:nth-of-type(3):before { content: "Service Provider";font-weight: bold; }
+	td:nth-of-type(4):before { content: "Payment";font-weight: bold; }
+	td:nth-of-type(5):before { content: "Status"; font-weight: bold;}
+	/* {
+		border-bottom: 2px solid #a1a0a0 !important;
+
+	} */
+}
 @media screen and (max-width: 980px) {
 	div.text-sm-wrap {
 		white-space: normal !important;
@@ -548,9 +639,9 @@ footer hr {
 		margin-bottom: 10px;
 	}
 
-	table.dataTable tbody tr td:nth-child(1) {
+	/* table.dataTable tbody tr td:nth-child(1) {
 		padding-left: 35px !important;
-	}
+	} */
 }
 
 @media screen and (max-width: 767px) {
@@ -729,3 +820,48 @@ label{
   .implement{
 	color: #1D7A8C;
   }
+  /*Hidden class for adding and removing*/
+  .lds-dual-ring.hidden {
+	display: none;
+}
+
+/*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	
+	background: rgba(13, 13, 13, 0.4);
+	z-index: 9999999999999;
+	opacity: 1;
+	transition: all 0.5s;
+}
+
+/*Spinner Styles*/
+.lds-dual-ring {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+}
+.lds-dual-ring:after {
+	content: " ";
+	top:50%;
+	display: block;
+	width: 64px;
+	height: 64px;
+	margin: 20% auto;
+	border-radius: 50%;
+	border: 5px solid #fff;
+	border-color: #1d7a8c transparent #1d7a8c transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

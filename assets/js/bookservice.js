@@ -22,11 +22,12 @@ $(document).on("click", "#step4", function (e) {
 		},		
 		success: function (data) {
 			if (data == 1) {
-
+				console.log("yes");
 				window.location.href = '?controller=Helperland&function=HomePage';
 
 
 			} else if (data == 0) {
+				console.log("no00");
 				swal({
 					title: 'sorry!',
 					text: 'something went wrong',
