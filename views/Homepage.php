@@ -120,15 +120,7 @@ swal({
                     });
                 </script>
             <?php unset($_SESSION['booking']);
-            } elseif ($_SESSION['booking'] == 2) { ?>
-                <script>
-                    swal({
-                        title: "Good job!",
-                        text: "Your booking is successfully!",
-                        icon: "success",
-                    });
-                </script>
-        <?php unset($_SESSION['booking']);
+            
             }
         } ?>
         <?php if (isset($_SESSION['registration'])) {

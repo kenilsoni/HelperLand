@@ -48,7 +48,7 @@ if(!isset($_SESSION['user_name'])){
 						title="<div class='userInfoText'>Welcome,<br /><?php if (isset($_SESSION['user_name'])) {
 								echo $_SESSION['user_name'];
 							} ?></div>"
-						data-bs-content="<a class='d-block userInfoItem' href='#'>My Dashboard</a><a class='d-block userInfoItem' href='#'>My Settings</a><a class='d-block userInfoItem' href='?function=logout'>Logout</a>"
+						data-bs-content="<a class='d-block userInfoItem' href='#'>My Dashboard</a><a class='d-block userInfoItem mysetting_btn' >My Settings</a><a class='d-block userInfoItem' href='?function=logout'>Logout</a>"
 					>
 						<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36">
 							<path
@@ -114,16 +114,17 @@ if(!isset($_SESSION['user_name'])){
 		<div class="container position-relative d-flex align-items-start justify-content-center">
 			<div class="verticalNavbar d-none d-md-block">
 				<ul class="verticalNavItems p-0 m-0">
-					<li class="verticalNavItem">Dashboard</li>
-					<li class="verticalNavItem">New Service Request</li>
-					<li class="verticalNavItem active">Upcoming Services</li>
-					<li class="verticalNavItem">Service Schedule</li>
-					<li class="verticalNavItem">Service History</li>
-					<li class="verticalNavItem">My Ratings</li>
-					<li class="verticalNavItem">Block Customer</li>
+					<li class="verticalNavItem dashboard_btn" >Dashboard</li>
+					<li class="verticalNavItem newservice_btn">New Service Request</li>
+					<li class="verticalNavItem upcomingservice_btn active">Upcoming Services</li>
+					<li class="verticalNavItem schedule_btn">Service Schedule</li>
+					<li class="verticalNavItem shistory_btn">Service History</li>
+					<li class="verticalNavItem ratings_btn">My Ratings</li>
+					<li class="verticalNavItem blockcust_btn">Block Customer</li>
 				</ul>
 			</div>
 			<div class="serviceHistoryTableContainer">
+				<div class="upcoming_service">
 				<h2 class="tableHeader">Upcoming History</h2>
 				<table id="upcomingHistoryTable">
 					<thead>
@@ -137,7 +138,205 @@ if(!isset($_SESSION['user_name'])){
 					</thead>
 					<tbody></tbody>
 				</table>
+				</div>
+				<div class="dashboard"> 
+							
+				</div>
+				<div class="newservicereq"> 
+							
+				</div>
+				<div class="service_schedule"> 
+							
+				</div>
+				<div class="service_history"> 
+							
+				</div>
+				<div class="my_ratings"> 
+							
+				</div>
+				<div class="block_customer"> 
+							
+				</div>
+			<div class="mysetting">
+			<div class="row m-3 text-center" style="color:#646464 ; font-weight: bold;cursor: pointer;">
+					<div class="col random " id="btn1">My Detail</div>
+					<div class="col  random " id="btn2">Change Password</div>
+
 			</div>
+			<div id="tab2">
+			<form style="color:#646464 ; font-weight: bold;" id="signup-form" class="form-3">
+						<div class="form m-3">
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label for="inputEmail4">Old Password</label>
+									<input type="password" name="oldpassword" id="oldpass" class="form-control" placeholder="Old Password" required>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label for="inputEmail4">New Password</label>
+									<input type="password" name="password" class="form-control" id="password_reg" placeholder="New Password" required>
+									<span class="glyphicon form-control-feedback" id="password_reg1"></span>
+								</div>
+
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<label for="inputEmail4">Repeat Password</label>
+									<input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Repeat Password" disabled>
+									<span class="glyphicon form-control-feedback" id="confirmPassword1">
+								</div>
+
+							</div>
+
+
+						</div>
+						<button type="button" name="submit" id="update_password" style="background-color: #1D7A8C; margin-left:18px" class="btn rounded-pill text-white">Save</button>
+					</form>
+			</div>
+			<div id="tab1">
+			<p><b> Account Status : </b> Active </p>
+						<div class="basic_detail">
+                        <h6><b>Basic Details</b></h6>
+						<div class="avtar_user"><img class="avatar_main" src="./assets/Images/avatar-hat.png"></div>
+						</div>
+                        <hr class="w-75">
+                        <div class="row m-20 mb-3">
+                            <div class="col-sm-4 m-20">
+                                <div class="form-group">
+                                    <label>First name</label>
+                                    <input type="text" class="form-control" placeholder="FirstName">
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 m-20">
+                                <div class="form-group">
+                                    <label>Last name</label>
+                                    <input type="text" class="form-control" placeholder="LastName">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 m-20">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-20 mb-3">
+                            <div class="col-sm-4 m-20">
+                                <label>Mobile Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">+91</span>
+                                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="Username" aria-describedby="basic-addon1">
+                                  </div>
+                            </div>
+                            <div class="col-sm-4 m-20">
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 m-20 ">
+                                <div class="form-group">
+                                    <label>Nationality</label>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>German</option>
+                                        <option value="1">American</option>
+                                        <option value="2">Indian</option>
+                                        <option value="3">Canadian</option>
+                                      </select>
+                                </div>
+                            </div>
+                        </div>
+                        <label> Gender </label>
+                        <div class="row mb-3 ">
+                        <div class="form-check col" style="margin-left:20px;">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                            <label class="form-check-label" for="exampleRadios1">
+                              Male
+                            </label>
+                        </div>
+                        <div class="form-check col">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Female
+                            </label>
+                        </div>
+                        <div class="form-check col">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                            <label class="form-check-label" for="exampleRadios3">
+                              Rather not to say
+                            </label>
+                        </div>
+                        </div>
+                        <label> Select Avatar</label>
+                        
+                        <div class="form-group row">
+                            <div class="columnAvatar col ">
+							<input type="radio" name="radio_btn" id="female_logo" class="htmlcheckbox" value="1">
+                               <label for="female_logo"> <img class="avatar first " src="./assets/Images/avatar-female.png"></label>
+                            </div>
+                            <div class="columnAvatar col ">
+							<input type="radio" name="radio_btn" id="car_logo" class="htmlcheckbox" value="2">
+                               <label for="car_logo"><img class="avatar second" src="./assets/Images/avatar-car.png"></label> 
+                            </div>
+                            <div class="columnAvatar col ">
+							<input type="radio" name="radio_btn" id="hat_logo" class="htmlcheckbox" value="3" >
+								<label for="hat_logo"> <img class="avatar third " src="./assets/Images/avatar-hat.png"></label> 
+                            </div>
+                            <div class="columnAvatar col ">
+							<input type="radio" name="radio_btn" id="iron_logo" class="htmlcheckbox" value="4">
+								<label for="iron_logo"> <img class="avatar four " src="./assets/Images/avatar-iron.png"></label> 
+                            </div>
+                            <div class="columnAvatar col ">
+							<input type="radio" name="radio_btn" id="male_logo" class="htmlcheckbox" value="5">
+								<label for="male_logo"><img class="avatar five " src="./assets/Images/avatar-male.png"></label> 
+                            </div>
+                            <div class="columnAvatar col ">
+							<input type="radio" name="radio_btn" id="ship_logo" class="htmlcheckbox" value="6">
+							   <label for="ship_logo"><img class="avatar six " src="./assets/Images/avatar-ship.png"></label> 
+                            </div>
+                        </div>
+                    </select>
+                        
+                        <h6 style="margin-top:10px;"><b>My Address</b></h6>
+                        <hr>
+                        <div class="row m-20">
+                            <div class="col-sm-4 m-20 mb-3">
+                                <div class="form-group">
+                                    <label>Street Name</label>
+                                    <input type="text" class="form-control" placeholder="StreetName">
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4 m-20">
+                                <div class="form-group">
+                                    <label>House Number</label>
+                                    <input type="text" class="form-control" placeholder="HouseNumber">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 m-20">
+                                <div class="form-group">
+                                    <label>Postal code</label>
+                                    <input type="email" class="form-control" placeholder="Postal Code">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="email" class="form-control" placeholder="City">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="m-20">
+                            <button class="Reschedule"> Save </button>
+                        </div>
+			</div>
+			</div>
+		</div>
 		</div>
 		<footer>
 			<div class="footerMain d-flex align-items-center justify-content-between">

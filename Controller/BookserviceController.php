@@ -67,11 +67,13 @@ class BookserviceController
             $TotalCost=(Float)$Service*25;
             $ServiceHours=$Service - $ExtraHours;
             $Subtotal=  $ServiceHours + $ExtraHours;
-           
+            $date=$_POST['date'];
+            $time=$_POST['time'];
+            $combinedDT = date('Y-m-d H:i:s', strtotime("$date $time"));
             $data = array(
                 'UserId' => $_SESSION['user_id'],
                 'ServiceId' => mt_rand(100000, 999999),
-                'ServiceStartDate' => $_POST['date'],
+                'ServiceStartDate' =>$combinedDT ,
                 'ZipCode' => $_COOKIE['pincode'],
                 'ServiceHourlyRate' => 25,
                 'ServiceHours' => $ServiceHours,
@@ -82,6 +84,7 @@ class BookserviceController
                 'Comments' => $comment,
                 'HasPets' => $pet,
                 'CreatedDate' => date('d-m-y h:i:s'),
+                'Status'=>2
             );
 
             $_SESSION['data'] = $data;
@@ -95,6 +98,7 @@ class BookserviceController
     {
         // sleep(1);
         if (isset($_POST['address1'])) {
+            session_start();
             $string = $this->test_input($_POST['address1']);
             $array = explode(' ', $string);
 
@@ -103,16 +107,17 @@ class BookserviceController
             $city= $array[2];
             $postal= $array[3];
             $phone = $array[4];
-
+            
             $data = array(
                 'AddressLine1' => $address1,
                 'AddressLine2' => $address2,
                 'City' => $city,
                 'PostalCode' => $postal,
-                'Mobile' => $phone
+                'Mobile' => $phone,
+              
             );
 
-            session_start();
+          
             $_SESSION['address'] = $data;
             echo 1;
         } else {

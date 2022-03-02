@@ -23,7 +23,10 @@ if (!isset($_SESSION['user_name'])) {
 </head>
 
 <body>
-
+	<div id="loader" class="lds-dual-ring hidden overlay" style="
+    width: 100vw;
+    height: 100vh;
+"></div>
 	<nav class="d-none d-md-flex align-items-center justify-content-between text-white">
 		<div class="logoDiv">
 			<a class="d-block" href="?function=Homepage">
@@ -109,7 +112,7 @@ if (!isset($_SESSION['user_name'])) {
 		<div class="serviceHistoryTableContainer" id="demo">
 
 
-	
+
 			<div class="mysetting">
 				<div class="row m-3 text-center" style="color:#646464 ; font-weight: bold;cursor: pointer;">
 					<div class="col random " id="btn1">My Detail</div>
@@ -118,55 +121,55 @@ if (!isset($_SESSION['user_name'])) {
 
 				</div>
 				<div style="color:#646464 ; font-weight: bold;" id="tab1">
-				<form id='form-1' class='form m-3'>
-                <div class='row mb-3'>
-                    <div class='col-md-4'>
-                        <label for='inputEmail4'>First Name</label>
-                         
-                            
-                        <input type='text' class='form-control' placeholder='First name'  id='fname' name='fname' >
-                    </div>
-                    <div class='col-md-4'>
-                        <label for='inputEmail4'>Last Name</label>
-                        <input type='text' class='form-control' placeholder='Last name' id='lname' name='lname'>
-                    </div>
+					<form id='form-1' class='form m-3'>
+						<div class='row mb-3'>
+							<div class='col-md-4'>
+								<label for='inputEmail4'>First Name</label>
 
-                    <div class='col-md-4'>
-                        <label for='inputEmail4'>Email address</label>
-                        <input type='email' class='form-control' name='email' id='email' placeholder='Email'  disabled>
-                    </div>
-                </div>
-                <div class='row mb-3 '>
 
-                    <div class='col-md-4'>
-                        <label for='inputEmail4'>Mobile Number</label>
-                        <input type='text' class='form-control' name='mobile' id='mobile_2' placeholder='Mobile Number'  >
+								<input type='text' class='form-control' placeholder='First name' id='fname' name='fname'>
+							</div>
+							<div class='col-md-4'>
+								<label for='inputEmail4'>Last Name</label>
+								<input type='text' class='form-control' placeholder='Last name' id='lname' name='lname'>
+							</div>
 
-                    </div>
-                    <div class='col-md-4'>
-                        <label for='inputEmail4'>Date Of Birth</label>
-                        <input type='date' class='form-control' name='bday' id='birthdate'  >
-                        
-                    </div>
-                    <span class='line'></span>
-                    
-                </div>
-                <div class='row'>
-                
-                    <div class='col-md-4 mb-3 '>
-                        <label for='inputEmail4'>My Preffered Language</label><br />
-                        <select class='form-select' aria-label='Default select example'id="language" name='language'>
-                            <option value='1' >English</option>
-                            <option value='2'>Hindi</option>
-                            <option value='3'>Gujarati</option>
-                            <option value='4'>Tamil</option>
-                        </select>
+							<div class='col-md-4'>
+								<label for='inputEmail4'>Email address</label>
+								<input type='email' class='form-control' name='email' id='email' placeholder='Email' disabled>
+							</div>
+						</div>
+						<div class='row mb-3 '>
 
-                    </div>
-                </div>
+							<div class='col-md-4'>
+								<label for='inputEmail4'>Mobile Number</label>
+								<input type='text' class='form-control' name='mobile' id='mobile_2' placeholder='Mobile Number'>
 
-                    <button type='button' style='background-color: #1D7A8C;' class='btn rounded-pill text-white' id='update_detail'>Save</button>
-                </form>
+							</div>
+							<div class='col-md-4'>
+								<label for='inputEmail4'>Date Of Birth</label>
+								<input type='date' class='form-control' name='bday' id='birthdate'>
+
+							</div>
+							<span class='line'></span>
+
+						</div>
+						<div class='row'>
+
+							<div class='col-md-4 mb-3 '>
+								<label for='inputEmail4'>My Preffered Language</label><br />
+								<select class='form-select' aria-label='Default select example' id="language" name='language'>
+									<option value='1'>English</option>
+									<option value='2'>Hindi</option>
+									<option value='3'>Gujarati</option>
+									<option value='4'>Tamil</option>
+								</select>
+
+							</div>
+						</div>
+
+						<button type='button' style='background-color: #1D7A8C;' class='btn rounded-pill text-white' id='update_detail'>Save</button>
+					</form>
 				</div>
 
 				<div id="tab3">
@@ -203,9 +206,9 @@ if (!isset($_SESSION['user_name'])) {
 
 				</div>
 				<div id="tab2">
-					<table class="table text-center">
+					<table class="table text-center address_table">
 						<thead>
-							<tr  class="align-middle">
+							<tr class="align-middle">
 								<th scope="col">Billing Addresses</th>
 								<th scope="col">Address</th>
 								<th scope="col">Action</th>
@@ -213,7 +216,7 @@ if (!isset($_SESSION['user_name'])) {
 							</tr>
 						</thead>
 						<tbody id="update_modal">
-																											
+
 
 
 						</tbody>
@@ -223,7 +226,7 @@ if (!isset($_SESSION['user_name'])) {
 								<div class="modal-content">
 									<div class="modal-header">
 										<h5 class="modal-title" id="exampleModalLabel">Update address</h5>
-										<span type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
+										<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
 									</div>
 									<div class="modal-body">
 
@@ -278,9 +281,9 @@ if (!isset($_SESSION['user_name'])) {
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel">Add new address</h5>
-									
-          							<span type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
-     
+
+									<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
+
 								</div>
 								<div class="modal-body">
 									<form id="form-4">
@@ -319,7 +322,7 @@ if (!isset($_SESSION['user_name'])) {
 											</div>
 											<div class="modal-footer">
 
-												<button type="button" class="btn btn-primary w-100" id="add_address"  data-dismiss="modal" >Add address</button>
+												<button type="button" class="btn btn-primary w-100" id="add_address" data-dismiss="modal">Add address</button>
 											</div>
 
 										</div>
@@ -337,10 +340,11 @@ if (!isset($_SESSION['user_name'])) {
 			<div class="service_history">
 				<h2 class="tableHeader">Service History</h2>
 
-				<table class="serviceHistoryTable" id="service_data">
-					<thead>
+				<table class="serviceHistoryTable2" id="service_data">
+					<thead class="tableHead text-center">
 						<tr>
-							<th>Service Details</th>
+							<th>Service Id</th>
+							<th>Service Date</th>
 							<th>Service Provider</th>
 							<th>Payment</th>
 							<th>Status</th>
@@ -351,46 +355,181 @@ if (!isset($_SESSION['user_name'])) {
 				</table>
 			</div>
 
-			<div class="dashboard" style="width: 100%;">
+			<div class="dashboard">
 
 				<!-- <h2 class="tableHeader">Service History</h2> -->
-				<table class="serviceHistoryTable">
-					<thead>
+				<table class="serviceHistoryTable" id="dashboard_data">
+					<thead class="tableHead text-center">
 						<tr>
-							<th>Service ID</th>
+							<th style="width:70px;">Service Id</th>
 							<th>Service Date</th>
 							<th>Service Provider</th>
 							<th>Payment</th>
 							<th>Action</th>
 						</tr>
 					</thead>
-					<tbody id="dashboard_data"></tbody>
+					<tbody>
+						<!-- Modal for reshedule -->
+						<div class="modal fade" id="reshedule" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index:55555;">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Reshedule Service Request</h5>
+										<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
+									</div>
+									<div class="modal-body">
+										<div>
+											<div class="text-center">Select new date & time</div>
+											<div class="datetime">
+												<form id="reschedule">
+													<input type="hidden" name="serviceid" class="service_id" />
+													<input type="date" name="date" id="dates" />
+
+													<input type="time" name="time" id="times" />
+												</form>
+											</div>
+										</div>
+										<div class="modal-footer justify-content-center">
+
+											<button type="button" class="btn btn-primary w-100" data-dismiss="modal" id="reschedule_btn" style="border-radius:50px">Reshedule</button>
+										</div>
+									</div>
+								</div>
+							</div>
+					</tbody>
+
+
 				</table>
 
 			</div>
+			<!-- Modal for cancel servicd -->
+			<div class="modal fade" id="cancel_service" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index:55555;">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content p-3">
 
-			<div class="favourite">
+						<h5 class="modal-title mb-2" id="exampleModalLabel">Cancel Service Request</h5>
+						<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
 
-				<div class="row ">
-					<div class="card m-2" style="width: 18rem;">
-						<div class="card-body">
-							<div class="fav-img" style="text-align: center;">
-								<img src="./assets/Images/serviceProviderProfileImage.svg" />
-							</div>
-							<p class="card-text text-center" style="font-weight: bold;">Kavan Patel<br><span><img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-								</span></p>
-							<p class="card-text text-center">1 Cleanings</p>
-							<div class="text-center d-flex justify-content-around">
-								<a href="#" class="btn remove">Remove</a>
-								<a href="#" class="btn block">Block</a>
-							</div>
+						<div class="modal-data">
+							<input type="hidden" id="delete_key" />
+							<form>
+								<div class="form-group mb-2">
+									<label class="control-label mb-1">Why do you want to cancel your booking?</label>
+
+									<textarea class="form-control cancel_comment" maxlength="500" rows="3"></textarea>
+
+								</div>
+							</form>
+						</div>
+						<div class="justify-content-center">
+
+							<button type="button" class="btn btn-primary w-100" data-dismiss="modal" id="cancel_btn" style="border-radius:50px">Cancel now</button>
 						</div>
 					</div>
-					<div class="card m-2" style="width: 18rem;">
+				</div>
+			</div>
+			<!-- Modal for Rating-->
+			<div class="modal fade" id="rating" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:99999;">
+				<div class="modal-dialog modal-dialog-centered" role="document" style="color:#737381;">
+
+					<div class="modal-content">
+						<div class="modal-header">
+							<div class="d-flex w-50 justify-content-around">
+								<div>
+									<img class="w-100 h-75 mt-3 clean" src="./assets/Images/serviceProviderProfileImage.svg" class="" />
+								</div>
+								<div class="mt-3">
+									<form id="update-rating">
+										<span class="text-center spname">&nbsp;&nbsp;</span><br>
+										<div class="starval"></div>
+
+
+										<input type="hidden" class="serviceid_rate" name="sid" />
+										<input type="hidden" class="spid_rate" name="SPid" />
+
+								</div>
+							</div>
+
+							<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
+						</div>
+						<div class="modal-body">
+							<h3>Rate your service provider</h3>
+							<hr>
+							<div class="d-flex align-items-center">
+								<strong>OnTime Arrival&nbsp;</strong>
+								<input type="hidden" class="ontime" name="ontime" />
+								<div class="rateyo part1" data-rateyo-rating="1" data-rateyo-num-stars="5"></div>
+
+
+
+							</div><br>
+							<div class="d-flex align-items-center"><strong>Friendly&nbsp;</strong>
+								<input type="hidden" class="friendly" name="friendly" />
+								<div class="rateyo part2" data-rateyo-rating="1" data-rateyo-num-stars="5"></div>
+							</div><br>
+							<div class="d-flex align-items-center"><strong>Quality Of Service&nbsp;</strong>
+								<input type="hidden" class="qos" name="qos" />
+								<div class="rateyo part3" data-rateyo-rating="1" data-rateyo-num-stars="5"></div>
+							</div><br>
+							<span>Feddback On Service Provider</span><br>
+							<textarea class="w-100" name="comment"></textarea>
+						</div>
+						</form>
+						<div class="modal-footer d-flex justify-content-start ">
+							<button type="button" class="btn btn-primary rounded-pill" data-dismiss="modal" id="update_rating">Save changes</button>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- Modal for service detail -->
+			<div class="modal fade" id="servicedetail_btn" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index: 555555;">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Service Details</h5><br>
+							<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
+
+
+						</div>
+						<div class="modal-body">
+							<div class="sd_bdr">
+								<strong>Date and time:&nbsp;</strong><span class="date_time"></span><br>
+								<strong>Duration:&nbsp;</strong><span class="duration"></span>
+								<hr>
+							</div>
+							<div class="sd_bdr"><strong>Service id:&nbsp;</strong><span class="service_id"></span><br>
+								<strong>Extras:&nbsp;</strong><span class="extra_service"></span><br>
+								<strong>Net amount:&nbsp;</strong><span class="net_amount"></span>
+								<hr>
+							</div>
+							<div class="sd_bdr">
+								<strong>Service Address:&nbsp;</strong><span class="service_address"></span><br>
+								<strong>Billing Address:&nbsp;</strong>Same as cleaning address<br>
+								<strong>Phone:&nbsp;</strong><span class="service_mobile"></span><br>
+								<strong>Email:&nbsp;</strong><span class="service_email"></span>
+								<hr>
+							</div>
+							<div class="sd_bdr">
+								<strong>Comments:&nbsp;</strong><span class="service_comment"></span>
+								<p class="service_pet"></p>
+								<hr>
+							</div>
+						</div>
+						<div class="modal-footer justify-content-start" style="border:none;">
+							<button data-dismiss="modal" class="re_id dateandtime position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" data-toggle="modal" data-target="#reshedule">Reshedule</button>
+							<button data-dismiss="modal" class="cancel position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" data-toggle="modal" data-target="#cancel" id="cancel_service">Cancel</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="favourite">
+
+				<div class="row fav_data">
+
+					<!-- <div class="card m-2" style="width: 18rem;">
 						<div class="card-body">
 							<div class="fav-img" style="text-align: center;">
 								<img src="./assets/Images/serviceProviderProfileImage.svg" />
@@ -408,7 +547,7 @@ if (!isset($_SESSION['user_name'])) {
 							</div>
 						</div>
 
-					</div>
+					</div> -->
 
 
 				</div>
@@ -466,13 +605,34 @@ if (!isset($_SESSION['user_name'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <script src="./assets/js/password_validator.js"></script>
 
 <script src="./assets/js/servicehistory.js"></script>
-<?php if(isset($_GET['id'])){if($_GET['id']==2){echo
+<?php if (isset($_GET['id'])) {
+	if ($_GET['id'] == 1) {
+		echo "<script>
+	
+	$('.favourite').hide();
+		$('.mysetting').hide();
+		$('.service_history').hide();
+		$('.dashboard').show();
+		$('.dbtn').css('background','#146371');
+		$('.sbtn').removeClass('active');
+		$('.fbtn').css('background','none');
+		$('.servicebtn').css('background','none');
+		
+	
+	
+	</script>";
+	}
+} ?>
+<?php if (isset($_GET['id'])) {
+	if ($_GET['id'] == 2) {
+		echo
 
-	 "<script>
+		"<script>
 	 $('.service_history').hide();
 	 $('.dashboard').hide();
 	 $('.favourite').hide();
@@ -526,9 +686,9 @@ if (!isset($_SESSION['user_name'])) {
 	 $('.verticalNavItem').removeClass('active');
 
 	 </script>";
-	 
-	 }}	 
-	 ?>
+	}
+}
+?>
 
 
 </html>
