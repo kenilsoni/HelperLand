@@ -49,7 +49,7 @@
         <label class="form-label">New Password</label><br>
         <input type="text" class="form-control" name="password" id="password_reg" placeholder="Password" required>
         <span class="glyphicon form-control-feedback" id="password_reg1"></span>
-        <input type="hidden" value="<?php if(isset($_GET['parameter'])){ echo $_GET['parameter'];}?>" name="id">
+        <input type="hidden" value="<?php if(isset($_GET['Parameter'])){ echo $_GET['Parameter'];}?>" name="id">
       </div>
     </div>
     <div class="row justify-content-center">

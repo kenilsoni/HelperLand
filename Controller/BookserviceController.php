@@ -83,13 +83,15 @@ class BookserviceController
                 'TotalCost' => $TotalCost,
                 'Comments' => $comment,
                 'HasPets' => $pet,
-                'CreatedDate' => date('d-m-y h:i:s'),
-                'Status'=>2
+                // 'CreatedDate' => date('d-m-y h:i:s'),
+                'Status'=>2,
+                'ServiceProviderId'=>''
             );
 
             $_SESSION['data'] = $data;
             $_SESSION['extraservice'] = $arr;
             $this->model->getaddress($_SESSION['user_id'],$_COOKIE['pincode']);
+            // $this->model->getfavprovider($_SESSION['user_id']);
         } else {
             echo 0;
         }
@@ -99,14 +101,23 @@ class BookserviceController
         // sleep(1);
         if (isset($_POST['address1'])) {
             session_start();
-            $string = $this->test_input($_POST['address1']);
-            $array = explode(' ', $string);
+        
+            if(isset($_POST['fav_id'])){
+            $favprovider=$_SESSION['data'];
+            $favprovider['ServiceProviderId']=$_POST['fav_id'];
 
+            $_SESSION['data']=$favprovider;
+            }
+   
+            $string = $this->test_input($_POST['address1']);
+            $array = explode(',', $string);
+      
             $address1 = $array[0];
             $address2 = $array[1];
             $city= $array[2];
             $postal= $array[3];
             $phone = $array[4];
+     
             
             $data = array(
                 'AddressLine1' => $address1,
@@ -114,12 +125,13 @@ class BookserviceController
                 'City' => $city,
                 'PostalCode' => $postal,
                 'Mobile' => $phone,
+                'Email'=>$_SESSION['email']
               
             );
-
+            
           
             $_SESSION['address'] = $data;
-            echo 1;
+           
         } else {
             echo 0;
         }

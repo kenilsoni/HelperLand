@@ -126,12 +126,11 @@
 	></script>
 	<script src="./assets/js/password_validator.js"></script>
 	<script>
-		const tgle_class = document.querySelector(".tgle_class");
-		const navmenu = document.querySelector(".navmenu");
-		tgle_class.addEventListener("click", () => {
-			tgle_class.classList.toggle("open");
-			navmenu.classList.toggle("open");
-		});
+	var navMenu = document.querySelector(".fullPage");
+var fullPageHidden = document.querySelector(".fullPageHidden");
+var navbarHamburger = document.querySelector(".navSm .tgle_class");
+navbarHamburger.addEventListener("click", () => navMenu.classList.add("open"));
+fullPageHidden.addEventListener("click", () => navMenu.classList.remove("open"));
 
 		
 	</script>

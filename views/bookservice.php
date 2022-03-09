@@ -186,39 +186,7 @@
 						<label for="Address">
 							Enter your details, so we can serve you in better way!
 						</label>
-						<?php if (isset($_SESSION['addressdata'])) {
-							$data = $_SESSION['addressdata'];
-
-							foreach ($data as $users) {
-						?>
-								<div class="address-check-box1">
-									<span><input type="radio" class="radiobtn" name="address1" value="<?php
-
-
-																										echo $users['AddressLine1'] . ' ' . $users['AddressLine2'] . ' ' . $users['City'] . ' ' . $users['PostalCode'] . ' ' . $users['Mobile'];
-																										?>"></span>
-									<span>
-										<p><strong>Address: </strong>
-											<?php
-
-											echo $users['AddressLine1'] . ' ' . $users['AddressLine2'] . ' ' . $users['City'] . ' ' . $users['PostalCode'];
-
-
-											?> </p>
-										<p><strong>Phone number: </strong>
-											<?php
-
-
-
-											echo $users['Mobile'];
-
-
-											?></p>
-									</span>
-
-								</div>
-						<?php }
-						} ?>
+						<div class="box1"></div>
 						<div class="box">
 
 						</div>
@@ -288,11 +256,7 @@
 								Your can choose your favourite service provider from the below list
 							</label>
 							<div class="favourite-worker">
-								<div style="text-align: center; width:20%;">
-									<img class="favourite-worker-img" src="./assets/Images/cap.png" alt="cap">
-									<p class="mb-2">Sandip Patel</p>
-									<button class="btn btn-outline-secondary" type="button">Select</button>
-								</div>
+								
 							</div>
 
 						</div>

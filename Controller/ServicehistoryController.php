@@ -218,4 +218,61 @@ class ServicehistoryController
             echo 0;
         }
     }
+    public function update_fav_provider()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            session_start();
+            $id = $_SESSION['user_id'];
+            $spid=$_POST['spid'];
+            $this->model->update_fav_provider($id,$spid);
+        } else {
+            echo 0;
+        }
+    }
+    public function add_fav_provider()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            session_start();
+            $id = $_SESSION['user_id'];
+            $spid=$_POST['spid'];
+            $this->model->add_fav_provider($id,$spid);
+        } else {
+            echo 0;
+        }
+    }
+    public function getfp_detail()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            session_start();
+            $id = $_SESSION['user_id'];
+          
+            $this->model->getfp_detail($id);
+        } else {
+            echo 0;
+        }
+    }
+    public function  addblock_fav_provider()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            session_start();
+            $id = $_SESSION['user_id'];
+            $spid=$_POST['spid'];
+            $this->model-> addblock_fav_provider($id,$spid);
+        } else {
+            echo 0;
+        }
+    }
+    public function  removeblock_fav_provider()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            session_start();
+            $id = $_SESSION['user_id'];
+            $spid=$_POST['spid'];
+            $this->model->  removeblock_fav_provider($id,$spid);
+        } else {
+            echo 0;
+        }
+    }
+   
+    
 }

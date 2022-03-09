@@ -435,8 +435,8 @@ if (!isset($_SESSION['user_name'])) {
 					<div class="modal-content">
 						<div class="modal-header">
 							<div class="d-flex w-50 justify-content-around">
-								<div>
-									<img class="w-100 h-75 mt-3 clean" src="./assets/Images/serviceProviderProfileImage.svg" class="" />
+								<div class="w-25">
+									<img class="w-100 h-75 mt-3 clean" src="" />
 								</div>
 								<div class="mt-3">
 									<form id="update-rating">
