@@ -662,7 +662,7 @@ footer hr {
   .favourite-worker-img{
 	border:solid 1px #C8C8C8;
 	border-radius: 60px;
-	padding:20px;
+
 	width:71px;
 	height:71px;
 	background-color:#f1f1f1;
@@ -729,6 +729,11 @@ footer hr {
   
   #address-list form label{
 	font-weight: bold;
+	cursor: pointer;
+  }
+  #address-list form label:hover{
+	  background-color: #4f4f4f;
+	  color:white;
   }
   
   .address-check-box{
@@ -1286,7 +1291,18 @@ footer hr {
 	text-align: left;
 	font-size:16px;
   }
-  
+  .select{
+	  padding: 10px;
+	  border: 1px solid #4f4f4f;
+	  width: 5rem;
+  }
+  input[type="radio"][name="fav_id"]{
+	  display: none;
+  }
+  input[type="radio"][name="fav_id"]:checked + label{
+  background-color:#4f4f4f ; 
+  color:white;
+ }
   /* newsetter */
   
   #newuser {
@@ -1328,6 +1344,9 @@ footer hr {
 	  display: block;
 	  text-align: center;
 	  padding: 5px;
+	}
+	.favourite-worker{
+		flex-direction: column !important;
 	}
   }
   

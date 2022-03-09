@@ -115,6 +115,7 @@ nav {
 .serviceHistoryTableContainer {
 	flex: 1;
 	min-width: 0;
+	color: #646464;
 }
 
 .dataTables_wrapper {
@@ -189,13 +190,16 @@ tbody tr {
 	font-weight: normal;
 }
 
+		
 .cancel {
-	font-size: 16px;
-	color: #fff;
-	padding: 10px 16px 12px;
-	background: #ff6b6b;
-	border: none;
-	outline: none;
+	background-color: #ff6b6b;
+		color: white;
+		padding: 10px;
+		border: none;
+		outline: none;
+		margin: 10px;
+		height: 35px;
+		width: 85px;
 }
 
 .status {
@@ -480,7 +484,10 @@ select {
     border: none;
     margin-top: 10px;
 }
-
+.columnAvatar input[type="radio"]:checked + label{
+	border: 2px solid #1D7A8C;
+	border-radius: 50%;
+  }
 .columnAvatar {
     float: left;
     cursor: pointer;
@@ -489,6 +496,7 @@ select {
 .columnAvatar .avatar {
     height: 85px;
     border-radius: 85px;
+	cursor: pointer;
 }
 .avatar:hover{
     border:2px solid #1d7a8c;
@@ -512,7 +520,138 @@ select {
 #tab1{
 	padding: 9px 15px 12px;
 }
+
+
 /* new */
+#thead{
+    display: none;
+}
+table.dataTable.no-footer {
+     border-bottom: 1px solid #e1e1e1; 
+}
+
+#mytable4 p{
+    margin:0;
+}
+
+#mytable4{
+    border-collapse: separate !important;
+    border-spacing:  0 14px !important;
+    border: 0;
+    padding: 3px;
+}
+
+#mytable4 tr{
+    outline: 1px solid #e1e1e1;
+    border-radius: 4px;
+}
+
+#mytable4 td{
+    float: left;
+    padding: 15px 25px !important;
+}
+
+#mytable4 td:nth-child(3){
+    float: right;
+}
+
+#mytable4 td:last-child{
+    border-top: 1px solid #e1e1e1 !important;
+    display: block;
+    width: 95%;
+    margin: 0 2.5%;
+    padding-left: 0 !important;
+}
+
+@media screen and (max-width: 600px) {
+
+    #mytable4 td{
+        float: none!important;
+        display: block;
+    }
+}
+#ratingTable_length{
+display: none;
+}
+#servicehistoryTable_length{
+	display: none;
+}
+.filter_pet{
+	font-size: 20px;
+	color:#646464;
+}
+.accept_modal{
+	background-color:#67b644;
+	color: white;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    height: 35px;
+    width: 85px;
+}
+.cancel_modal{
+	background-color:#ff6b6b;
+	color: white;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    height: 35px;
+    width: 85px;
+}
+.complete_modal{
+	background-color:#1D7A8C;
+	color: white;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    height: 35px;
+    width: 100px;
+}
+#upcomingHistoryTable_length{
+	display: none;
+}
+#close {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 32px;
+	height: 32px;
+	opacity: 0.3;
+  }
+  #close:hover {
+	opacity: 1;
+  }
+  #close:before, #close:after {
+	position: absolute;
+	left: 15px;
+	content: ' ';
+	height: 28px;
+	width: 2px;
+	background-color: #333;
+  }
+  #close:before {
+	transform: rotate(45deg);
+  }
+  #close:after {
+	transform: rotate(-45deg);
+  }
+  
+.accept{
+	background: #1d7a8c;
+    color: white;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    height: 35px;
+    width: 85px;
+}
+#newServiceTable_length{
+display: none;
+}
 .basic_detail{
 	display: flex;
     justify-content: space-between;
@@ -521,6 +660,7 @@ select {
 	position: absolute;
     right: 5%;
     top: 10%;
+	cursor: pointer;
 
 }
 .dashboard{
@@ -697,6 +837,9 @@ input[type=radio].htmlcheckbox{
 }
 
 @media screen and (max-width: 576px) {
+	.avtar_user{
+		top:7% !important
+	}
 	.footerMain {
 		flex-direction: column !important;
 	}
@@ -707,5 +850,49 @@ input[type=radio].htmlcheckbox{
 
 	.footerMenu {
 		margin: 15px 0;
+	}
+}
+ /*Hidden class for adding and removing*/
+ .lds-dual-ring.hidden {
+	display: none;
+}
+
+/*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	
+	background: rgba(13, 13, 13, 0.4);
+	z-index: 9999999999999;
+	opacity: 1;
+	transition: all 0.5s;
+}
+/*Spinner Styles*/
+.lds-dual-ring {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+}
+.lds-dual-ring:after {
+	content: " ";
+	top:50%;
+	display: block;
+	width: 64px;
+	height: 64px;
+	margin: 20% auto;
+	border-radius: 50%;
+	border: 5px solid #fff;
+	border-color: #1d7a8c transparent #1d7a8c transparent;
+	animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

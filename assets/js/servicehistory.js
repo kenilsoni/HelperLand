@@ -153,8 +153,8 @@ $(document).ready(function () {
 				else if (data == 0) {
 					swal({
 						title: 'sorry!! ',
-						text: 'something went wrong!!',
-						icon: 'error',
+						text: 'Address list is empty!!',
+						icon: 'warning',
 					});
 				}
 			},
@@ -416,7 +416,7 @@ $(document).ready(function () {
 						var date = currentDate.getDate();
 						var month = currentDate.getMonth();
 						var year = currentDate.getFullYear();
-						var dateString = year + "-" + ("0" + (month + 1)).slice(-2) + "-" + date;
+						var dateString = year + "-" + ("0" + (month + 1)).slice(-2) + "-" + ("0" + date).slice(-2);
 						$("#fname").val(obj[i].FirstName);
 						$("#lname").val(obj[i].LastName);
 						$("#email").val(obj[i].Email);
@@ -517,6 +517,9 @@ $(document).ready(function () {
 					myTable.clear().draw();
 					for (var i = 0; i < len; i++) {
 
+					
+						
+
 						let d = new Date(obj[i].ServiceStartDate);
 						let subtotal = obj[i].ServiceHours;
 						let hour = ("0" + d.getHours()).slice(-2);
@@ -526,9 +529,11 @@ $(document).ready(function () {
 						var date = d.getDate();
 						var month = d.getMonth();
 						var year = d.getFullYear();
-						var dateString = date + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
+						var dateString = ("0" + (date)).slice(-2) + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
 
-						myTable.row.add($(`<tr>
+						if (obj[i].ServiceProviderId == null) {
+
+							myTable.row.add($(`<tr>
 											<td>
 											<div class="tdHead d-flex align-items-center justify-content-start">
 											<input type="hidden" class="serviceid" name="serviceid" value="${obj[i].ServiceRequestId}"/>
@@ -546,7 +551,7 @@ $(document).ready(function () {
 														<span class="timing">${time}</span>
 													</td>
 													<td><div class="serviceProvider d-flex align-items-center justify-content-start">
-													
+													 
 													<div class="serviceProviderInfo">
 														
 													</div>
@@ -558,6 +563,59 @@ $(document).ready(function () {
 													<button class="cancel position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" data-toggle="modal" data-target="#cancel_service" id="cancel_servicereq">Cancel</button>
 													</td>
 												</tr>`)).draw();
+						}
+						else {
+							var avg1 = Number(obj[i][0].AverageRating);
+						var avg = avg1.toFixed(2);
+						// var name = obj[i][0].Fullname;
+						let star = Math.round(avg);
+						let remainning = 5 - star;
+						var starfilled = "";
+						var starfilled1 = "";
+						for (let i = 0; i < star; i++) {
+							starfilled += '<img src="./assets/Images/starFilled.svg"/>';
+	
+						}
+						for (let i = 0; i < remainning; i++) {
+							starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
+						}
+							myTable.row.add($(`<tr>
+												<td>
+												<div class="tdHead d-flex align-items-center justify-content-start">
+												<input type="hidden" class="serviceid" name="serviceid" value="${obj[i].ServiceRequestId}"/>
+												<h5 class="service-id">${obj[i].ServiceId}</h5>
+											</div>
+								
+												
+														</td>
+														<td>
+													<div class="tdHead service_detail d-flex align-items-center justify-content-start" style="width:7rem;"  type="button" data-toggle="modal" data-target="#servicedetail_btn" >
+													<img src="./assets/Images/calender.png" />
+															<h5 class="datenew">${dateString}</h5>
+														</div>
+														<img src="./assets/Images/clock.png" />
+														<span class="timing">${time}</span>
+													</td>
+														<td ><div class="serviceProvider d-flex align-items-center justify-content-start">
+								<img class="rounded-circle" src="./assets/Images/${obj[i].UserProfilePicture}.png" />
+								<div class="serviceProviderInfo">
+									<div class="serviceProviderName" >${obj[i].FullName}</div>
+									<div class="feedback d-flex align-items-center justify-content-center">
+									${starfilled}${starfilled1}
+									 ${avg}
+									</div>
+								</div>
+							</div></td>
+														
+														
+													<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i].TotalCost}</span></td>
+	
+														<td class="action d-flex justify-content-around">
+														<button class="re_id dateandtime position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" data-toggle="modal" data-target="#reshedule">Reshedule</button>
+														<button class="cancel position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" data-toggle="modal" data-target="#cancel_service" id="cancel_servicereq">Cancel</button>
+														</td>
+													</tr>`)).draw();
+						}
 
 
 					}
@@ -626,7 +684,7 @@ $(document).ready(function () {
 						if (obj[i].ServiceProviderId != null) {
 							var avg1 = Number(obj[i][0].AverageRating);
 							var avg = avg1.toFixed(2);
-							var name = obj[i][0].Fullname;
+							
 							let star = Math.round(avg);
 							let remainning = 5 - star;
 							var starfilled = "";
@@ -637,6 +695,17 @@ $(document).ready(function () {
 							}
 							for (let i = 0; i < remainning; i++) {
 								starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
+							}
+
+							if(obj[i][1] != undefined){
+								var classadd="disabled";
+								var color2 = "color_cancel";
+								var tooltip = "rateactive2";
+							}
+							else{
+								var classadd="";
+								var color2 = "color_complete";
+								var tooltip = "rateactive";
 							}
 
 							myTable.row.add($(`<tr>
@@ -657,9 +726,9 @@ $(document).ready(function () {
 				
 								</td>
 								<td ><div class="serviceProvider d-flex align-items-center justify-content-start">
-								<img class="rounded-circle" src="./assets/Images/serviceProviderProfileImage.svg" />
+								<img class="rounded-circle" src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
 								<div class="serviceProviderInfo">
-									<div class="serviceProviderName" >${name}</div>
+									<div class="serviceProviderName" >${obj[i][0].Fullname}</div>
 									<div class="feedback d-flex align-items-center justify-content-center">
 									${starfilled}${starfilled1}
 									 ${avg}
@@ -669,7 +738,7 @@ $(document).ready(function () {
 						
 								<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i].TotalCost}</span></td>
 								<td ><span class='status ${obj[i].Status == 3 ? "cancelled'>Cancelled" : "completed'>Completed"}</span></td>
-								<td><button class=" ${color} ${tooltip} rate position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap"data-toggle="modal" data-target="#rating"${disabled}>Rate SP</button></td>
+								<td><button class=" ${color2} ${tooltip} rate position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap"data-toggle="modal" data-target="#rating"${classadd}>Rate SP</button></td>
 							</tr>`)).draw();
 						}
 						else {
@@ -739,28 +808,22 @@ $(document).ready(function () {
 		let serviceid = $(this).closest('tr').find(".serviceid").val();
 		let spid = $(this).closest('tr').find(".spid").val();
 		let starhtml = $(this).closest('tr').find(".feedback").html();
+		let imgsrc = $(this).closest('tr').find(".rounded-circle").attr('src');
+      
 
 		$(".serviceid_rate").val(serviceid);
 		$(".spid_rate").val(spid);
 		$(".spname").text(name);
 		$(".starval").html(starhtml);
+		$(".clean").attr("src",imgsrc);
 
-		// $(".avgrate").attr("data-rating",rating1);
-		// $(".rateyo").each(function (e) {
+		
 		$(".avgrate").rateYo({
 			readOnly: true,
 			rating: rating1
 
 		})
-		// });
-		// console.log(rating1);
-		// $(function () {
-		// 	$(".avgrate").rateYo().on("rateyo.change", function (e, data) {
-		// 		// rating:rating1
-
-		// 	  $(".ontime").val(rating1);
-		// 	 });
-		// 	});
+		
 	})
 	$(document).on("click", "#update_rating", function () {
 		$.ajax({
@@ -961,6 +1024,84 @@ $(document).ready(function () {
 		})
 
 	})
+	function getfp_detail(){
+		$.ajax({
+			type: "GET",
+			url: "?controller=Servicehistory&function=fav_provider",
+			datatype: "json",
+
+			success: function (data) {
+				obj = JSON.parse(data);
+				// console.log(obj[2][2]==undefined);
+				
+				if (typeof obj === "object") {
+					var len = obj.length;
+					$(".fav_data").html("");
+
+					// console.log(obj[i][2].);
+					for (var i = 0; i < len; i++) {
+						    var avg1 = Number(obj[i][1].AverageRating);
+							var avg = avg1.toFixed(2);
+							let star = Math.round(avg);
+							let remainning = 5 - star;
+							var starfilled = "";
+							var starfilled1 = "";
+							for (let i = 0; i < star; i++) {
+								starfilled += '<img src="./assets/Images/starFilled.svg"/>';
+
+							}
+							for (let i = 0; i < remainning; i++) {
+								starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
+							}
+							
+						if(obj[i][2]==undefined){
+							$(".fav_data").append(`<div class="card m-2" style="width: 16rem;">
+							<div class="card-body">
+								
+								<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
+								<div class="fav-img" style="text-align: center;">
+									<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
+								</div>
+								<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
+									${starfilled}${starfilled1} ${avg}
+									</span></p>
+								<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
+								<div class="text-center d-flex justify-content-around">
+								<button class="btn remove addfp_btn ">Favorite</button>
+							    <button class="btn block addblockfp_btn ">Block</button>
+								</div>
+							</div>
+						</div>`);
+						}else{
+							$(".fav_data").append(`<div class="card m-2" style="width: 16rem;">
+							<div class="card-body">
+								
+								<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
+								<div class="fav-img" style="text-align: center;">
+									<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
+								</div>
+								<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
+									${starfilled}${starfilled1} ${avg}
+									</span></p>
+								<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
+								<div class="text-center d-flex justify-content-around">
+								${obj[i][2].IsFavorite==1 ?	`<button class="btn remove removefp_btn ">Remove</button>`: `<button class="btn remove addfp_btn">Favorite</button>`}
+								${obj[i][2].IsBlocked==0  ?	`<button class="btn block addblockfp_btn ">Block</button>`: `<button class="btn block removeblockfp_btn">Unblock</button>`}
+									
+								</div>
+							</div>
+						</div>`);
+						}
+						
+					
+					}
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		});
+	}
 	$(document).on("click", ".favouritebtn", function () {
 		$(".mysetting").hide();
 		$('.favourite').show();
@@ -970,38 +1111,140 @@ $(document).ready(function () {
 		$('.dbtn').css('background', 'none');
 		$('.sbtn').css('background', 'none');
 		$('.verticalNavItem').removeClass('active');
+		getfp_detail();
+	
+	})
+	$(document).on("click",".removefp_btn",function(){
+		var spid=$(this).closest(".card-body").find(".spid_card").val();
 		$.ajax({
-			type: "GET",
-			url: "?controller=Servicehistory&function=fav_provider",
+			type: "POST",
+			url: "?controller=Servicehistory&function=update_fav_provider",
 			datatype: "json",
+			data:{spid:spid},
 
 			success: function (data) {
-				obj = JSON.parse(data);
-				if (typeof obj === "object") {
-					var len = obj.length;
-					$(".fav_data").html("");
-					for (var i = 0; i < len; i++) {
-						$(".fav_data").append(`<div class="card m-2" style="width: 18rem;">
-						<div class="card-body">
-							<div class="fav-img" style="text-align: center;">
-								<img src="./assets/Images/serviceProviderProfileImage.svg" />
-							</div>
-							<p class="card-text text-center" style="font-weight: bold;">${obj[i].FullName}<br><span><img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-								</span></p>
-							<p class="card-text text-center">1 Cleanings</p>
-							<div class="text-center d-flex justify-content-around">
-								<a href="#" class="btn remove">Remove</a>
-								<a href="#" class="btn block">Block</a>
-							</div>
-						</div>
-					</div>`);
-					}
+				if (data==1) {
+					
+					getfp_detail();
+					swal({
+						title: 'Great job!! ',
+						text: 'This Service Provider is Remove successfully!',
+						icon: 'success',
+					});
 				}
+				else if(data==0)
+				{
+					swal({
+						title: 'warning!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
 			}
-		});
+		})	
+	
+	})
+	$(document).on("click",".addfp_btn",function(){
+		var spid=$(this).closest(".card-body").find(".spid_card").val();
+		$.ajax({
+			type: "POST",
+			url: "?controller=Servicehistory&function=add_fav_provider",
+			datatype: "json",
+			data:{spid:spid},
+
+			success: function (data) {
+				if (data==1) {
+		
+					getfp_detail();
+					swal({
+						title: 'Great job!! ',
+						text: 'This Service Provider is add successfully!',
+						icon: 'success',
+					});
+				}
+				else if(data==0)
+				{
+					swal({
+						title: 'warning!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		})	
+	
+	})
+	$(document).on("click",".addblockfp_btn",function(){
+		var spid=$(this).closest(".card-body").find(".spid_card").val();
+		$.ajax({
+			type: "POST",
+			url: "?controller=Servicehistory&function=addblock_fav_provider",
+			datatype: "json",
+			data:{spid:spid},
+
+			success: function (data) {
+				if (data==1) {
+					
+					getfp_detail();
+					swal({
+						title: 'Great job!! ',
+						text: 'This Service Provider is Blocked successfully!',
+						icon: 'success',
+					});
+				}
+				else if(data==0)
+				{
+					swal({
+						title: 'warning!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		})	
+	
+	})
+	
+	$(document).on("click",".removeblockfp_btn",function(){
+		var spid=$(this).closest(".card-body").find(".spid_card").val();
+		$.ajax({
+			type: "POST",
+			url: "?controller=Servicehistory&function=removeblock_fav_provider",
+			datatype: "json",
+			data:{spid:spid},
+
+			success: function (data) {
+				if (data==1) {
+					
+					getfp_detail();
+					swal({
+						title: 'Great job!! ',
+						text: 'This Service Provider is Unblock successfully!',
+						icon: 'success',
+					});
+				}
+				else if(data==0)
+				{
+					swal({
+						title: 'warning!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		})	
+	
 	})
 });

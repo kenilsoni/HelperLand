@@ -17,6 +17,7 @@ $.validator.addMethod("pwcheck", function (value) {
 
 $('#signup-form').validate({
     rules: {
+        
         password: {
             minlength: 6,
             maxlength: 30,
@@ -65,3 +66,4 @@ $('#signup-form').validate({
     }
 
 });
+

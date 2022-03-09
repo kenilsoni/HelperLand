@@ -43,6 +43,7 @@ $(document).on("click", "#step4", function (e) {
 });
 
 $(document).on("click", "#step3", function (e) {
+
 	$.ajax({
 		type: "POST",
 		url: "?controller=Bookservice&function=customer_details",
@@ -132,11 +133,19 @@ $(document).on("click", "#step3", function (e) {
 		},
 
 	});
-
+	
 
 	e.preventDefault();
 });
 $(document).on("click", "#step2", function (e) {
+
+
+
+	var date=$(".date").val();
+	var time=$(".time").val();
+
+	if(time != "" && date != ""){
+		
 	$.ajax({
 		type: "POST",
 		url: "?controller=Bookservice&function=scheduleplan",
@@ -146,8 +155,13 @@ $(document).on("click", "#step2", function (e) {
 			$('#loader').removeClass('hidden')
 		},
 		success: function (data) {
+			
+			obj = JSON.parse(data);
+		
+			if (typeof obj === "object") {
+				var len = obj[0].length;
+				var len2 = obj[1].length;
 
-			if (data == 1) {
 
 				$("#first").hide();
 				$("#second").hide();
@@ -192,13 +206,13 @@ $(document).on("click", "#step2", function (e) {
 					$(".add-address-btn").show();
 				});
 				$(document).on("click", ".save-btn", function () {
-					$street = $(".street").val().replace(/\s/g, "").trim();
+					$street = $(".street").val().trim();
 
-					$house = $(".house").val().replace(/\s/g, "").trim();
+					$house = $(".house").val().trim();
 					$postal = $(".postal").val().replace(/\s/g, "").trim();
 					$city = $(".city").val().replace(/\s/g, "").trim();
 					$phone = $(".phone").val().replace(/\s/g, "").trim();
-					$(".box").append('<div class="address-check-box"><span><input type="radio" name="address1" value="' + $street + ' ' + $house + ' ' + $postal + ' ' + $city + ' ' + $phone + '" required></span><span><p><strong>Address</strong>:' + ' ' + $street + ' ' + $house + ' ' + $city + ' ' + $postal + '</p><p><strong>Phone number:</strong><a name="phone">' + ' ' + $phone + '</a></p></span>	</div>');
+					$(".box").append('<div class="address-check-box"><span><input type="radio" name="address1" value="' + $street + ',' + $house + ',' + $postal + ',' + $city + ',' + $phone + '" required></span><span><p><strong>Address</strong>:' + ' ' + $street + ' ' + $house + ' ' + $city + ' ' + $postal + '</p><p><strong>Phone number:</strong><a name="phone">' + ' ' + $phone + '</a></p></span>	</div>');
 					$(".add-address-box").hide();
 					$(".add-address-btn").show();
 
@@ -212,6 +226,48 @@ $(document).on("click", "#step2", function (e) {
 				$("#4").removeClass("add-color");
 				$("#img4").attr("src", "./assets/Images/payment.png");
 				$("#img2").attr("src", "./assets/Images/schedule-white.png");
+
+				$(".box1").html("");
+				for (var i = 0; i < len; i++) {
+
+					$(".box1").append(`
+					<div class="address-check-box1">
+					<span><input type="radio" class="radiobtn" name="address1" value="${obj[0][i].AddressLine1},${obj[0][i].AddressLine2},${obj[0][i].City},${obj[0][i].PostalCode},${obj[0][i].Mobile}">
+		</span>
+					<span>
+						<p><strong>Address: </strong>
+							
+							${obj[0][i].AddressLine1}  ${obj[0][i].AddressLine2}  ${obj[0][i].City}  ${obj[0][i].PostalCode}
+
+
+							 </p>
+						<p><strong>Phone number: </strong>
+							
+
+
+
+							 ${obj[0][i].Mobile}
+
+
+							</p>
+					</span>
+
+				</div>`);
+				}
+				$(".favourite-worker").html("");
+	
+				for (var i = 0; i < len2; i++) {
+				
+				$(".favourite-worker").append(`
+				
+				<div style="text-align: center; width:20%;">
+									<img class="favourite-worker-img" src="./assets/Images/${obj[1][i].UserProfilePicture}.png" alt="cap">
+									<p class="mb-2" class="fav_name">${obj[1][i].FullName}</p>
+									<input type="radio" name="fav_id" id="fff${i}" value="${obj[1][i].TargetUserId}" />	<label for="fff${i}" class="select rounded-pill">Select
+									</label></div>`);
+				}
+		
+
 			} else if (data == 0) {
 				swal({
 					title: "sorry!",
@@ -224,8 +280,15 @@ $(document).on("click", "#step2", function (e) {
 		},
 		complete: function () {
 			$('#loader').addClass('hidden')
-		},
-	});
+		}
+	})} else {
+		swal({
+			title: 'sorry!! ',
+			text: 'Please select date and time!!',
+			icon: 'error',
+		});
+	}	
+	
 	e.preventDefault();
 });
 $(document).on("click", ".pin-btn", function (e) {
