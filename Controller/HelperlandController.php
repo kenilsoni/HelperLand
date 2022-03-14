@@ -57,6 +57,7 @@ class HelperlandController
     {
         include("./views/forgotpassword.php");
     }
+   
     public function test_input($data)
     {
         $data = trim($data);

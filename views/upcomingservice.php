@@ -17,7 +17,9 @@ if (!isset($_SESSION['user_name'])) {
 	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/rg-1.1.4/datatables.min.css" />
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.css">
+
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 
@@ -259,7 +261,7 @@ if (!isset($_SESSION['user_name'])) {
 				</div>
 			</div>
 			<div class="service_schedule">
-
+			<div id='calendar'></div>
 			</div>
 			<div class="service_history">
 			  <table id="servicehistoryTable">
@@ -335,7 +337,16 @@ if (!isset($_SESSION['user_name'])) {
 				</table>
 			</div>
 			<div class="block_customer">
-
+			<table id="blockcust_table">
+					<thead class="d-none">
+						<tr class=" align-item-center">
+							<th>Service ID</th>
+							
+							
+						</tr>
+					</thead>
+					<tbody class="d-flex flex-wrap"></tbody>
+				</table>
 			</div>
 			<div class="mysetting">
 				<div class="row m-3 text-center" style="color:#646464 ; font-weight: bold;cursor: pointer;">
@@ -555,6 +566,8 @@ if (!isset($_SESSION['user_name'])) {
 		</div>
 	</footer>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.js"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

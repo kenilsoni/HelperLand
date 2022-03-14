@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href='./assets/css/Contact.css'/>
     <link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon">
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 	<?php include "Login_modal.php"; ?>
 	<?php if(isset($_SESSION['contact'])){if($_SESSION['contact']==1){?>
 							<script>
-							swal({
+							Swal.fire({
 								title: "Good job! ",
 								text: "Your query is send successfully!",
 								icon: "success",
@@ -29,7 +29,7 @@
 								</script>
 						<?php unset($_SESSION['contact']);}elseif($_SESSION['contact']==2){?>
 							<script>
-							swal({
+							Swal.fire({
 								title: "Sorry!",
 								text: "Something went wrong!",
 								icon: "error",
@@ -38,7 +38,7 @@
 					<?php	unset($_SESSION['contact']);} 
 					elseif($_SESSION['contact']==3){?>
 						<script>
-						swal({
+						Swal.fire({
 							title: "Sorry!",
 							text: "Please enter valid mobile number!",
 							icon: "error",
@@ -49,7 +49,7 @@
 					<?php unset($_SESSION['contact']);	}elseif($_SESSION['contact']==4){
 						?>
 						<script>
-						swal({
+						Swal.fire({
 							title: "Sorry!",
 							text: "Please enter valid name!",
 							icon: "error",
@@ -134,7 +134,7 @@
 						</div>
 					</div>
 					<div class="form-item col-12 col-sm-6">
-						<input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required/>
+						<input type="email" class="form-control" name="email" id="email1" placeholder="Email Address" required/>
 					</div>
 					<div class="form-item col-12">
 						<select class="form-select" aria-label="Subect" name="subject">

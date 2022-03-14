@@ -17,7 +17,7 @@ class BookserviceController
     {
 
         if (isset($_POST['pincode'])) {
-            // sleep(1); //temporary added to show preloader effect
+           
             $pincode = $this->test_input($_POST['pincode']);
             if ($pincode != '') {
                 $this->model->check_pincode($pincode);
@@ -30,7 +30,7 @@ class BookserviceController
     }
     public function scheduleplan()
     {
-        // sleep(1);
+       
 
         session_start();
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -74,7 +74,7 @@ class BookserviceController
                 'UserId' => $_SESSION['user_id'],
                 'ServiceId' => mt_rand(100000, 999999),
                 'ServiceStartDate' =>$combinedDT ,
-                'ZipCode' => $_COOKIE['pincode'],
+                'ZipCode' => $_SESSION['pincode'],
                 'ServiceHourlyRate' => 25,
                 'ServiceHours' => $ServiceHours,
                 'ExtraHours' => $ExtraHours,
@@ -83,30 +83,35 @@ class BookserviceController
                 'TotalCost' => $TotalCost,
                 'Comments' => $comment,
                 'HasPets' => $pet,
-                // 'CreatedDate' => date('d-m-y h:i:s'),
+                
                 'Status'=>2,
-                'ServiceProviderId'=>''
+                
             );
 
             $_SESSION['data'] = $data;
             $_SESSION['extraservice'] = $arr;
-            $this->model->getaddress($_SESSION['user_id'],$_COOKIE['pincode']);
-            // $this->model->getfavprovider($_SESSION['user_id']);
+            $this->model->getaddress($_SESSION['user_id'],$_SESSION['pincode']);
         } else {
             echo 0;
         }
     }
     public function customer_details()
     {
-        // sleep(1);
+        
+        
         if (isset($_POST['address1'])) {
             session_start();
-        
-            if(isset($_POST['fav_id'])){
             $favprovider=$_SESSION['data'];
+            
+            if(isset($_POST['fav_id'])){
+        
             $favprovider['ServiceProviderId']=$_POST['fav_id'];
 
             $_SESSION['data']=$favprovider;
+            }else{
+                $favprovider['ServiceProviderId']=NULL;
+
+                $_SESSION['data']=$favprovider;
             }
    
             $string = $this->test_input($_POST['address1']);
@@ -125,12 +130,14 @@ class BookserviceController
                 'City' => $city,
                 'PostalCode' => $postal,
                 'Mobile' => $phone,
-                'Email'=>$_SESSION['email']
+                'Email'=>$_SESSION['email'],
+                
               
             );
             
           
             $_SESSION['address'] = $data;
+            echo 1;
            
         } else {
             echo 0;
@@ -143,7 +150,6 @@ class BookserviceController
 
         if (isset($_POST['confirm'])) {
 
-            // sleep(1);
 
             $service_data = $_SESSION['data'];
             $address = $_SESSION['address'];

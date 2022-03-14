@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="./assets/css/bookservice.css" />
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -200,7 +200,7 @@
 										Street name
 									</label>
 									<br>
-									<input type="text" name="streetname" class="street" placeholder="Street name">
+									<input type="text" name="streetname" class="street" placeholder="Street name" required>
 								</div>
 								<div>
 									<label for="housename">
@@ -208,7 +208,7 @@
 									</label>
 									<br>
 
-									<input type="text" name="housename" class="house" placeholder="House name">
+									<input type="text" name="housename" class="house" placeholder="House name" required>
 								</div>
 							</div>
 							<div class="address-taker-box">
@@ -217,7 +217,7 @@
 										Postal code
 									</label>
 									<br>
-									<input type="text" name="postalcode" class="postal" placeholder="Postal code">
+									<input type="text" name="postalcode" class="postal" placeholder="Postal code" disabled>
 
 								</div>
 								<div>
@@ -225,7 +225,7 @@
 										City
 									</label>
 									<br>
-									<input type="text" name="city" class="city" placeholder="City">
+									<input type="text" name="city" class="city" placeholder="City" required>
 								</div>
 							</div>
 							<div class="address-taker-box tel">
@@ -283,7 +283,7 @@
 							</label>
 						</div>
 
-						<div style="text-align:right"><button class="continue" id="step4" name="submit">Continue</button></div>
+						<div style="text-align:right"><button class="continue" type="button" id="step4" name="submit">Continue</button></div>
 
 					</form>
 				</div>

@@ -15,7 +15,7 @@
 		<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 	</head>
 	<body>
 	<?php include "header-2.php"; ?>
@@ -25,7 +25,7 @@
 	<?php if (isset($_SESSION['registration'])) {
             if ($_SESSION['registration'] == 1) { ?>
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "Good job! ",
                         text: "Account created successfully!",
                         icon: "success",
@@ -34,7 +34,7 @@
             <?php unset($_SESSION['registration']);
             } elseif ($_SESSION['registration'] == 2) { ?>
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "Sorry! ",
                         text: "Something went wrong!",
                         icon: "error",
@@ -46,7 +46,7 @@
         } ?>
 		<?php if(isset($_SESSION['user'])){if($_SESSION['user']==1){?>
 							<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Email is already exist!",
 								icon: "warning",
@@ -54,7 +54,7 @@
 								</script>
 						<?php unset($_SESSION['user']); }elseif($_SESSION['user']==2){ ?>
 							<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Please enter valid mobile number!",
 								icon: "warning",
@@ -62,7 +62,7 @@
 								</script>
 								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==3){?>
 									<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Please enter valid name!",
 								icon: "warning",
@@ -70,7 +70,7 @@
 								</script>
 								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==4){?>
 									<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Please enter valid email!",
 								icon: "warning",

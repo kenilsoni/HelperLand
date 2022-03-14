@@ -17,7 +17,7 @@
 
 
     <link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="./assets/css/Homepage.css" />
 
 <body>
@@ -30,7 +30,7 @@
             if ($_SESSION['fpassword'] == 1) { ?>
 
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "Great Job",
                         text: "Password Updated",
                         icon: "success",
@@ -40,7 +40,7 @@
             } elseif ($_SESSION['fpassword'] == 2) { ?>
 
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "sorry!",
                         text: "something went wrong",
                         icon: "warning",
@@ -56,7 +56,7 @@
             if ($_SESSION['sendmail'] == 1) { ?>
 
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "Great Job",
                         text: "Send mail successfully",
                         icon: "success",
@@ -66,7 +66,7 @@
             } elseif ($_SESSION['sendmail'] == 2) { ?>
 
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "sorry!",
                         text: "something went wrong",
                         icon: "warning",
@@ -77,7 +77,7 @@
             } elseif ($_SESSION['sendmail'] == 3) { ?>
 
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "sorry!",
                         text: "Email is not exist in our record!",
                         icon: "warning",
@@ -90,7 +90,7 @@
 
 <?php if (isset($_SESSION['user_unset'])) { ?>
             <script>
-swal({
+Swal.fire({
 					title: "Login!! ",
 					text: "Please login first !",
 					icon: "warning",
@@ -102,7 +102,7 @@ swal({
 
         <?php if (isset($_SESSION['checkemail'])) { ?>
             <script>
-                swal({
+                Swal.fire({
                     title: "sorry!",
                     text: "Please check email or password!",
                     icon: "warning",
@@ -110,23 +110,26 @@ swal({
             </script>
         <?php unset($_SESSION['checkemail']);
         } ?>
-        <?php if (isset($_SESSION['booking'])) {
+        <?php if (isset($_SESSION['booking']) && isset($_SESSION['final_booking']) ) {
             if ($_SESSION['booking'] == 1) { ?>
+
                 <script>
-                    swal({
+  
+                    Swal.fire({ 
                         title: "Good job!",
-                        text: "Your booking is successfully!",
+                        html: 'Your booking is successfully!<br><br>Your Booking Id is <b><?php echo $_SESSION['final_booking'] ?></b>',
                         icon: "success",
                     });
                 </script>
-            <?php unset($_SESSION['booking']);
+            <?php unset($_SESSION['booking']); unset($_SESSION['final_booking']);
             
             }
         } ?>
+        
         <?php if (isset($_SESSION['registration'])) {
             if ($_SESSION['registration'] == 1) { ?>
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "Good job! ",
                         text: "Account created successfully!",
                         icon: "success",
@@ -135,7 +138,7 @@ swal({
             <?php unset($_SESSION['registration']);
             } elseif ($_SESSION['registration'] == 2) { ?>
                 <script>
-                    swal({
+                    Swal.fire({
                         title: "Sorry! ",
                         text: "Something went wrong!",
                         icon: "error",

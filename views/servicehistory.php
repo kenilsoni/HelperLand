@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_name'])) {
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/rg-1.1.4/datatables.min.css" />
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -383,6 +383,8 @@ if (!isset($_SESSION['user_name'])) {
 											<div class="datetime">
 												<form id="reschedule">
 													<input type="hidden" name="serviceid" class="service_id" />
+													<input type="hidden" name="spid" class="sp_id" />
+													<input type="hidden" name="serviceid_display" class="serviceid_display" />
 													<input type="date" name="date" id="dates" />
 
 													<input type="time" name="time" id="times" />
@@ -527,30 +529,22 @@ if (!isset($_SESSION['user_name'])) {
 			</div>
 			<div class="favourite">
 
-				<div class="row fav_data">
+				<!-- <div class="row fav_data"> -->
 
-					<!-- <div class="card m-2" style="width: 18rem;">
-						<div class="card-body">
-							<div class="fav-img" style="text-align: center;">
-								<img src="./assets/Images/serviceProviderProfileImage.svg" />
-							</div>
-							<p class="card-text text-center" style="font-weight: bold;">Sandip Patel<br><span><img src="./assets/Images/starFilled.svg" />
-									<img src="./assets/Images/starFilled.svg" />
-									<img src="./assets/Images/starFilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-									<img src="./assets/Images/starUnfilled.svg" />
-								</span></p>
-							<p class="card-text text-center">16 Cleanings</p>
-							<div class="text-center d-flex justify-content-around">
-								<a href="#" class="btn remove">Remove</a>
-								<a href="#" class="btn block">Block</a>
-							</div>
-						</div>
+				<table class="" id="fav_provider">
+					<thead class="d-none">
+						<tr>
+							<th>Service Id</th>
+							
+						</tr>
+					</thead>
+					<tbody class="d-flex flex-wrap"></tbody>
+				</table>
 
-					</div> -->
+					
 
 
-				</div>
+				<!-- </div> -->
 			</div>
 
 		</div>
@@ -672,7 +666,7 @@ if (!isset($_SESSION['user_name'])) {
 					 $('#tab2').hide();
 					 $('#tab3').hide();
 				 }else if(data==0){
-					 swal({
+					 Swal.fire({
 						 title: 'sorry!! ',
 						 text: 'something went wrong!!',
 						 icon: 'error',

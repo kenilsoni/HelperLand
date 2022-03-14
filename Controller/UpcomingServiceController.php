@@ -142,7 +142,40 @@ class UpcomingServiceController
         }
 
     }
+    public function getblockcustdata(){
+        if($_SERVER['REQUEST_METHOD']=="GET"){
+            session_start();
+            $id=$_SESSION['user_id'];
+            $this->model->getblockcust_data($id);
+        
+        }
+        else{
+            echo 0;
+        }
 
+    }
+    public function  addblock_customer()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            session_start();
+            $id = $_SESSION['user_id'];
+            $userid=$_POST['userid'];
+            $this->model-> addblock_fav_provider($id,$userid);
+        } else {
+            echo 0;
+        }
+    }
+    public function  removeblock_customer()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            session_start();
+            $id = $_SESSION['user_id'];
+            $userid=$_POST['userid'];
+            $this->model->  removeblock_fav_provider($id,$userid);
+        } else {
+            echo 0;
+        }
+    }
 
 }
 ?>

@@ -16,7 +16,7 @@
 		<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 
 	</head>
 	<body>
@@ -25,7 +25,7 @@
 			<?php include "Login_modal.php"; ?>  
 			<?php if(isset($_SESSION['user'])){if($_SESSION['user']==1){?>
 							<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Email is already exist!",
 								icon: "warning",
@@ -33,7 +33,7 @@
 								</script>
 						<?php unset($_SESSION['user']); }elseif($_SESSION['user']==2){ ?>
 							<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Please enter valid mobile number!",
 								icon: "warning",
@@ -41,7 +41,7 @@
 								</script>
 								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==3){?>
 									<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Please enter valid name!",
 								icon: "warning",
@@ -49,7 +49,7 @@
 								</script>
 								<?php unset($_SESSION['user']);}elseif($_SESSION['user']==4){?>
 									<script>
-							swal({
+							Swal.fire({
 								title: "sorry! ",
 								text: "Please enter valid email!",
 								icon: "warning",

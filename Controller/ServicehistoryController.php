@@ -148,9 +148,12 @@ class ServicehistoryController
             $date = $_POST['date'];
             $time = $_POST['time'];
             $serviceid = $_POST['serviceid'];
+            $serviceid_display=$_POST['serviceid_display'];
+            $spid=$_POST['spid'];
             $combinedDT = date('Y-m-d H:i:s', strtotime("$date $time"));
 
             $this->model->reschedule($combinedDT, $serviceid);
+            $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display);
         } else {
             echo 0;
         }
