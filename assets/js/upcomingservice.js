@@ -24,14 +24,11 @@ window.addEventListener("resize", () => {
 });
 
 
-
-
-
-
-
+// ##########################################################################################################
+// datatable
 var dt = new DataTable("#upcomingHistoryTable", {
 	dom: "Blfrtip",
-	responsive: true,
+	responsive: false,
 	pagingType: "full_numbers",
 	language: {
 		paginate: {
@@ -65,7 +62,7 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
 });
 var dt = new DataTable("#newServiceTable", {
 	dom: "Blfrtip",
-	responsive: true,
+	responsive: false,
 	pagingType: "full_numbers",
 	language: {
 		paginate: {
@@ -82,7 +79,7 @@ var dt = new DataTable("#newServiceTable", {
 });
 var dt = new DataTable("#servicehistoryTable", {
 	dom: "Blfrtip",
-	responsive: true,
+	responsive: false,
 	pagingType: "full_numbers",
 	language: {
 		paginate: {
@@ -120,6 +117,26 @@ var dt = new DataTable("#mytable4", {
 	
 	],
 });
+var dt = new DataTable("#blockcust_table", {
+	dom: "Blfrtip",
+	responsive: true,
+	pagingType: "full_numbers",
+	language: {
+		paginate: {
+			first: "<img src='./assets/Images/firstPage.png' alt='first' />",
+			previous: "<img src='./assets/Images/previous.png' alt='previous' />",
+			next: '<img src="./assets/Images/previous.png" alt="next" style="transform: rotate(180deg)" />',
+			last: "<img src='./assets/Images/firstPage.png' alt='first' style='transform: rotate(180deg)' />",
+		},
+		info: "Total Record: _MAX_",
+		lengthMenu: "Show_MENU_Entries",
+	},
+	buttons: ["excel"],
+	columnDefs: [
+		{ orderable: false},
+	
+	],
+});
 
 var dataTables_length = document.querySelector(".dataTables_length");
 $(".dataTables_length").insertAfter(".dataTable");
@@ -127,9 +144,22 @@ $(".tableHeader").insertAfter(".dt-buttons");
 
 var dataTables_length = document.querySelector(".dt-buttons");
 $("#filter_pet").insertAfter(".dt-buttons");
-// $(".tableHeader").insertAfter(".dt-buttons");
-// dt-buttons
+
+// ##########################################################################################################
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+	  initialView: 'dayGridMonth',
+	  events: [
+		
+	  ],
+	  eventColor: '#378006'
+	});
+	
+	calendar.render();
+  });
 // ####################################################################################################
+// my setting tab start
 function mysetting(){
 	$(".mysetting").show();
 	$("#tab2").hide();
@@ -188,7 +218,7 @@ function getserviceprovider_details(){
 				}
 			}
 			else if(data==0){
-				swal({
+				Swal.fire({
 					title: 'sorry!! ',
 					text: 'something went wrong!!',
 					icon: 'error',
@@ -208,7 +238,8 @@ $(document).on("click",".update_data",function(){
 	var lname=$(".lname").val();
 	var email=$(".email").val();
 	var mobile=$(".mobile").val();
-	var nid=$(".nationality").val();									
+	var nid=$(".nationality option:selected").val()===undefined ? 0 :$(".nationality option:selected").val() ;
+					
 	var add1=$(".address1").val();
 	var add2=$(".address2").val();
     var postal=$(".postal").val();
@@ -225,15 +256,24 @@ $(document).on("click",".update_data",function(){
 		},
 		success: function (data) {
 			if(data==1){
-				swal({
+				Swal.fire({
 					title: 'Graet Job!! ',
 					text: 'Data updated successfully!!',
 					icon: 'success',
 				});
 				getserviceprovider_details()
 				
-			}else if(data==0){
-				swal({
+			}else if(data==12){
+				Swal.fire({
+					title: 'sorry!! ',
+					text: 'Please enter valid pincode!!',
+					icon: 'warning',
+				});
+				getserviceprovider_details()
+				
+			}
+			else if(data==0){
+				Swal.fire({
 					title: 'sorry!! ',
 					text: 'something went wrong!!',
 					icon: 'error',
@@ -245,7 +285,7 @@ $(document).on("click",".update_data",function(){
 		}
 	});
 } else{
-	swal({
+	Swal.fire({
 		title: 'sorry!! ',
 		text: 'Please fill required fields!',
 		icon: 'warning',
@@ -271,7 +311,7 @@ $(document).on("click", "#update_password", function () {
 			},
 			success: function (data) {
 				if (data == 1) {
-					swal({
+					Swal.fire({
 						title: 'Great job!! ',
 						text: 'Password change successfully!',
 						icon: 'success',
@@ -280,7 +320,7 @@ $(document).on("click", "#update_password", function () {
 
 				}
 				else if (data == 0) {
-					swal({
+					Swal.fire({
 						title: 'sorry!! ',
 						text: 'Old password is not matching!!',
 						icon: 'warning',
@@ -293,7 +333,7 @@ $(document).on("click", "#update_password", function () {
 		});
 	}
 	else {
-		swal({
+		Swal.fire({
 			title: 'sorry!! ',
 			text: 'Invalid password!!',
 			icon: 'warning',
@@ -313,7 +353,7 @@ $("#btn2").css('border-bottom','3px solid #e1e1e1');
 	$("#tab1").show();
 	getserviceprovider_details()
 });
-// #######################################################################################################
+
 $(document).on("click", "#avatar-female", function () {
 	if ($(this).prop("checked") == true) {
 
@@ -356,137 +396,43 @@ $(document).on("click", "#avatar-ship", function () {
 	
 	}
 })
-// ###################################################################################################################
-$(document).on("click",".dashboard_btn",function(){
-	$(".mysetting,.upcoming_service,.newservicereq,.service_schedule,.service_history,.my_ratings,.block_customer").hide();
-	$(".dashboard").show();
-	$('.dashboard_btn').css('background','#146371');
-	$('.newservice_btn,.upcomingservice_btn,.schedule_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
-
-});
-$(document).on("click",".accept_btn",function(){
-	var serviceid=$(".service_id").val();
-
-	$.ajax({
-		type: "POST",
-		url: "?controller=UpcomingService&function=acceptService",
-		datatype: "json",
-		data:{serviceid:serviceid},
-		beforeSend: function () {
-			$('#loader').removeClass('hidden')
-		},
-		success: function (data) {
-			if(data==1){
-				swal({
-					title: 'Great job!! ',
-					text: 'This service is assigned to you!!',
-					icon: 'success',
-				});
-				getNewService()
-			}
-			else if(data==0){
-				swal({
-					title: 'sorry!! ',
-					text: 'something went wrong!!',
-					icon: 'error',
-				});
-			}
-		}
-	})
-})
-// $('#pet_checkbox').on('change', function() {
-// 	if ($(this).is(':checked')) {
-// 	  $.fn.dataTable.ext.search.push(
-// 		function(settings, data, dataIndex) {  
-// 		   return data[0] > 27
-// 		}
-// 	  )
-// 	} else {
-// 	  $.fn.dataTable.ext.search.pop()
-// 	}
-// 	table.draw()
-//   })
-function getNewService(){
-	var myTable = $('#newServiceTable').DataTable();
-		$.ajax({
-			type: "GET",
-			url: "?controller=UpcomingService&function=getNewService",
-			datatype: "json",
-			beforeSend: function () {
-				$('#loader').removeClass('hidden')
-			},
-			success: function (data) {
-				obj = JSON.parse(data);
-				if (typeof obj === "object") {
-					var len = obj.length;
 
 
-					myTable.clear().draw();
-					for (var i = 0; i < len; i++) {
+// #######################################################################################################
+// service essential function
+function date_string(date,total)
+{
+	let d = new Date(date);
+	let subtotal = total;
+	var str=subtotal.toString();
+	var numarray=str.split('.');
+	var a=new Array();
+	a=numarray;
+	var first=Number(a[0]);
+	var second=Number(a[1]);
+	if(second == 50)
+	{
+		var min_first=30;
+	}
+	else{
+		var min_first=00;
+	}
+	var hour = ("0" + d.getHours()).slice(-2);
+	var minute = ("0" + d.getMinutes()).slice(-2);
+	var hr = ("0" + (Number(hour) + Number(first))).slice(-2);
+	var min=("0" + (Number(minute) + Number(min_first))).slice(-2);
+	if(min>=60){
+		var min=("0"+(Number(min)-60)).slice(-2);
+		var hr=Number(hr)+1;
+	}
+	var date = d.getDate();
+	var month = d.getMonth();
+	var year = d.getFullYear();
 
-						
-						let d = new Date(obj[i].ServiceStartDate);
-						let subtotal = obj[i].ServiceHours;
-						let hour = ("0" + d.getHours()).slice(-2);
-						let minute = ("0" + d.getMinutes()).slice(-2);
-						let add = ("0" + (Number(hour) + Number(subtotal))).slice(-2);;
-						let time = hour + ":" + minute + " - " + add + ":00";
-						var date = d.getDate();
-						var month = d.getMonth();
-						var year = d.getFullYear();
-						var dateString = date + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
-
-						myTable.row.add($(`<tr>
-											<td>
-											<div class="tdHead d-flex align-items-center justify-content-center">
-											<input type="hidden" class="serviceid" name="serviceid" value="${obj[i].ServiceRequestId}"/>
-											<h5 class="service-id" style="width:75px;">${obj[i].ServiceId}</h5>
-										</div>
-							
-											
-													</td>
-													<td>
-													<div class="tdHead service_detail d-flex align-items-center justify-content-start" style="width:7rem;"  type="button" data-toggle="modal" data-target="#servicedetail_btn" >
-													<img src="./assets/Images/calender.png" />
-															<h5 class="datenew">${dateString}</h5>
-														</div>
-														<img src="./assets/Images/clock.png" />
-														<span class="timing">${time}</span>
-													</td>
-												<td class="w-25">
-													<div class="customerdetail  align-items-center justify-content-start">
-													<span class="custname">${obj[i].FirstName} ${obj[i].LastName} <br></span><span>${obj[i].AddressLine1} ${obj[i].AddressLine2} ${obj[i].City} ${obj[i].PostalCode} 
-													</span>
-													</div>
-												</td>
-											
-												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i].TotalCost}</span></td>
-												<td></td>
-													<td class="action d-flex justify-content-around">
-													<button class="accept position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap service_detail" type="button" data-toggle="modal" data-target="#servicedetail_btn" >Accept</button>
-													
-													</td>
-												</tr>`)).draw();
-
-
-					}
-				}
-			},
-			complete: function () {
-				$('#loader').addClass('hidden')
-			}
-		});
+	
+	 dateString = date + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
+	 time = hour + ":" + minute + " - " + hr + ":" + min;
 }
-function newservice(){
-	$('.newservice_btn').css('background','#146371');
-	$(".newservicereq").show();
-	$(".mysetting,.upcoming_service,.dashboard,.service_schedule,.service_history,.my_ratings,.block_customer").hide();
-	$('.dashboard_btn,.upcomingservice_btn,.schedule_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
-	getNewService();
-}
-$(document).on("click",".newservice_btn",function(){
-	newservice();
-})
 $(document).on("click", ".service_detail", function () {
 
 
@@ -519,6 +465,31 @@ $(document).on("click", ".service_detail", function () {
 			var len = obj.length;
 
 
+			var str=date.toString();
+			var numarray=str.split('-');
+		
+			
+
+			var str=time.toString();
+			var numarray1=str.split(' ');
+			var data11=numarray1[2];
+			var numarray2=data11.split(':');
+		
+
+			
+			var now = new Date();
+
+			var userTime=new Date(numarray[2],Number(numarray[1])-1,numarray[0],numarray2[0],numarray2[1]);
+		
+			if (userTime.getTime() < now.getTime() ) {
+				
+				$("#complete_btn").show();
+	
+			}
+			else {
+				$('#complete_btn').attr('style', 'display: none !important');
+				
+			}
 			for (var i = 0; i < len; i++) {
 				var eservice = obj[i].ServiceExtraId;
 				var array = Array.from(eservice.toString()).map(Number);
@@ -572,10 +543,144 @@ function schedule_service(){
 	$(".service_schedule").show();
 	$(".mysetting,.upcoming_service,.dashboard,.newservicereq,.service_history,.my_ratings,.block_customer").hide();
 	$('.dashboard_btn,.upcomingservice_btn,.newservice_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
+
+	
+
+
 }
 $(document).on("click",".schedule_btn",function(){
 	schedule_service();
 })
+// ###################################################################################################################
+$(document).on("click",".dashboard_btn",function(){
+	$(".mysetting,.upcoming_service,.newservicereq,.service_schedule,.service_history,.my_ratings,.block_customer").hide();
+	// $(".dashboard").show();
+	$('.dashboard_btn').css('background','#146371');
+	$('.newservice_btn,.upcomingservice_btn,.schedule_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
+
+});
+$(document).on("click",".accept_btn",function(){
+	var serviceid=$(".service_id").val();
+
+	$.ajax({
+		type: "POST",
+		url: "?controller=UpcomingService&function=acceptService",
+		datatype: "json",
+		data:{serviceid:serviceid},
+		beforeSend: function () {
+			$('#loader').removeClass('hidden')
+		},
+		success: function (data) {
+			if(data==1){
+				Swal.fire({
+					title: 'Great job!! ',
+					text: 'This service is assigned to you!!',
+					icon: 'success',
+				});
+				getNewService()
+			}
+			else if(data==0){
+				Swal.fire({
+					title: 'sorry!! ',
+					text: 'something went wrong!!',
+					icon: 'error',
+				});
+			}
+		}
+	})
+})
+
+// ###################################################################################################################
+// get new service tab
+
+function getNewService(){
+	var myTable = $('#newServiceTable').DataTable();
+		$.ajax({
+			type: "GET",
+			url: "?controller=UpcomingService&function=getNewService",
+			datatype: "json",
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				obj = JSON.parse(data);
+			
+				if (typeof obj === "object") {
+					var len = obj[0].length;
+
+				
+					myTable.clear().draw();
+					for (var i = 0; i < len; i++) {
+						
+						if(obj[1][0].UserId==obj[0][i].UserId){
+							continue;
+						}else {
+						date_string(obj[0][i].ServiceStartDate,obj[0][i].SubTotal);
+						
+						
+
+						myTable.row.add($(`<tr>
+											<td>
+											<div class="tdHead d-flex align-items-center justify-content-center">
+											<input type="hidden" class="serviceid" name="serviceid" value="${obj[0][i].ServiceRequestId}"/>
+											<h5 class="service-id" style="width:75px;">${obj[0][i].ServiceId}</h5>
+										</div>
+							
+											
+													</td>
+													<td>
+													<div class="tdHead service_detail d-flex align-items-center justify-content-start" style="width:7rem;"  type="button" data-toggle="modal" data-target="#servicedetail_btn" >
+													<img src="./assets/Images/calender.png" />
+															<h5 class="datenew">${dateString}</h5>
+														</div>
+														<img src="./assets/Images/clock.png" />
+														<span class="timing">${time}</span>
+													</td>
+												<td class="w-25">
+													<div class="customerdetail  align-items-center justify-content-start">
+													<span class="custname">${obj[0][i].FirstName} ${obj[0][i].LastName} <br></span><span>${obj[0][i].AddressLine1} ${obj[0][i].AddressLine2} ${obj[0][i].City} ${obj[0][i].PostalCode} 
+													</span>
+													</div>
+												</td>
+											
+												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[0][i].TotalCost}</span></td>
+												<td></td>
+													<td class="action d-flex justify-content-around">
+													<button class="accept position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap service_detail" type="button" data-toggle="modal" data-target="#servicedetail_btn" >Accept</button>
+													
+													</td>
+												</tr>`)).draw();
+
+						}
+					}
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		});
+}
+function newservice(){
+	$('.newservice_btn').css('background','#146371');
+	$(".newservicereq").show();
+	$(".mysetting,.upcoming_service,.dashboard,.service_schedule,.service_history,.my_ratings,.block_customer").hide();
+	$('.dashboard_btn,.upcomingservice_btn,.schedule_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
+	getNewService();
+}
+$(document).on("click",".newservice_btn",function(){
+	newservice();
+})
+$(document).on("click",".newservice",function(){
+	$('.newservice_btn').css('background','#146371');
+	$(".newservicereq").show();
+	$(".mysetting,.block_customer,.upcoming_service,.dashboard,.service_schedule,.service_history,.my_ratings").hide();
+	$('.dashboard_btn,.blockcust_btn,.upcomingservice_btn,.schedule_btn,.ratings_btn,.shistory_btn').css('background','none');
+})
+
+
+
+// ###################################################################################################################
+// servicehistory tab
 function getservicehistory(){
 	var myTable = $('#servicehistoryTable').DataTable();
 		$.ajax({
@@ -593,19 +698,8 @@ function getservicehistory(){
 
 					myTable.clear().draw();
 					for (var i = 0; i < len; i++) {
-
+						date_string(obj[i].ServiceStartDate,obj[i].SubTotal);
 						
-						let d = new Date(obj[i].ServiceStartDate);
-						let subtotal = obj[i].ServiceHours;
-						let hour = ("0" + d.getHours()).slice(-2);
-						let minute = ("0" + d.getMinutes()).slice(-2);
-						let add = ("0" + (Number(hour) + Number(subtotal))).slice(-2);;
-						let time = hour + ":" + minute + " - " + add + ":00";
-						var date = d.getDate();
-						var month = d.getMonth();
-						var year = d.getFullYear();
-						var dateString = date + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
-
 						myTable.row.add($(`<tr>
 											<td>
 											<div class="tdHead d-flex align-items-center justify-content-start">
@@ -654,6 +748,9 @@ function service_history(){
 $(document).on("click",".shistory_btn",function(){
 	service_history();
 })
+
+// ###################################################################################################################
+// myrating tab
 function getrating_data(){
 	var myTable = $('#mytable4').DataTable();
 	
@@ -666,24 +763,15 @@ function getrating_data(){
 			},
 			success: function (data) {
 				obj = JSON.parse(data);
-				console.log(obj);
+		
 				if (typeof obj === "object") {
 					var len = obj.length;
 
 					myTable.clear().draw();
 					for (var i = 0; i < len; i++) {
-
+						date_string(obj[i].ServiceStartDate,obj[i].SubTotal);
 						
-						let d = new Date(obj[i].ServiceStartDate);
-						let subtotal = obj[i].ServiceHours;
-						let hour = ("0" + d.getHours()).slice(-2);
-						let minute = ("0" + d.getMinutes()).slice(-2);
-						let add = ("0" + (Number(hour) + Number(subtotal))).slice(-2);;
-						let time = hour + ":" + minute + " - " + add + ":00";
-						var date = d.getDate();
-						var month = d.getMonth();
-						var year = d.getFullYear();
-						var dateString = date + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
+			
 						var avg1 = Number(obj[i].Ratings);
 						var avg = avg1.toFixed(2);
 						let star = Math.round(avg);
@@ -705,7 +793,7 @@ function getrating_data(){
 						
 								</td>
 								<td >
-								<div class="service_detail tdHead  d-flex align-items-center justify-content-center" style="width:7rem;">
+								<div class="tdHead  d-flex align-items-center justify-content-center" style="width:7rem;">
 								<img src="./assets/Images/calender.png" />
 										<h5 class="datenew">${dateString}</h5>
 									</div>
@@ -731,43 +819,7 @@ function getrating_data(){
 							</tr>`)).draw();
 
 
-					// 	$(".my_ratings").append(`
-						
-					// 	<div class="divContent mb-2" >
-					// 	 <div class="card m-20" style="width: auto; box-shadow: 0 0 6px rgb(0 0 0 / 25%);">
-					// 		 <div class="card-body">
-					// 			 <div class="row">
-					// 				 <div class="col-sm-3">
-					// 					 <h5 class="card-title">${obj[i].ServiceId}</h5>
-					// 					 <h6 class="card-subtitle mb-2 text-muted">${obj[i].FirstName} ${obj[i].LastName} </h6>
-					// 				 </div>
-					// 				 <div class="col-sm-6">
-					// 					 <div><img src="./assets/Images/calender.png" />&nbsp;<b>${dateString}</b></div>
-					// 					 <div><img src="./assets/Images/clock.png" />&nbsp;${time}</div>
-					// 				 </div>
-					// 				 <div class="col-sm-3">
-					// 					 <span>ratings</span>
-					// 					 <div class="td-rating" >
-					// 						 <div class="rating-info">
-					// 							 <div class="info-ratings">
-					// 								${starfilled}${starfilled1}  ${avg}
-													
-					// 							 </div>
-					// 						 </div>
-					// 					 </div>
-					// 				 </div>
-					// 			 </div>
-					// 		 <hr>
-					// 		 <p>Customer Comments</p>
-					// 		 <strong>
-					// 		${obj[i].Comments==null ? " ": obj[i].Comments}
-					// 		</strong>
-					// 		 </div> 
-					// 	 </div>
-						 
-					//  </div>
-					
-					// 	`);
+
 					
 					
 					}
@@ -788,18 +840,174 @@ function rating(){
 $(document).on("click",".ratings_btn",function(){
 	rating();
 })
+
+// ###################################################################################################################
+// block customer tab
+function getblockcust_data(){
+	var myTable = $('#blockcust_table').DataTable();
+	
+		$.ajax({
+			type: "GET",
+			url: "?controller=UpcomingService&function=getblockcustdata",
+			datatype: "json",
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				obj = JSON.parse(data);
+				// console.log(obj);
+				if (typeof obj === "object") {
+					var len = obj.length;
+
+					myTable.clear().draw();
+					for (var i = 0; i < len; i++) {
+
+						
+				
+						if(obj[i][1]==undefined){
+							myTable.row.add($(`<tr>
+							<td>
+							<div class="card m-2" style="width: 16rem;">
+								<div class="card-body">
+									
+									<input type="hidden" class="userid_card" value="${obj[i][0].UserId}"/>
+									<div class="fav-img mb-3" style="text-align: center;">
+										<img src="./assets/Images/avatar-car.png" />
+									</div>
+									<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br>
+									</p>
+									
+									<div class="text-center d-flex justify-content-center">
+								
+									<button class="btn block addblock_btn ">Block</button>
+									</div>
+								</div>
+							</div>
+								</td>
+								
+								
+								</tr>`)).draw();
+						}
+						else{
+							myTable.row.add($(`<tr>
+							<td>
+							<div class="card m-2" style="width: 16rem;">
+								<div class="card-body">
+									
+									<input type="hidden" class="userid_card" value="${obj[i][0].UserId}"/>
+									<div class="fav-img mb-3" style="text-align: center;">
+										<img src="./assets/Images/avatar-car.png" />
+									</div>
+									<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br>
+									</p>
+									
+									<div class="text-center d-flex justify-content-center">
+									${obj[i][1].IsBlocked==0  ?	`<button class="btn block addblock_btn ">Block</button>`: `<button class="btn block removeblock_btn">Unblock</button>`}
+						
+									</div>
+								</div>
+							</div>
+								</td>
+								
+								
+								</tr>`)).draw();
+						}
+						
+
+
+					
+					
+					}
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		});
+}
 function block_customer(){
 	$('.blockcust_btn').css('background','#146371');
 	$(".block_customer").show();
 	$(".mysetting,.upcoming_service,.dashboard,.newservicereq,.service_schedule,.service_history,.my_ratings").hide();
 	$('.dashboard_btn,.upcomingservice_btn,.newservice_btn,.schedule_btn,.ratings_btn,.shistory_btn').css('background','none');
+	getblockcust_data();
 }
+$(document).on("click",".addblock_btn",function(){
+	var userid=$(this).closest(".card-body").find(".userid_card").val();
+	$.ajax({
+		type: "POST",
+		url: "?controller=UpcomingService&function=addblock_customer",
+		datatype: "json",
+		data:{userid:userid},
+
+		success: function (data) {
+			if (data==1) {
+				
+				getblockcust_data();
+				Swal.fire({
+					title: 'Great job!! ',
+					text: 'This customer is Blocked successfully!',
+					icon: 'success',
+				});
+			}
+			else if(data==0)
+			{
+				Swal.fire({
+					title: 'warning!! ',
+					text: 'something went wrong!!',
+					icon: 'error',
+				});
+			}
+		},
+		complete: function () {
+			$('#loader').addClass('hidden')
+		}
+	})	
+
+})
+$(document).on("click",".removeblock_btn",function(){
+	var userid=$(this).closest(".card-body").find(".userid_card").val();
+	$.ajax({
+		type: "POST",
+		url: "?controller=UpcomingService&function=removeblock_customer",
+		datatype: "json",
+		data:{userid:userid},
+
+		success: function (data) {
+			if (data==1) {
+				
+				getblockcust_data();
+				Swal.fire({
+					title: 'Great job!! ',
+					text: 'This customer is Unblock successfully!',
+					icon: 'success',
+				});
+			}
+			else if(data==0)
+			{
+				Swal.fire({
+					title: 'warning!! ',
+					text: 'something went wrong!!',
+					icon: 'error',
+				});
+			}
+		},
+		complete: function () {
+			$('#loader').addClass('hidden')
+		}
+	})	
+
+})
 $(document).on("click",".blockcust_btn",function(){
 	block_customer();
 })
+
 // ###############################################################################################################
+// getupcoming service
+
 function getUpcomingService(){
 	var myTable = $('#upcomingHistoryTable').DataTable();
+
 		$.ajax({
 			type: "GET",
 			url: "?controller=UpcomingService&function=getUpcomingService",
@@ -811,29 +1019,17 @@ function getUpcomingService(){
 				obj = JSON.parse(data);
 				if (typeof obj === "object") {
 					var len = obj.length;
-
+			
 
 					myTable.clear().draw();
 					for (var i = 0; i < len; i++) {
-
+						date_string(obj[i][0].ServiceStartDate,obj[i][0].SubTotal);
 						
-						let d = new Date(obj[i].ServiceStartDate);
-						let subtotal = obj[i].ServiceHours;
-						let hour = ("0" + d.getHours()).slice(-2);
-						let minute = ("0" + d.getMinutes()).slice(-2);
-						let add = ("0" + (Number(hour) + Number(subtotal))).slice(-2);;
-						let time = hour + ":" + minute + " - " + add + ":00";
-						var date = d.getDate();
-						var month = d.getMonth();
-						var year = d.getFullYear();
-						var dateString = date + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
-						
-
 						myTable.row.add($(`<tr>
 											<td>
 											<div class="tdHead d-flex align-items-center justify-content-center">
-											<input type="hidden" class="serviceid" name="serviceid" value="${obj[i].ServiceRequestId}"/>
-											<h5 class="service-id" style="width:75px;">${obj[i].ServiceId}</h5>
+											<input type="hidden" class="serviceid" name="serviceid" value="${obj[i][0].ServiceRequestId}"/>
+											<h5 class="service-id" style="width:75px;">${obj[i][0].ServiceId}</h5>
 											
 										</div>
 							
@@ -849,12 +1045,12 @@ function getUpcomingService(){
 													</td>
 												<td class="w-25">
 													<div class="customerdetail  align-items-center justify-content-start">
-													<span class="custname">${obj[i].FirstName} ${obj[i].LastName} <br></span><span>${obj[i].AddressLine1} ${obj[i].AddressLine2} ${obj[i].City} ${obj[i].PostalCode} 
+													<span class="custname">${obj[i][1].FirstName} ${obj[i][1].LastName} <br></span><span>${obj[i][2].AddressLine1} ${obj[i][2].AddressLine2} ${obj[i][2].City} ${obj[i][2].PostalCode} 
 													</span>
 													</div>
 												</td>
 											
-												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i].TotalCost}</span></td>
+												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i][0].TotalCost}</span></td>
 												<td></td>
 													<td class="action d-flex justify-content-around">
 													<button class="cancel position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap service_detail" type="button" data-toggle="modal" data-target="#servicedetail_upcoming">Cancel</button>
@@ -893,7 +1089,7 @@ $(document).on("click","#cancel_btn",function(){
 		},
 		success: function (data) {
 			if(data==1){
-				swal({
+				Swal.fire({
 					title: 'Great job!! ',
 					text: 'This service is successfully cancel!',
 					icon: 'success',
@@ -901,7 +1097,7 @@ $(document).on("click","#cancel_btn",function(){
 				getUpcomingService();
 			}
 			else if(data==0){
-				swal({
+				Swal.fire({
 					title: 'sorry!! ',
 					text: 'something went wrong!!',
 					icon: 'error',
@@ -922,7 +1118,7 @@ $(document).on("click","#complete_btn",function(){
 		},
 		success: function (data) {
 			if(data==1){
-				swal({
+				Swal.fire({
 					title: 'Great job!! ',
 					text: 'This service is successfully complete!',
 					icon: 'success',
@@ -930,7 +1126,7 @@ $(document).on("click","#complete_btn",function(){
 				getUpcomingService();
 			}
 			else if(data==0){
-				swal({
+				Swal.fire({
 					title: 'sorry!! ',
 					text: 'something went wrong!!',
 					icon: 'error',
@@ -943,9 +1139,3 @@ $(document).on("click",".upcomingservice_btn",function(){
 	upcoming_service();
 })
 
-$(document).on("click",".newservice",function(){
-	$('.newservice_btn').css('background','#146371');
-	$(".newservicereq").show();
-	$(".mysetting,.block_customer,.dashboard,.service_schedule,.service_history,.my_ratings").hide();
-	$('.dashboard_btn,.blockcust_btn,.upcomingservice_btn,.schedule_btn,.ratings_btn,.shistory_btn').css('background','none');
-})

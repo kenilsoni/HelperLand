@@ -766,6 +766,18 @@ footer hr {
 }
 
 /* new */
+#fav_provider  tbody tr{
+	border: none !important;
+}
+#dashboard_data_length{
+	display:none;
+}
+ table.dataTable.no-footer{
+	border: none !important;
+}
+#fav_provider td{
+	padding: 0px !important;
+}
 .fav-img img{
 	width: 45%;
     border: 2px solid #dee2e6;

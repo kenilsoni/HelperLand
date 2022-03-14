@@ -21,7 +21,8 @@ window.addEventListener("resize", () => {
 	verticalNavbar.style.minHeight = `${window.innerHeight - document.querySelector("nav").clientHeight - document.querySelector("heading") - 60}px`;
 });
 
-
+// ##########################################################################################################
+// datatable
 
 var dt = new DataTable(".serviceHistoryTable", {
 	dom: "Blfrtip",
@@ -74,12 +75,34 @@ var dt = new DataTable(".address_table", {
 	buttons: ["excel"],
 	columnDefs: [{ orderable: false }],
 });
+var dt = new DataTable("#fav_provider", {
+	dom: "Blfrtip",
+	responsive: true,
+	pagingType: "full_numbers",
+	language: {
+		paginate: {
+			first: "<img src='./assets/Images/firstPage.png' alt='first' />",
+			previous: "<img src='./assets/Images/previous.png' alt='previous' />",
+			next: '<img src="./assets/Images/previous.png" alt="next" style="transform: rotate(180deg)" />',
+			last: "<img src='./assets/Images/firstPage.png' alt='first' style='transform: rotate(180deg)' />",
+		},
+		info: "Total Record: _MAX_",
+		lengthMenu: "Show_MENU_Entries",
+	},
+	buttons: ["excel"],
+	columnDefs: [{ orderable: false }],
+});
 
 var dataTables_length = document.querySelector(".dataTables_length");
 $(".dataTables_length").insertAfter(".dataTable");
 $(".tableHeader").insertAfter(".dt-buttons");
 
+// ##########################################################################################################
+
 $(document).ready(function () {
+
+	// ##########################################################################################################
+	// rateyo
 	$(function () {
 
 		$(".rateyo").rateYo({
@@ -108,8 +131,149 @@ $(document).ready(function () {
 
 	});
 	// ###################################################################################################################
-	function getaddress() {
+	// date conversion
 
+	function date_string(date, total) {
+		let d = new Date(date);
+		let subtotal = total;
+		var str = subtotal.toString();
+		var numarray = str.split('.');
+		var a = new Array();
+		a = numarray;
+		var first = Number(a[0]);
+		var second = Number(a[1]);
+		if (second == 50) {
+			var min_first = 30;
+		}
+		else {
+			var min_first = 00;
+		}
+		var hour = ("0" + d.getHours()).slice(-2);
+		var minute = ("0" + d.getMinutes()).slice(-2);
+		var hr = ("0" + (Number(hour) + Number(first))).slice(-2);
+		var min = ("0" + (Number(minute) + Number(min_first))).slice(-2);
+		if (min >= 60) {
+			var min = ("0" + (Number(min) - 60)).slice(-2);
+			var hr = Number(hr) + 1;
+		}
+		var date = d.getDate();
+		var month = d.getMonth();
+		var year = d.getFullYear();
+
+
+		dateString = ("0" + date).slice(-2) + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
+		time = hour + ":" + minute + " - " + hr + ":" + min;
+	}
+
+	// ###################################################################################################################
+	// mysetting tab
+	function getdetail() {
+		$.ajax({
+			type: "GET",
+			url: "?controller=Servicehistory&function=getdetail",
+			datatype: "json",
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				obj = JSON.parse(data);
+				if (typeof obj === "object") {
+					var len = obj.length;
+					for (var i = 0; i < len; i++) {
+				
+						if(obj[i].DateOfBirth != null){
+							var currentDate = new Date(obj[i].DateOfBirth);
+							var date = currentDate.getDate();
+							var month = currentDate.getMonth();
+							var year = currentDate.getFullYear();
+							var dateString = year + "-" + ("0" + (month + 1)).slice(-2) + "-" + ("0" + date).slice(-2);
+							$("#birthdate").val(dateString);
+						}
+						
+					
+						$("#fname").val(obj[i].FirstName);
+						$("#lname").val(obj[i].LastName);
+						$("#email").val(obj[i].Email);
+						$("#mobile_2").val(obj[i].Mobile);
+						
+						$("#language").val(obj[i].LanguageId);
+					}
+					$("#tab1").show();
+					$("#btn1").css('border-bottom', '3px solid #1d7a8c');
+					$('.servicebtn').css('background', 'none');
+					$('.favourite').hide();
+					$('.service_history').hide();
+					$('.dashboard').hide();
+					$(".mysetting").show();
+					$("#tab2").hide();
+					$("#tab3").hide();
+				} else if (data == 0) {
+					Swal.fire({
+						title: 'sorry!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		});
+
+	};
+	$(document).on("click", "#update_detail", function (e) {
+		e.preventDefault();
+		var fname = $("#fname").val();
+		var lname = $("#lname").val();
+		var email = $("#email").val();
+		var mobile = $("#mobile_2").val();
+		var birthdate = $("#birthdate").val();
+
+		if ((fname === "") || (email === "") || (mobile === "") || (lname === "") || (birthdate === "")) {
+			Swal.fire({
+				title: 'sorry!! ',
+				text: 'Please enter all the fields!!',
+				icon: 'warning',
+			});
+		}
+		else {
+			$.ajax({
+				type: "POST",
+				url: "?controller=Servicehistory&function=update_detail",
+				datatype: "json",
+				data: $("#form-1").serialize(),
+				beforeSend: function () {
+					$('#loader').removeClass('hidden')
+				},
+				success: function (data) {
+					if (data == 1) {
+						getdetail();
+						Swal.fire({
+							title: 'Great job!! ',
+							text: 'Data updated successfully!!',
+							icon: 'success',
+						});
+					} else if (data == 0) {
+						Swal.fire({
+							title: 'sorry!! ',
+							text: 'something went wrong!!',
+							icon: 'error',
+						});
+					}
+				},
+				complete: function () {
+					$('#loader').addClass('hidden')
+				},
+			});
+		}
+	});
+	$(document).on("click", ".mysettingbtn", function () {
+		getdetail();
+		$('.dashboardbtn').css('background', 'none');
+		$('.favouritebtn').css('background', 'none');
+	});
+	function getaddress() {
+		var myTable = $('.address_table').DataTable();
 		$.ajax({
 			type: "POST",
 			url: "?controller=Servicehistory&function=getaddress",
@@ -122,9 +286,8 @@ $(document).ready(function () {
 				obj = JSON.parse(data);
 				if (typeof obj === "object") {
 					var len = obj.length;
-					var myTable = $('.address_table').DataTable();
-					// var modal=document.getElementById('update_modal');
-					// modal.innerHTML="";
+					
+					
 					myTable.clear().draw();
 					for (var i = 0; i < len; i++) {
 						myTable.row.add($(`<tr class='align-middle'> 
@@ -151,11 +314,13 @@ $(document).ready(function () {
 					$("#tab2").show();
 				}
 				else if (data == 0) {
-					swal({
-						title: 'sorry!! ',
-						text: 'Address list is empty!!',
-						icon: 'warning',
-					});
+					myTable.clear().draw(); 
+					// myTable.destroy();
+					// Swal.fire({
+					// 	title: 'sorry!! ',
+					// 	text: 'Address list is empty!!',
+					// 	icon: 'warning',
+					// });
 				}
 			},
 			complete: function () {
@@ -181,41 +346,52 @@ $(document).ready(function () {
 
 	});
 	$(document).on("click", "#deletebtn", function () {
-		swal({
-			title: "Are you sure?",
+		Swal.fire({
+			title: 'Are you sure?',
 			text: "Once deleted, you will not be able to recover your address!",
 			icon: "warning",
-			buttons: true,
-			dangerMode: true,
-		})
-			.then((willDelete) => {
-				if (willDelete) {
-					var AddressId = $(this).closest('tr').find(".AddressId").val();
-					$.ajax({
-						type: "POST",
-						url: "?controller=Servicehistory&function=delete_address",
-						datatype: "json",
-						data: { AddressId: AddressId },
-						beforeSend: function () {
-							$('#loader').removeClass('hidden')
-						},
-						success: function (data) {
-							if (data == 1) {
-								getaddress();
-								swal("Your address has been deleted!", {
-									icon: "success",
-								});
-							}
-						},
-						complete: function () {
-							$('#loader').addClass('hidden')
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				var AddressId = $(this).closest('tr').find(".AddressId").val();
+				$.ajax({
+					type: "POST",
+					url: "?controller=Servicehistory&function=delete_address",
+					datatype: "json",
+					data: { AddressId: AddressId },
+					beforeSend: function () {
+						$('#loader').removeClass('hidden')
+					},
+					success: function (data) {
+						if (data == 1) {
+							getaddress();
+							Swal.fire(
+								'Deleted!',
+								'Your file has been deleted.',
+								'success'
+							)
+							
 						}
-					});
+						else if (data == 0) {
+							Swal.fire(
+								'sorry!',
+								'something went wrong.',
+								'error'
+							)
+							getaddress()
+						}
+					},
+					complete: function () {
+						$('#loader').addClass('hidden')
+					}
+				})
 
-				} else {
-					swal("Your address is safe!");
-				}
-			});
+			}
+		})
+			;
 	});
 	$("#btn1").click(function () {
 		$("#btn1").css('border-bottom', '3px solid #1d7a8c');
@@ -228,6 +404,18 @@ $(document).ready(function () {
 		$("#btn2").removeClass("implement");
 		$("#btn3").removeClass("implement");
 	});
+	$(document).on("click", "#btn2", function () {
+		$("#btn2").css('border-bottom', '3px solid #1d7a8c');
+		$("#btn1").css('border-bottom', '3px solid #e1e1e1');
+		$("#btn3").css('border-bottom', '3px solid #e1e1e1');
+		$("#tab1").hide();
+		$("#tab2").show();
+		$("#tab3").hide();
+		$("#btn1").removeClass("implement");
+		$("#btn2").addClass("implement");
+		$("#btn3").removeClass("implement");
+		getaddress();
+	});
 	$("#btn3").click(function () {
 		$("#btn3").css('border-bottom', '3px solid #1d7a8c');
 		$("#btn2").css('border-bottom', '3px solid #e1e1e1');
@@ -239,7 +427,6 @@ $(document).ready(function () {
 		$("#btn2").removeClass("implement");
 		$("#btn3").addClass("implement");
 	});
-	// #######################################################################################################################
 	$(document).on("click", "#update_password", function () {
 		let oldpassword = $("#oldpass").val();
 		let newpassword = $("#password_reg").val();
@@ -256,7 +443,7 @@ $(document).ready(function () {
 				},
 				success: function (data) {
 					if (data == 1) {
-						swal({
+						Swal.fire({
 							title: 'Great job!! ',
 							text: 'Password change successfully!',
 							icon: 'success',
@@ -265,7 +452,7 @@ $(document).ready(function () {
 
 					}
 					else if (data == 0) {
-						swal({
+						Swal.fire({
 							title: 'sorry!! ',
 							text: 'Old password is not matching!!',
 							icon: 'warning',
@@ -278,15 +465,13 @@ $(document).ready(function () {
 			});
 		}
 		else {
-			swal({
+			Swal.fire({
 				title: 'sorry!! ',
 				text: 'Invalid password!!',
 				icon: 'warning',
 			});
 		}
 	});
-	// ############################################################################################################################	 
-
 	$(document).on("click", "#add_address", function (e) {
 
 		e.preventDefault();
@@ -296,7 +481,7 @@ $(document).ready(function () {
 		var city = $("#location").val();
 		var mobile = $("#phone").val();
 		if ((addressline1 === "") || (addressline2 === "") || (postal === "") || (city === "") || (mobile === "")) {
-			swal({
+			Swal.fire({
 				title: 'sorry!! ',
 				text: 'Please enter all the fields!!',
 				icon: 'warning',
@@ -316,14 +501,14 @@ $(document).ready(function () {
 					if (data == 1) {
 						getaddress();
 						$("#form-4").trigger('reset');
-						swal({
+						Swal.fire({
 							title: 'Great Job!! ',
 							text: 'Address added successfully!!',
 							icon: 'success',
 						});
 					}
 					else if (data == 0) {
-						swal({
+						Swal.fire({
 							title: 'sorry!! ',
 							text: 'something went wrong!!',
 							icon: 'error',
@@ -346,7 +531,7 @@ $(document).ready(function () {
 		var city = $("#city").val();
 		var mobile = $("#mobile").val();
 		if ((addressline1 === "") || (addressline2 === "") || (postal === "") || (city === "") || (mobile === "")) {
-			swal({
+			Swal.fire({
 				title: 'sorry!! ',
 				text: 'Please enter all the fields!!',
 				icon: 'warning',
@@ -364,7 +549,7 @@ $(document).ready(function () {
 				success: function (data) {
 					if (data == 1) {
 						getaddress();
-						swal({
+						Swal.fire({
 							title: 'Great Job!! ',
 							text: 'Address updated successfully!!',
 							icon: 'success',
@@ -372,7 +557,7 @@ $(document).ready(function () {
 
 					}
 					else if (data == 0) {
-						swal({
+						Swal.fire({
 							title: 'sorry!! ',
 							text: 'something went wrong!!',
 							icon: 'error',
@@ -385,120 +570,9 @@ $(document).ready(function () {
 			});
 		}
 	});
-	$(document).on("click", "#btn2", function () {
-		$("#btn2").css('border-bottom', '3px solid #1d7a8c');
-		$("#btn1").css('border-bottom', '3px solid #e1e1e1');
-		$("#btn3").css('border-bottom', '3px solid #e1e1e1');
-		$("#tab1").hide();
-		$("#tab2").show();
-		$("#tab3").hide();
-		$("#btn1").removeClass("implement");
-		$("#btn2").addClass("implement");
-		$("#btn3").removeClass("implement");
-		getaddress();
-	});
+	// ############################################################################################################################	 
+	// dashboard tab
 
-	// #########################################################################################################################
-	function getdetail() {
-		$.ajax({
-			type: "GET",
-			url: "?controller=Servicehistory&function=getdetail",
-			datatype: "json",
-			beforeSend: function () {
-				$('#loader').removeClass('hidden')
-			},
-			success: function (data) {
-				obj = JSON.parse(data);
-				if (typeof obj === "object") {
-					var len = obj.length;
-					for (var i = 0; i < len; i++) {
-						var currentDate = new Date(obj[i].DateOfBirth);
-						var date = currentDate.getDate();
-						var month = currentDate.getMonth();
-						var year = currentDate.getFullYear();
-						var dateString = year + "-" + ("0" + (month + 1)).slice(-2) + "-" + ("0" + date).slice(-2);
-						$("#fname").val(obj[i].FirstName);
-						$("#lname").val(obj[i].LastName);
-						$("#email").val(obj[i].Email);
-						$("#mobile_2").val(obj[i].Mobile);
-						$("#birthdate").val(dateString);
-						$("#language").val(obj[i].LanguageId);
-					}
-					$("#tab1").show();
-					$("#btn1").css('border-bottom', '3px solid #1d7a8c');
-					$('.servicebtn').css('background', 'none');
-					$('.favourite').hide();
-					$('.service_history').hide();
-					$('.dashboard').hide();
-					$(".mysetting").show();
-					$("#tab2").hide();
-					$("#tab3").hide();
-				} else if (data == 0) {
-					swal({
-						title: 'sorry!! ',
-						text: 'something went wrong!!',
-						icon: 'error',
-					});
-				}
-			},
-			complete: function () {
-				$('#loader').addClass('hidden')
-			}
-		});
-
-	};
-	$(document).on("click", "#update_detail", function (e) {
-		e.preventDefault();
-		var fname = $("#fname").val();
-		var lname = $("#lname").val();
-		var email = $("#email").val();
-		var mobile = $("#mobile_2").val();
-		var birthdate = $("#birthdate").val();
-
-		if ((fname === "") || (email === "") || (mobile === "") || (lname === "") || (birthdate === "")) {
-			swal({
-				title: 'sorry!! ',
-				text: 'Please enter all the fields!!',
-				icon: 'warning',
-			});
-		}
-		else {
-			$.ajax({
-				type: "POST",
-				url: "?controller=Servicehistory&function=update_detail",
-				datatype: "json",
-				data: $("#form-1").serialize(),
-				beforeSend: function () {
-					$('#loader').removeClass('hidden')
-				},
-				success: function (data) {
-					if (data == 1) {
-						getdetail();
-						swal({
-							title: 'Great job!! ',
-							text: 'Data updated successfully!!',
-							icon: 'success',
-						});
-					} else if (data == 0) {
-						swal({
-							title: 'sorry!! ',
-							text: 'something went wrong!!',
-							icon: 'error',
-						});
-					}
-				},
-				complete: function () {
-					$('#loader').addClass('hidden')
-				},
-			});
-		}
-	});
-	$(document).on("click", ".mysettingbtn", function () {
-		getdetail();
-		$('.dashboardbtn').css('background', 'none');
-		$('.favouritebtn').css('background', 'none');
-	});
-	// #############################################################################################################	
 	function onload_dashboard() {
 		var myTable = $('#dashboard_data').DataTable();
 		$.ajax({
@@ -517,19 +591,9 @@ $(document).ready(function () {
 					myTable.clear().draw();
 					for (var i = 0; i < len; i++) {
 
-					
-						
 
-						let d = new Date(obj[i].ServiceStartDate);
-						let subtotal = obj[i].ServiceHours;
-						let hour = ("0" + d.getHours()).slice(-2);
-						let minute = ("0" + d.getMinutes()).slice(-2);
-						let add = ("0" + (Number(hour) + Number(subtotal))).slice(-2);;
-						let time = hour + ":" + minute + " - " + add + ":00";
-						var date = d.getDate();
-						var month = d.getMonth();
-						var year = d.getFullYear();
-						var dateString = ("0" + (date)).slice(-2) + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
+
+						date_string(obj[i].ServiceStartDate, obj[i].SubTotal);
 
 						if (obj[i].ServiceProviderId == null) {
 
@@ -566,23 +630,24 @@ $(document).ready(function () {
 						}
 						else {
 							var avg1 = Number(obj[i][0].AverageRating);
-						var avg = avg1.toFixed(2);
-						// var name = obj[i][0].Fullname;
-						let star = Math.round(avg);
-						let remainning = 5 - star;
-						var starfilled = "";
-						var starfilled1 = "";
-						for (let i = 0; i < star; i++) {
-							starfilled += '<img src="./assets/Images/starFilled.svg"/>';
-	
-						}
-						for (let i = 0; i < remainning; i++) {
-							starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
-						}
+							var avg = avg1.toFixed(2);
+							// var name = obj[i][0].Fullname;
+							let star = Math.round(avg);
+							let remainning = 5 - star;
+							var starfilled = "";
+							var starfilled1 = "";
+							for (let i = 0; i < star; i++) {
+								starfilled += '<img src="./assets/Images/starFilled.svg"/>';
+
+							}
+							for (let i = 0; i < remainning; i++) {
+								starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
+							}
 							myTable.row.add($(`<tr>
 												<td>
 												<div class="tdHead d-flex align-items-center justify-content-start">
 												<input type="hidden" class="serviceid" name="serviceid" value="${obj[i].ServiceRequestId}"/>
+												<input type="hidden" class="serviceproviderid" name="serviceproviderid" value="${obj[i].ServiceProviderId}"/>
 												<h5 class="service-id">${obj[i].ServiceId}</h5>
 											</div>
 								
@@ -641,6 +706,76 @@ $(document).ready(function () {
 
 
 	})
+
+	$(document).on("click", '.re_id', function () {
+
+		var serviceid = $(this).closest('tr').find(".serviceid").val();
+		var serviceid_display = $(this).closest('tr').find(".service-id").text();
+
+		var spid = $(this).closest('tr').find(".serviceproviderid").val();
+		var time1 = $(this).closest('tr').find(".timing").text();
+		var tim1 = time1.split("-");
+		var date11 = $(this).closest('tr').find(".datenew").text();
+		var parts = date11.split('-');
+		var mydate = parts[2] + "-" + parts[1] + "-" + parts[0];
+
+		// hide previous date
+		var dtToday = new Date();
+		var month = dtToday.getMonth() + 1;
+		var day = dtToday.getDate();
+		var year = dtToday.getFullYear();
+		if (month < 10)
+			month = '0' + month.toString();
+		if (day < 10)
+			day = '0' + day.toString();
+		var maxDate = year + '-' + month + '-' + day;
+
+		if (spid != undefined) {
+			$(".sp_id").val(spid);
+		}
+		$('#dates').attr('min', maxDate);
+		$(".service_id").val(serviceid);
+		$(".serviceid_display").val(serviceid_display);
+
+		$("#dates").val(mydate);
+		$("#times").val(tim1[0].trim());
+
+
+	})
+	$(document).on("click", "#reschedule_btn", function () {
+
+		$.ajax({
+			type: "POST",
+			url: "?controller=Servicehistory&function=reschedule",
+			datatype: "json",
+			data: $("#reschedule").serialize(),
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				if (data == 1) {
+					onload_dashboard();
+					Swal.fire({
+						title: 'Great job!! ',
+						text: 'Data updated successfully!!',
+						icon: 'success',
+					});
+				}
+				else if (data == 0) {
+					Swal.fire({
+						title: 'sorry!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		})
+	})
+	// ############################################################################################################################	 
+	// servicehistory tab
 	function onload_service() {
 		var myTable = $('#service_data').DataTable();
 		$.ajax({
@@ -659,18 +794,8 @@ $(document).ready(function () {
 
 					myTable.clear().draw();
 					for (var i = 0; i < len; i++) {
-						// console.log(obj[1].ServiceRequestId);
-						let d = new Date(obj[i].ServiceStartDate);
-						let subtotal = obj[i].ServiceHours;
-						let hour = ("0" + d.getHours()).slice(-2);
-						let minute = ("0" + d.getMinutes()).slice(-2);
-						let add = ("0" + (Number(hour) + Number(subtotal))).slice(-2);;
-						let time = hour + ":" + minute + " - " + add + ":00";
 
-						var date = d.getDate();
-						var month = d.getMonth();
-						var year = d.getFullYear();
-						var dateString = date + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
+						date_string(obj[i].ServiceStartDate, obj[i].SubTotal);
 
 						if (obj[i].Status == 3) {
 							var disabled = "disabled";
@@ -684,7 +809,7 @@ $(document).ready(function () {
 						if (obj[i].ServiceProviderId != null) {
 							var avg1 = Number(obj[i][0].AverageRating);
 							var avg = avg1.toFixed(2);
-							
+
 							let star = Math.round(avg);
 							let remainning = 5 - star;
 							var starfilled = "";
@@ -697,13 +822,13 @@ $(document).ready(function () {
 								starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
 							}
 
-							if(obj[i][1] != undefined){
-								var classadd="disabled";
+							if (obj[i][1] != undefined) {
+								var classadd = "disabled";
 								var color2 = "color_cancel";
 								var tooltip = "rateactive2";
 							}
-							else{
-								var classadd="";
+							else {
+								var classadd = "";
 								var color2 = "color_complete";
 								var tooltip = "rateactive";
 							}
@@ -731,7 +856,7 @@ $(document).ready(function () {
 									<div class="serviceProviderName" >${obj[i][0].Fullname}</div>
 									<div class="feedback d-flex align-items-center justify-content-center">
 									${starfilled}${starfilled1}
-									 ${avg}
+									${avg}
 									</div>
 								</div>
 							</div></td>
@@ -776,32 +901,6 @@ $(document).ready(function () {
 		});
 	}
 	onload_service();
-	$(document).on("click", '.re_id', function () {
-
-		var serviceid = $(this).closest('tr').find(".serviceid").val();
-		var time1 = $(this).closest('tr').find(".timing").text();
-		var tim1 = time1.split("-");
-		var date11 = $(this).closest('tr').find(".datenew").text();
-		var parts = date11.split('-');
-		var mydate = parts[2] + "-" + parts[1] + "-" + parts[0];
-
-		var dtToday = new Date();
-		var month = dtToday.getMonth() + 1;
-		var day = dtToday.getDate();
-		var year = dtToday.getFullYear();
-		if (month < 10)
-			month = '0' + month.toString();
-		if (day < 10)
-			day = '0' + day.toString();
-		var maxDate = year + '-' + month + '-' + day;
-		$('#dates').attr('min', maxDate);
-		$(".service_id").val(serviceid);
-
-		$("#dates").val(mydate);
-		$("#times").val(tim1[0].trim());
-
-
-	})
 	$(document).on("click", ".rate", function () {
 		let name = $(this).closest('tr').find(".serviceProviderName").text().trim();
 		let rating1 = $(this).closest('tr').find(".feedback").text().trim();
@@ -809,21 +908,21 @@ $(document).ready(function () {
 		let spid = $(this).closest('tr').find(".spid").val();
 		let starhtml = $(this).closest('tr').find(".feedback").html();
 		let imgsrc = $(this).closest('tr').find(".rounded-circle").attr('src');
-      
+
 
 		$(".serviceid_rate").val(serviceid);
 		$(".spid_rate").val(spid);
 		$(".spname").text(name);
 		$(".starval").html(starhtml);
-		$(".clean").attr("src",imgsrc);
+		$(".clean").attr("src", imgsrc);
 
-		
+
 		$(".avgrate").rateYo({
 			readOnly: true,
 			rating: rating1
 
 		})
-		
+
 	})
 	$(document).on("click", "#update_rating", function () {
 		$.ajax({
@@ -837,14 +936,14 @@ $(document).ready(function () {
 			success: function (data) {
 				if (data == 1) {
 					$("#update-rating").trigger("reset");
-					swal({
+					Swal.fire({
 						title: 'Great job!! ',
 						text: 'Data updated successfully!!',
 						icon: 'success',
 					});
 					onload_service();
 				} else if (data == 0) {
-					swal({
+					Swal.fire({
 						title: 'sorry!! ',
 						text: 'something went wrong!!',
 						icon: 'error',
@@ -869,38 +968,7 @@ $(document).ready(function () {
 
 
 	})
-	$(document).on("click", "#reschedule_btn", function () {
 
-		$.ajax({
-			type: "POST",
-			url: "?controller=Servicehistory&function=reschedule",
-			datatype: "json",
-			data: $("#reschedule").serialize(),
-			beforeSend: function () {
-				$('#loader').removeClass('hidden')
-			},
-			success: function (data) {
-				if (data == 1) {
-					onload_dashboard();
-					swal({
-						title: 'Great job!! ',
-						text: 'Data updated successfully!!',
-						icon: 'success',
-					});
-				}
-				else if (data == 0) {
-					swal({
-						title: 'sorry!! ',
-						text: 'something went wrong!!',
-						icon: 'error',
-					});
-				}
-			},
-			complete: function () {
-				$('#loader').addClass('hidden')
-			}
-		})
-	})
 	$(document).on("click", "#cancel_servicereq", function () {
 		var service = $(this).closest('tr').find(".serviceid").val();
 		$("#delete_key").val(service);
@@ -921,14 +989,14 @@ $(document).ready(function () {
 				success: function (data) {
 					if (data == 1) {
 						onload_dashboard();
-						swal({
+						Swal.fire({
 							title: 'Great job!! ',
 							text: 'Your service request has been cancelled!',
 							icon: 'success',
 						});
 
 					} else if (data == 0) {
-						swal({
+						Swal.fire({
 							title: 'sorry!! ',
 							text: 'something went wrong!!',
 							icon: 'error',
@@ -943,7 +1011,7 @@ $(document).ready(function () {
 
 		}
 		else {
-			swal({
+			Swal.fire({
 				title: 'warning!! ',
 				text: 'Please enter something!!',
 				icon: 'warning',
@@ -1024,7 +1092,12 @@ $(document).ready(function () {
 		})
 
 	})
-	function getfp_detail(){
+
+	// ############################################################################################################################	 
+	// favorite provider tab
+
+	function getfp_detail() {
+		var myTable = $('#fav_provider').DataTable();
 		$.ajax({
 			type: "GET",
 			url: "?controller=Servicehistory&function=fav_provider",
@@ -1033,67 +1106,127 @@ $(document).ready(function () {
 			success: function (data) {
 				obj = JSON.parse(data);
 				// console.log(obj[2][2]==undefined);
-				
+
 				if (typeof obj === "object") {
 					var len = obj.length;
 					$(".fav_data").html("");
-
+					myTable.clear().draw();
 					// console.log(obj[i][2].);
 					for (var i = 0; i < len; i++) {
-						    var avg1 = Number(obj[i][1].AverageRating);
-							var avg = avg1.toFixed(2);
-							let star = Math.round(avg);
-							let remainning = 5 - star;
-							var starfilled = "";
-							var starfilled1 = "";
-							for (let i = 0; i < star; i++) {
-								starfilled += '<img src="./assets/Images/starFilled.svg"/>';
+						var avg1 = Number(obj[i][1].AverageRating);
+						var avg = avg1.toFixed(2);
+						let star = Math.round(avg);
+						let remainning = 5 - star;
+						var starfilled = "";
+						var starfilled1 = "";
+						for (let i = 0; i < star; i++) {
+							starfilled += '<img src="./assets/Images/starFilled.svg"/>';
 
-							}
-							for (let i = 0; i < remainning; i++) {
-								starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
-							}
-							
-						if(obj[i][2]==undefined){
-							$(".fav_data").append(`<div class="card m-2" style="width: 16rem;">
-							<div class="card-body">
-								
-								<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
-								<div class="fav-img" style="text-align: center;">
-									<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
-								</div>
-								<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
-									${starfilled}${starfilled1} ${avg}
-									</span></p>
-								<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
-								<div class="text-center d-flex justify-content-around">
-								<button class="btn remove addfp_btn ">Favorite</button>
-							    <button class="btn block addblockfp_btn ">Block</button>
-								</div>
-							</div>
-						</div>`);
-						}else{
-							$(".fav_data").append(`<div class="card m-2" style="width: 16rem;">
-							<div class="card-body">
-								
-								<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
-								<div class="fav-img" style="text-align: center;">
-									<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
-								</div>
-								<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
-									${starfilled}${starfilled1} ${avg}
-									</span></p>
-								<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
-								<div class="text-center d-flex justify-content-around">
-								${obj[i][2].IsFavorite==1 ?	`<button class="btn remove removefp_btn ">Remove</button>`: `<button class="btn remove addfp_btn">Favorite</button>`}
-								${obj[i][2].IsBlocked==0  ?	`<button class="btn block addblockfp_btn ">Block</button>`: `<button class="btn block removeblockfp_btn">Unblock</button>`}
-									
-								</div>
-							</div>
-						</div>`);
 						}
-						
-					
+						for (let i = 0; i < remainning; i++) {
+							starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
+						}
+
+
+						if (obj[i][2] == undefined) {
+							myTable.row.add($(`<tr>
+							<td>
+							
+							<div class="card m-2" style="width: 16rem;">
+						 	<div class="card-body">
+								
+						 		<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
+						 		<div class="fav-img" style="text-align: center;">
+						 			<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
+						 		</div>
+						 		<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
+						 			${starfilled}${starfilled1} ${avg}
+						 			</span></p>
+						 		<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
+						 		<div class="text-center d-flex justify-content-around">
+						 		<button class="btn remove addfp_btn ">Favorite</button>
+						 	    <button class="btn block addblockfp_btn ">Block</button>
+						 		</div>
+						 	</div>
+						 </div>
+							</td>
+							
+							
+							</tr>
+							
+							`)).draw();
+
+						} else {
+							myTable.row.add($(`<tr>
+							<td>
+							
+							<div class="card m-2" style="width: 16rem;">
+							 	<div class="card-body">
+									
+							 		<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
+							 		<div class="fav-img" style="text-align: center;">
+							 			<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
+							 		</div>
+							 		<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
+							 			${starfilled}${starfilled1} ${avg}
+							 			</span></p>
+							 		<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
+							 		<div class="text-center d-flex justify-content-around">
+							 		${obj[i][2].IsFavorite == 1 ? `<button class="btn remove removefp_btn ">Remove</button>` : `<button class="btn remove addfp_btn">Favorite</button>`}
+							 		${obj[i][2].IsBlocked == 0 ? `<button class="btn block addblockfp_btn ">Block</button>` : `<button class="btn block removeblockfp_btn">Unblock</button>`}
+										
+							 		</div>
+							 	</div>
+							 </div>
+							</td>
+							
+							
+							</tr>
+							
+							`)).draw();
+						}
+
+
+						// if(obj[i][2]==undefined){
+						// 	$(".fav_data").append(`<div class="card m-2" style="width: 16rem;">
+						// 	<div class="card-body">
+
+						// 		<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
+						// 		<div class="fav-img" style="text-align: center;">
+						// 			<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
+						// 		</div>
+						// 		<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
+						// 			${starfilled}${starfilled1} ${avg}
+						// 			</span></p>
+						// 		<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
+						// 		<div class="text-center d-flex justify-content-around">
+						// 		<button class="btn remove addfp_btn ">Favorite</button>
+						// 	    <button class="btn block addblockfp_btn ">Block</button>
+						// 		</div>
+						// 	</div>
+						// </div>`);
+						// }else{
+						// 	$(".fav_data").append(`<div class="card m-2" style="width: 16rem;">
+						// 	<div class="card-body">
+
+						// 		<input type="hidden" class="spid_card" value="${obj[i].ServiceProviderId}"/>
+						// 		<div class="fav-img" style="text-align: center;">
+						// 			<img src="./assets/Images/${obj[i][0].UserProfilePicture}.png" />
+						// 		</div>
+						// 		<p class="card-text text-center" style="font-weight: bold;">${obj[i][0].FullName}<br><span>
+						// 			${starfilled}${starfilled1} ${avg}
+						// 			</span></p>
+						// 		<p class="card-text text-center">${obj[i][1].TotalCleaning} Cleanings</p>
+						// 		<div class="text-center d-flex justify-content-around">
+						// 		${obj[i][2].IsFavorite==1 ?	`<button class="btn remove removefp_btn ">Remove</button>`: `<button class="btn remove addfp_btn">Favorite</button>`}
+						// 		${obj[i][2].IsBlocked==0  ?	`<button class="btn block addblockfp_btn ">Block</button>`: `<button class="btn block removeblockfp_btn">Unblock</button>`}
+
+						// 		</div>
+						// 	</div>
+						// </div>`);
+						// }
+
+
 					}
 				}
 			},
@@ -1112,29 +1245,28 @@ $(document).ready(function () {
 		$('.sbtn').css('background', 'none');
 		$('.verticalNavItem').removeClass('active');
 		getfp_detail();
-	
+
 	})
-	$(document).on("click",".removefp_btn",function(){
-		var spid=$(this).closest(".card-body").find(".spid_card").val();
+	$(document).on("click", ".removefp_btn", function () {
+		var spid = $(this).closest(".card-body").find(".spid_card").val();
 		$.ajax({
 			type: "POST",
 			url: "?controller=Servicehistory&function=update_fav_provider",
 			datatype: "json",
-			data:{spid:spid},
+			data: { spid: spid },
 
 			success: function (data) {
-				if (data==1) {
-					
+				if (data == 1) {
+
 					getfp_detail();
-					swal({
+					Swal.fire({
 						title: 'Great job!! ',
 						text: 'This Service Provider is Remove successfully!',
 						icon: 'success',
 					});
 				}
-				else if(data==0)
-				{
-					swal({
+				else if (data == 0) {
+					Swal.fire({
 						title: 'warning!! ',
 						text: 'something went wrong!!',
 						icon: 'error',
@@ -1144,30 +1276,29 @@ $(document).ready(function () {
 			complete: function () {
 				$('#loader').addClass('hidden')
 			}
-		})	
-	
+		})
+
 	})
-	$(document).on("click",".addfp_btn",function(){
-		var spid=$(this).closest(".card-body").find(".spid_card").val();
+	$(document).on("click", ".addfp_btn", function () {
+		var spid = $(this).closest(".card-body").find(".spid_card").val();
 		$.ajax({
 			type: "POST",
 			url: "?controller=Servicehistory&function=add_fav_provider",
 			datatype: "json",
-			data:{spid:spid},
+			data: { spid: spid },
 
 			success: function (data) {
-				if (data==1) {
-		
+				if (data == 1) {
+
 					getfp_detail();
-					swal({
+					Swal.fire({
 						title: 'Great job!! ',
 						text: 'This Service Provider is add successfully!',
 						icon: 'success',
 					});
 				}
-				else if(data==0)
-				{
-					swal({
+				else if (data == 0) {
+					Swal.fire({
 						title: 'warning!! ',
 						text: 'something went wrong!!',
 						icon: 'error',
@@ -1177,30 +1308,29 @@ $(document).ready(function () {
 			complete: function () {
 				$('#loader').addClass('hidden')
 			}
-		})	
-	
+		})
+
 	})
-	$(document).on("click",".addblockfp_btn",function(){
-		var spid=$(this).closest(".card-body").find(".spid_card").val();
+	$(document).on("click", ".addblockfp_btn", function () {
+		var spid = $(this).closest(".card-body").find(".spid_card").val();
 		$.ajax({
 			type: "POST",
 			url: "?controller=Servicehistory&function=addblock_fav_provider",
 			datatype: "json",
-			data:{spid:spid},
+			data: { spid: spid },
 
 			success: function (data) {
-				if (data==1) {
-					
+				if (data == 1) {
+
 					getfp_detail();
-					swal({
+					Swal.fire({
 						title: 'Great job!! ',
 						text: 'This Service Provider is Blocked successfully!',
 						icon: 'success',
 					});
 				}
-				else if(data==0)
-				{
-					swal({
+				else if (data == 0) {
+					Swal.fire({
 						title: 'warning!! ',
 						text: 'something went wrong!!',
 						icon: 'error',
@@ -1210,31 +1340,30 @@ $(document).ready(function () {
 			complete: function () {
 				$('#loader').addClass('hidden')
 			}
-		})	
-	
+		})
+
 	})
-	
-	$(document).on("click",".removeblockfp_btn",function(){
-		var spid=$(this).closest(".card-body").find(".spid_card").val();
+
+	$(document).on("click", ".removeblockfp_btn", function () {
+		var spid = $(this).closest(".card-body").find(".spid_card").val();
 		$.ajax({
 			type: "POST",
 			url: "?controller=Servicehistory&function=removeblock_fav_provider",
 			datatype: "json",
-			data:{spid:spid},
+			data: { spid: spid },
 
 			success: function (data) {
-				if (data==1) {
-					
+				if (data == 1) {
+
 					getfp_detail();
-					swal({
+					Swal.fire({
 						title: 'Great job!! ',
 						text: 'This Service Provider is Unblock successfully!',
 						icon: 'success',
 					});
 				}
-				else if(data==0)
-				{
-					swal({
+				else if (data == 0) {
+					Swal.fire({
 						title: 'warning!! ',
 						text: 'something went wrong!!',
 						icon: 'error',
@@ -1244,7 +1373,7 @@ $(document).ready(function () {
 			complete: function () {
 				$('#loader').addClass('hidden')
 			}
-		})	
-	
+		})
+
 	})
 });

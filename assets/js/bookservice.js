@@ -22,13 +22,13 @@ $(document).on("click", "#step4", function (e) {
 		},		
 		success: function (data) {
 			if (data == 1) {
-				console.log("yes");
+			
 				window.location.href = '?controller=Helperland&function=HomePage';
 
 
 			} else if (data == 0) {
-				console.log("no00");
-				swal({
+				
+				Swal.fire({
 					title: 'sorry!',
 					text: 'something went wrong',
 					icon: 'error',
@@ -118,7 +118,7 @@ $(document).on("click", "#step3", function (e) {
 
 				});
 			} else if (data == 0) {
-				swal({
+				Swal.fire({
 					title: 'sorry!',
 					text: 'Please select address',
 					icon: 'warning',
@@ -140,7 +140,7 @@ $(document).on("click", "#step3", function (e) {
 $(document).on("click", "#step2", function (e) {
 
 
-
+	// console.log(pincode);
 	var date=$(".date").val();
 	var time=$(".time").val();
 
@@ -162,7 +162,7 @@ $(document).on("click", "#step2", function (e) {
 				var len = obj[0].length;
 				var len2 = obj[1].length;
 
-
+				$(".postal").val(obj[2]);
 				$("#first").hide();
 				$("#second").hide();
 				$("#address-list").show();
@@ -206,19 +206,35 @@ $(document).on("click", "#step2", function (e) {
 					$(".add-address-btn").show();
 				});
 				$(document).on("click", ".save-btn", function () {
+
+					
 					$street = $(".street").val().trim();
 
 					$house = $(".house").val().trim();
 					$postal = $(".postal").val().replace(/\s/g, "").trim();
 					$city = $(".city").val().replace(/\s/g, "").trim();
 					$phone = $(".phone").val().replace(/\s/g, "").trim();
-					$(".box").append('<div class="address-check-box"><span><input type="radio" name="address1" value="' + $street + ',' + $house + ',' + $postal + ',' + $city + ',' + $phone + '" required></span><span><p><strong>Address</strong>:' + ' ' + $street + ' ' + $house + ' ' + $city + ' ' + $postal + '</p><p><strong>Phone number:</strong><a name="phone">' + ' ' + $phone + '</a></p></span>	</div>');
+
+					if(($street && $house && $postal && $city && $phone) != ""){
+
+					
+					$(".box").append('<div class="address-check-box"><span><input type="radio" name="address1" value="' + $street + ',' + $house + ',' + $postal + ',' + $city + ',' + $phone + '" required/></span><span><p><strong>Address</strong>:' + ' ' + $street + ' ' + $house + ' ' + $city + ' ' + $postal + '</p><p><strong>Phone number:</strong><a name="phone">' + ' ' + $phone + '</a></p></span>	</div>');
 					$(".add-address-box").hide();
 					$(".add-address-btn").show();
+					}
+					else{
+						Swal.fire({
+							title: 'Error!',
+							text: "All field are required",  
+							icon: 'warning',
+							confirmButtonText: 'Cool'
+						  })
+					}
 
 
 
 				});
+
 				$("#2,#3").addClass("add-color");
 				$("#3").addClass("add");
 				$("#1,#2,#4").removeClass("add");
@@ -226,6 +242,7 @@ $(document).on("click", "#step2", function (e) {
 				$("#4").removeClass("add-color");
 				$("#img4").attr("src", "./assets/Images/payment.png");
 				$("#img2").attr("src", "./assets/Images/schedule-white.png");
+				
 
 				$(".box1").html("");
 				for (var i = 0; i < len; i++) {
@@ -269,7 +286,7 @@ $(document).on("click", "#step2", function (e) {
 		
 
 			} else if (data == 0) {
-				swal({
+				Swal.fire({
 					title: "sorry!",
 					text: "something went wrong",
 					icon: "error",
@@ -282,7 +299,7 @@ $(document).on("click", "#step2", function (e) {
 			$('#loader').addClass('hidden')
 		}
 	})} else {
-		swal({
+		Swal.fire({
 			title: 'sorry!! ',
 			text: 'Please select date and time!!',
 			icon: 'error',
@@ -344,6 +361,7 @@ $(document).on("click", ".pin-btn", function (e) {
 	HideLaundry();
 	HideFridge();
 	if (pincode) {
+		
 		$.ajax({
 			type: "POST",
 			url: "?controller=Bookservice&function=checkpincode",
@@ -365,6 +383,7 @@ $(document).on("click", ".pin-btn", function (e) {
 						day = '0' + day.toString();					
 					var maxDate = year + '-' + month + '-' + day;
    					 $('#datepicker').attr('min', maxDate);
+			
 					$("#first").hide();
 					$("#second").show();
 					$("#1,#3,#4").removeClass("add");
@@ -499,7 +518,7 @@ $(document).on("click", ".pin-btn", function (e) {
 					});
 				} else if (data == 0) {
 
-					swal({
+					Swal.fire({
 						title: 'Sorry!! ',
 						text: 'Service is not available here!',
 						icon: 'warning',
@@ -513,7 +532,7 @@ $(document).on("click", ".pin-btn", function (e) {
 		});
 	}
 	else {
-		swal({
+		Swal.fire({
 			title: 'Sorry!! ',
 			text: 'Please enter valid pincode!',
 			icon: 'warning',

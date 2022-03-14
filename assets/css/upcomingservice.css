@@ -527,7 +527,7 @@ select {
     display: none;
 }
 table.dataTable.no-footer {
-     border-bottom: 1px solid #e1e1e1; 
+     border-bottom:none!important; 
 }
 
 #mytable4 p{
@@ -562,7 +562,61 @@ table.dataTable.no-footer {
     margin: 0 2.5%;
     padding-left: 0 !important;
 }
+@media screen and (max-width: 1100px) {
+	#newServiceTable  thead{
+		display: none;
+	}
+	#newServiceTable  .tdHead{
+		justify-content: flex-start!important;
+	}
+	#upcomingHistoryTable thead{
+		display: none;
+	}
+	#upcomingHistoryTable .tdHead{
+		justify-content: flex-start!important;
+	}
+	#newServiceTable  tr {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		border-radius: 7px;
+		margin: 15px 0;
+		border: 1px solid #a1a0a0 !important;
+		box-shadow: 3px 5px 5px 5px #c4c2c2;
+		padding: 10px;
+		gap: 10px;
+	}
+	#upcomingHistoryTable tr{
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		border-radius: 7px;
+		margin: 15px 0;
+		border: 1px solid #a1a0a0 !important;
+		box-shadow: 3px 5px 5px 5px #c4c2c2;
+		padding: 10px;
+		gap: 10px;
+	}
+	
+	#newServiceTable td:nth-of-type(1):before { content: "Service Id"; font-weight: bold;}
+	#newServiceTable td:nth-of-type(2):before { content: "Service Date"; font-weight: bold;}
+	#newServiceTable td:nth-of-type(3):before { content: "Customer Details";font-weight: bold; }
+	#newServiceTable td:nth-of-type(4):before { content: "Payment";font-weight: bold; }
+	#newServiceTable td:nth-of-type(5):before { content: "Time Conflict"; font-weight: bold;}
+	#newServiceTable td:nth-of-type(5):before { content: "Action"; font-weight: bold;}
 
+
+	#upcomingHistoryTable td:nth-of-type(1):before { content: "Service Id"; font-weight: bold;}
+	#upcomingHistoryTable td:nth-of-type(2):before { content: "Service Date"; font-weight: bold;}
+	#upcomingHistoryTable td:nth-of-type(3):before { content: "Customer Details";font-weight: bold; }
+	#upcomingHistoryTable td:nth-of-type(4):before { content: "Payment";font-weight: bold; }
+	#upcomingHistoryTable td:nth-of-type(5):before { content: "Distance"; font-weight: bold;}
+	#upcomingHistoryTable td:nth-of-type(5):before { content: "Action"; font-weight: bold;}
+	/* {
+		border-bottom: 2px solid #a1a0a0 !important;
+
+	} */
+}
 @media screen and (max-width: 600px) {
 
     #mytable4 td{
@@ -570,9 +624,24 @@ table.dataTable.no-footer {
         display: block;
     }
 }
+/* add */
+.block{
+	color: white;
+    background: #FF7B6D;
+    border-radius: 50px;
+}
+#blockcust_table td{
+	padding: 0px !important;
+}
+#blockcust_table tr{
+    border:none!important;
+}
 #ratingTable_length{
 display: none;
 }
+#mytable4_length{
+	display: none;
+	}
 #servicehistoryTable_length{
 	display: none;
 }
