@@ -57,8 +57,8 @@ class Helperland
                 
             }
         } else {
-            $sql = "INSERT INTO user (FirstName,LastName,Email,Password,Mobile,UserTypeId,CreatedDate)
-        VALUES (:FirstName,:LastName,:Email,:Password,:Mobile,:UserTypeId,:CreatedDate)";
+            $sql = "INSERT INTO user (FirstName,LastName,Email,Password,Mobile,UserTypeId)
+        VALUES (:FirstName,:LastName,:Email,:Password,:Mobile,:UserTypeId)";
             $stmt = $this->conn->prepare($sql);
             $execute = $stmt->execute($data);
             if ($execute) {
@@ -1037,4 +1037,49 @@ public function sendservice_email($spid)
         }
 
     } 
+    public function reschedule_admin($date,$address)
+    {
+        $sql = "UPDATE servicerequest SET ServiceStartDate=:ServiceStartDate WHERE ServiceRequestId=:ServiceRequestId";
+        $stmt = $this->conn->prepare($sql);
+        $success1 = $stmt->execute($date);
+        
+
+        $sql = "UPDATE servicerequestaddress SET AddressLine1=:AddressLine1,AddressLine2=:AddressLine2,City=:City,PostalCode=:PostalCode WHERE ServiceRequestId=:ServiceRequestId";
+        $stmt = $this->conn->prepare($sql);
+        $success2 = $stmt->execute($address);
+     
+
+        if ($success1 && $success2) {
+            echo 1;
+        }
+        else{
+            echo 0;
+        }
+    }
+    public function getadmin_user_data(){
+        $sql="SELECT concat(FirstName,' ',LastName) AS FullName,UserId,UserTypeId,Mobile,CreatedDate,ZipCode,IsActive FROM user WHERE UserTypeId IN (1,2)";
+        $stmt = $this->conn->prepare($sql);
+        $execute=$stmt->execute();
+        $success = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($execute) {
+            echo json_encode($success);
+        }
+        else{
+            echo 0;
+        }
+    }
+    public function getadmin_active($data)
+    {
+        
+        $sql = "UPDATE user SET IsActive=:IsActive WHERE UserId=:UserId";
+        $stmt = $this->conn->prepare($sql);
+        $success = $stmt->execute($data);
+        if ($success) {
+            echo 1;
+        }
+        else{
+            echo 0;
+        }
+    }
+
 }
