@@ -68,8 +68,7 @@ class HelperlandController
     public function createaccount_user()
     {
         if (isset($_POST['submit'])) {
-            date_default_timezone_set('Asia/Kolkata');
-            $date = date('d-m-y h:i:s');
+           
             $fname = $this->test_input($_POST['fname']);
             $lname = $this->test_input($_POST['lname']);
             $password = $this->test_input($_POST['password']);
@@ -84,8 +83,8 @@ class HelperlandController
                 'Email' =>  $email,
                 'Password' => $password,
                 'Mobile' => $mobile,
-                'UserTypeId' => $UserTypeId,
-                'CreatedDate' => $date
+                'UserTypeId' => $UserTypeId
+                
             );
             $email = array(
                 'Email' =>  $email,
