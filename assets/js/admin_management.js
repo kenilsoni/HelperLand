@@ -22,135 +22,6 @@ halfPage.addEventListener("click", () => {
 	[verticleMenu, hamburger].forEach((ele) => ele.classList.remove("open"));
 });
 
-// const names = [
-// 	"Jackson Sofia",
-// 	"Levi Emily",
-// 	"Sebastian Avery",
-// 	"Mateo Mila",
-// 	"Jack Scarlett",
-// 	"iam Olivia",
-// 	"oah Emma",
-// 	"liver Ava",
-// 	"lijah Charlotte",
-// 	"illiam Sophia",
-// 	"ames Amelia",
-// 	"enjamin Isabella",
-// 	"ucas Mia",
-// 	"enry Evelyn",
-// 	"Alexander Harper",
-// 	"Mason Camila",
-// 	"Michael Gianna",
-// 	"Ethan Abigail",
-// 	"Daniel Luna",
-// 	"Jacob Ella",
-// 	"Logan Elizabeth",
-// 	"Owen Eleanor",
-// 	"Theodore Madison",
-// 	"Aiden Layla",
-// 	"Samuel Penelope",
-// 	"Joseph Aria",
-// 	"John Chloe",
-// 	"David Grace",
-// 	"Wyatt Ellie",
-// 	"Matthew Nora",
-// 	"Luke Hazel",
-// 	"Asher Zoey",
-// 	"Carter Riley",
-// 	"Julian Victoria",
-// 	"Grayson Lily",
-// 	"Leo Aurora",
-// 	"Jayden Violet",
-// 	"Gabriel Nova",
-// 	"Isaac Hannah",
-// 	"Lincoln Emilia",
-// 	"Anthony Zoe",
-// 	"Hudson Stella",
-// 	"Dylan Everly",
-// 	"Ezra Isla",
-// 	"Thomas Leah",
-// 	"Charles Lillian",
-// 	"Christopher Addison",
-// 	"Jaxon Willow",
-// 	"Maverick Lucy",
-// 	"Josiah Paisley",
-// 	"Isaiah Natalie",
-// 	"Andrew Naomi",
-// 	"Elias Eliana",
-// 	"Joshua Brooklyn",
-// 	"Nathan Elena",
-// ];
-
-// for (let i = 0; i < 55; i++) {
-// 	let x = Math.floor(Math.random() * 100);
-// 	let status;
-// 	if (x <= 25 && x >= 0) {
-// 		status = "cancelled";
-// 	} else if (x <= 50 && x > 25) {
-// 		status = "completed";
-// 	} else if (x <= 75 && x > 50) {
-// 		status = "new";
-// 	} else if (x <= 100 && x > 75) {
-// 		status = "pending";
-// 	}
-// 	let popoverContent = "";
-// 	if (status === "pending") {
-// 		popoverContent = `<a href='#' class='custPopoverAnch'>Edit & Reschedule</a><a href='#' class='custPopoverAnch'>Refund</a><a href='#' class='custPopoverAnch'>Cancel</a><a href='#' class='custPopoverAnch'>Change SP</a><a href='#' class='custPopoverAnch'>Escalate</a><a href='#' class='custPopoverAnch'>History Log</a><a href='#' class='custPopoverAnch'>Download Invoice</a>`;
-// 	} else if (status === "completed") {
-// 		popoverContent = `<a href='#' class='custPopoverAnch'>Refund</a><a href='#' class='custPopoverAnch'>Escalate</a><a href='#' class='custPopoverAnch'>History Log</a><a href='#' class='custPopoverAnch'>Download Invoice</a>`;
-// 	}
-// 	tbody.innerHTML += `<tr>
-// 					<td class="serviceId">${Math.floor(Math.random() * 3000 * i)}</td>
-// 					<td>
-// 						<div class="tdHead d-flex align-items-center justify-content-start">
-// 							<img src="./assets/Images/calender.png" />
-// 							<h5>${new Date(i * 86400000).getDate()}/${new Date(i * 86400000).getMonth() + 1}/${new Date(i * 86400000).getFullYear()}</h5>
-// 						</div>
-// 						<div class="timing d-flex align-items-center justify-content-start">
-// 							<img src="./assets/Images/clock.png" />
-// 							<div class="time">12:00 - 18:00</div>
-// 						</div>
-// 					</td>
-// 					<td>
-// 						<div class="custName text-md-nowrap text-sm-wrap">${names[54 - i]}</div>
-// 						<div class="custAddress d-flex text-md-nowrap text-sm-wrap align-items-center justify-content-start">
-// 							<img src="./assets/Images/addressIcon.png" />
-// 							Musterstrabe 5,12345 Bonn
-// 						</div>
-// 					</td>
-// 					<td>
-// 						<div class="serviceProvider d-flex align-items-center justify-content-start">
-// 							<img class="rounded-circle" src="./assets/Images/serviceProviderProfileImage.svg" />
-// 							<div class="serviceProviderInfo">
-// 								<div class="serviceProviderName">${names[i]}</div>
-// 								<div class="feedback d-flex align-items-center justify-content-center">
-// 									<img src="./assets/Images/starFilled.svg" /><img src="./assets/Images/starFilled.svg" /><img
-// 										src="./assets/Images/starFilled.svg"
-// 									/><img src="./assets/Images/starFilled.svg" /><img src="./assets/Images/starUnfilled.svg" />4
-// 								</div>
-// 							</div>
-// 						</div>
-// 					</td>
-// 					<td class="text-center"><span class='status ${status}'>${status}</span></td>
-// 					<td class="actionTd">
-// 						<div 
-// 						class="action rounded-circle d-flex flex-column align-items-center justify-content-center position-relative" 
-// 						${
-// 							popoverContent !== ""
-// 								? 'data-bs-toggle="popover" data-bs-offset="-30,10" data-bs-placement="bottom" data-bs-content="' +
-// 								  popoverContent +
-// 								  '" data-bs-html="true"'
-// 								: ""
-// 						}
-// 						>
-// 							<div class="dot rounded-circle"></div>
-// 							<div class="dot rounded-circle"></div>
-// 							<div class="dot rounded-circle"></div>
-// 						</div>
-// 					</td>
-// 				</tr>`;
-// }
-
-
 // datatable
 
 jQuery.extend(jQuery.fn.dataTableExt.oSort, {
@@ -220,6 +91,7 @@ var dt2 = new DataTable("#adminUserManagementTable2", {
 	dom: "Rtlp",
 	responsive: false,
 	pagingType: "simple_numbers",
+
 	language: {
 		paginate: {
 			previous: "<img src='./assets/Images/adminNextPreviousButton.svg' alt='previous' />",
@@ -229,12 +101,10 @@ var dt2 = new DataTable("#adminUserManagementTable2", {
 		lengthMenu: "Show_MENU_Entries",
 	},
 	columnDefs: [
-		{ orderable: false, targets: 1 },
-		{ orderable: false, targets: 2 },
-		{ orderable: false, targets: 4 },
-		{ orderable: false, targets: 7 },
-		{ type: "num", targets: 3 },
-		{ type: "kmNum", targets: 5 },
+		
+		{ orderable: false, targets: 5 },
+		{ orderable: false, targets: 6 },
+
 	],
 });
 // jquery plugin
@@ -246,56 +116,9 @@ $(function() {
     $("#toDate1").datepicker();
 	
 });
-// $( function() {
-//     $( "#datepicker" ).datepicker();
-//     $( "#anim" ).on( "change", function() {
-//       $( "#datepicker" ).datepicker( "option", "showAnim", $( this ).val() );
-//     });
-//   } );
-// $("#fromDate").datepicker({
-// 	changeMonth: true,
-// 	changeYear: true,
-// 	showButtonPanel: true,
-// });
-// $("#toDate").datepicker({
-// 	changeMonth: true,
-// 	changeYear: true,
-// 	showButtonPanel: true,
-// });
-// fromDate.addEventListener("focusout", () => {
-// 	setTimeout(() => {
-// 		if (fromDate.value) fromDateOutput.innerHTML = fromDate.value;
-// 	}, 500);
-// });
-// toDate.addEventListener("focusout", () => {
-// 	setTimeout(() => {
-// 		if (toDate.value) toDateOutput.innerHTML = toDate.value;
-// 	}, 500);
-// });
-// $("#fromDate1").datepicker({
-// 	changeMonth: true,
-// 	changeYear: true,
-// 	showButtonPanel: true,
-// });
-// $("#toDate1").datepicker({
-// 	changeMonth: true,
-// 	changeYear: true,
-// 	showButtonPanel: true,
-// });
-// fromDate1.addEventListener("focusout", () => {
-// 	setTimeout(() => {
-// 		if (fromDate1.value) fromDateOutput1.innerHTML = fromDate1.value;
-// 	}, 500);
-// });
-// toDate1.addEventListener("focusout", () => {
-// 	setTimeout(() => {
-// 		if (toDate1.value) toDateOutput1.innerHTML = toDate1.value;
-// 	}, 500);
-// });
-var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
-})
+
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+var popoverList = popoverTriggerList.map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
 
 $(document).ready(function(){
 	
@@ -344,11 +167,20 @@ $(document).ready(function(){
 		$(".usermgmt_data").show();
 		$(".service_request").removeClass("color_click");
 		$(".user_management").addClass("color_click");
+		getusermgmt_data();
 	})
 	getservice_data();
-	// $('[data-bs-toggle="popover"]').popover(); 
+	
+	$(document).on("click",".search",function(){
+		dt.search($('.myInputTextField').val()).draw() ;
+	})
+	$(document).on("click",".clear",function(){
+		
+		dt.search($('.myInputTextField').val("")).draw();
+	})
+	
 	function getservice_data(){
-		// var myTable = $('.adminUserManagementTable').DataTable();
+
 		$.ajax({
 			type: "GET",
 			url: "?controller=Admin&function=getservice_data",
@@ -382,46 +214,43 @@ $(document).ready(function(){
 							}
 						    }
 
-							// if (obj[i][1] != undefined) {
-							// 	var classadd = "disabled";
-							// 	var color2 = "color_cancel";
-							// 	var tooltip = "rateactive2";
-							// }
-							// else {
-							// 	var classadd = "";
-							// 	var color2 = "color_complete";
-							// 	var tooltip = "rateactive";
-							// }
+						
 							if (obj[i][0].Status == 1) {
-								// var disabled = "disabled";
-								// var color = "color_cancel";
+								var disabled = "";
 								var text = "Completed";
-								var popoverContent = `<a href='#' class='custPopoverAnch'>Refund</a><a href='#' class='custPopoverAnch'>Escalate</a><a href='#' class='custPopoverAnch'>History Log</a><a href='#' class='custPopoverAnch'>Download Invoice</a>`;
+								var popoverContent = `<div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
 							} else if (obj[i][0].Status == 2) {
 								var disabled = "";
-								var color = "color_complete";
+								
 								var text = "Pending";
-								var popoverContent = `<a href='#' class='custPopoverAnch'>Edit & Reschedule</a><a href='#' class='custPopoverAnch'>Refund</a><a href='#' class='custPopoverAnch'>Cancel</a><a href='#' class='custPopoverAnch'>Change SP</a><a href='#' class='custPopoverAnch'>Escalate</a><a href='#' class='custPopoverAnch'>History Log</a><a href='#' class='custPopoverAnch'>Download Invoice</a>`;
+								var popoverContent = `<div  data-toggle='modal' data-target='#EditServiceRequest'class='custPopoverAnch' id="edit_btn">Edit & Reschedule</div><div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Cancel</div><div class='custPopoverAnch'>Change SP</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
 							}else if (obj[i][0].Status == 3) {
-								var disabled = "";
-								var color = "color_complete";
+								var disabled = "disabled";
+								
 								var text = "Cancel";
-								var popoverContent=" ";
+								var popoverContent="";
 							}else if (obj[i][0].Status == 4) {
 								var disabled = "";
-								var color = "color_complete";
+							
 								var text = "Assign";
-								var popoverContent=" ";
+								var popoverContent= `<div  data-toggle='modal' data-target='#EditServiceRequest'class='custPopoverAnch' id="edit_btn">Edit & Reschedule</div><div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Cancel</div><div class='custPopoverAnch'>Change SP</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
 							}
 								
 							if (obj[i][0].ServiceProviderId != null) {
 
 						dt.row.add($(`<tr>
+						<input type="hidden" value="${obj[i][1].AddressLine1}" class="add1"/>
+						<input type="hidden" value="${obj[i][1].AddressLine2}" class="add2"/>
+						<input type="hidden" value="${obj[i][1].City}" class="city"/>
+						<input type="hidden" value="${obj[i][1].PostalCode}" class="postal"/>
+						<input type="hidden" value="${obj[i][0].ServiceRequestId}" class="servicereq_id"/>
+						<input type="hidden" value="${obj[i][0].UserId}" class="userid"/>
+						<input type="hidden" value="${obj[i][0].ServiceProviderId}" class="sp_id"/>
 											<td class="serviceId">${obj[i][0].ServiceId}</td>
 											<td>
 												<div class="tdHead d-flex align-items-center justify-content-start" style="width:10rem;">
 													<img src="./assets/Images/calender.png" />
-													<h5>${dateString}</h5>
+													<h5 class="datenew">${dateString}</h5>
 												</div>
 												<div class="timing d-flex align-items-center justify-content-start">
 													<img src="./assets/Images/clock.png" />
@@ -431,7 +260,8 @@ $(document).ready(function(){
 											<td class="d-flex">
 												<div class="d-flex align-items-center" style="margin-right:10px;">
 												<img src="./assets/Images/addressIcon.png" /></div>
-									
+											
+												
 													<div class="custAddress d-flex text-md-nowrap text-sm-wrap align-items-center justify-content-start flex-column">
 													${obj[i][3].UserFullName}<br>
 													${obj[i][1].AddressLine1} ${obj[i][1].AddressLine2} ${obj[i][1].City} ${obj[i][1].PostalCode}
@@ -452,30 +282,34 @@ $(document).ready(function(){
 											<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i][0].TotalCost}</span></td>
 											<td class="text-center"><span class='status ${text}'>${text}</span></td>
 											<td class="actionTd">
-												<div 
-												class="action rounded-circle d-flex flex-column align-items-center justify-content-center position-relative" 
-												${
-													popoverContent != ""
-														? 'data-bs-toggle="popover" data-bs-offset="-30,10" data-bs-placement="bottom" data-bs-content="' +
-														  popoverContent +
-														  '" data-bs-html="true"'
-														: ""
-												}
-												>
-													<div class="dot rounded-circle"></div>
-													<div class="dot rounded-circle"></div>
-													<div class="dot rounded-circle"></div>
+											<div class="dropdown">
+												<div class="dropdown-toggle " 
+													id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" ${disabled}>
+													<svg xmlns="http://www.w3.org/2000/svg" width="63%" height="100%" fill="#8E8E8E" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+													<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+												  </svg>
 												</div>
+												
+												<ul class="dropdown-menu p-2">
+													${popoverContent}
+												</ul>
+											</div>
 											</td>
 										</tr>`)).draw();
 											}
 											else{
 												dt.row.add($(`<tr>
+												<input type="hidden" value="${obj[i][1].AddressLine1}" class="add1"/>
+												<input type="hidden" value="${obj[i][1].AddressLine2}" class="add2"/>
+												<input type="hidden" value="${obj[i][1].City}" class="city"/>
+												<input type="hidden" value="${obj[i][1].PostalCode}" class="postal"/>
+												<input type="hidden" value="${obj[i][0].UserId}" class="userid"/>
+												<input type="hidden" value="${obj[i][0].ServiceRequestId}" class="servicereq_id"/>
 												<td class="serviceId">${obj[i][0].ServiceId}</td>
 												<td>
 													<div class="tdHead d-flex align-items-center justify-content-start" style="width:10rem;">
 														<img src="./assets/Images/calender.png" />
-														<h5>${dateString}</h5>
+														<h5 class="datenew">${dateString}</h5>
 													</div>
 													<div class="timing d-flex align-items-center justify-content-start">
 														<img src="./assets/Images/clock.png" />
@@ -485,6 +319,7 @@ $(document).ready(function(){
 												<td class="d-flex ">
 												<div class="d-flex align-items-center" style="margin-right:10px;">
 												<img src="./assets/Images/addressIcon.png" /></div>
+								
 									
 													<div class="custAddress d-flex text-md-nowrap text-sm-wrap align-items-center justify-content-start flex-column">
 													${obj[i][3].UserFullName}<br>
@@ -497,20 +332,18 @@ $(document).ready(function(){
 												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i][0].TotalCost}</span></td>
 												<td class="text-center"><span class='status ${text}'>${text}</span></td>
 												<td class="actionTd">
-													<div 
-													class="action rounded-circle d-flex flex-column align-items-center justify-content-center position-relative" 
-													${
-														popoverContent !== ""
-															? 'data-bs-toggle="popover" data-bs-offset="-30,10" data-bs-placement="bottom" data-bs-content="' +
-															  popoverContent +
-															  '" data-bs-html="true"'
-															: ""
-													}
-													>
-														<div class="dot rounded-circle"></div>
-														<div class="dot rounded-circle"></div>
-														<div class="dot rounded-circle"></div>
-													</div>
+												<div class="dropdown">
+												<div class="dropdown-toggle " 
+													id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" ${disabled}>
+													<svg xmlns="http://www.w3.org/2000/svg" width="63%" height="100%" fill="#8E8E8E" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+													<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+												  </svg>
+												</div>
+												
+												<ul class="dropdown-menu p-2">
+												${popoverContent}
+												</ul>
+											</div>
 												</td>
 											</tr>`)).draw();
 											}
@@ -523,6 +356,208 @@ $(document).ready(function(){
 				
 		})
 	}
+	$(document).on("click",".dropdown",function(){
+
+		var servicereqid = $(this).closest('tr').find(".servicereq_id").val();
+		var servicereqid_display = $(this).closest('tr').find(".serviceId").text().trim();
+		var spid = $(this).closest('tr').find(".sp_id").val();
+		var userid = $(this).closest('tr').find(".userid").val();
+		var add1 = $(this).closest('tr').find(".add1").val();
+		var add2 = $(this).closest('tr').find(".add2").val();
+		var city = $(this).closest('tr').find(".city").val();
+		var postal = $(this).closest('tr').find(".postal").val();
+		var time1 = $(this).closest('tr').find(".timing").text();
+		var tim1 = time1.split("-");
+		var date11 = $(this).closest('tr').find(".datenew").text();
+		var parts = date11.split('-');
+		var mydate = parts[2] + "-" + parts[1] + "-" + parts[0];
+
+		$(".time_modal").val(tim1[0].trim());
+		$(".date_modal").val(mydate);
+		$(".add1_modal").val(add1);
+		$(".add2_modal").val(add2);
+		$(".city_modal").val(city);
+		$(".postal_modal").val(postal);
+		$(".servicereqid_display").val(servicereqid_display);
+		$(".service_id").val(servicereqid);
+		$(".sp_id").val(spid);
+		$(".userid").val(userid);
+	
+	
+
+	})
+	$(document).on("click","#update_btn",function(){
+		$.ajax({
+			type: "POST",
+			url: "?controller=Admin&function=reschedule",
+			datatype: "json",
+			data: $("#form1").serialize(),
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				if (data == 1) {
+					getservice_data();
+					Swal.fire({
+						title: 'Great job!! ',
+						text: 'Data updated successfully!!',
+						icon: 'success',
+					});
+				}
+				else if (data == 0) {
+					Swal.fire({
+						title: 'sorry!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		})
+
+	})
+	function getusermgmt_data(){
+		
+		$.ajax({
+			type: "GET",
+			url: "?controller=Admin&function=getuser_data",
+			datatype: "json",
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				obj = JSON.parse(data);
+				console.log(obj);
+				if (typeof obj === "object") {
+					var len = obj.length;
+					dt2.clear().draw();
+					for (var i = 0; i < len; i++) {
+						var d=new Date(obj[i].CreatedDate);
+						var date = d.getDate();
+						var month = d.getMonth();
+						var year = d.getFullYear();
+						dateString = ("0" + date).slice(-2) + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
+
+
+						dt2.row.add($(`<tr>
+											<input type="hidden" class="userid" value="${obj[i].UserId}"/>
+											<td class="serviceId"><div >${obj[i].FullName}</div></td>
+											<td>
+												<div class="tdHead d-flex align-items-center justify-content-start">
+													<img src="./assets/Images/calender.png" />
+													<h5 class="datenew">${dateString}</h5>
+												</div>
+												
+											</td>
+											<td>
+												
+											
+												
+													<div>
+													${obj[i].UserTypeId==1 ? "Customer":"Service Provider"}
+													</div>
+												</td>
+												
+											<td>
+											<div>
+											${obj[i].Mobile}
+												
+											</div>
+											</td>
+											<td><div>${obj[i].ZipCode == null ? "":obj[i].ZipCode}</div></td>
+											<td ><span class='status ${obj[i].IsActive == 1? "Active'>Active" : "Inactive'>Inactive"}</span></td>
+											<td class="actionTd">
+											<div class="dropdown">
+												<div class="dropdown-toggle " 
+													id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+													<svg xmlns="http://www.w3.org/2000/svg" width="40%" height="100%" fill="#8E8E8E" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+													<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+												  </svg>
+												</div>
+												<ul class="dropdown-menu p-2">
+												${obj[i].IsActive == 1 ? `<div class='custPopoverAnch'>Edit</div><div class='custPopoverAnch' id="Inactive_btn">Deactive</div><div class='custPopoverAnch'>Service History</div>`:`<div class='custPopoverAnch'>Edit</div><div class='custPopoverAnch' id="active_btn">Active</div><div class='custPopoverAnch'>Service History</div>`}
+												</ul>
+											</div>
+											</td>
+										</tr>`)).draw();
+											
+					}
+				}
+			},
+			complete: function () {
+			$('#loader').addClass('hidden')
+			}
+				
+		})
+	}
+	$(document).on("click","#active_btn",function(){
+		var id=$(this).closest('tr').find(".userid").val();
+		$.ajax({
+			type: "POST",
+			url: "?controller=Admin&function=active",
+			datatype: "json",
+			data: {id:id},
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				if (data == 1) {
+					getusermgmt_data();
+					Swal.fire({
+						title: 'Great job!! ',
+						text: 'User is now active!!',
+						icon: 'success',
+					});
+				}
+				else if (data == 0) {
+					Swal.fire({
+						title: 'sorry!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		})
+
+	})
+	$(document).on("click","#Inactive_btn",function(){
+		var id=$(this).closest('tr').find(".userid").val();
+		$.ajax({
+			type: "POST",
+			url: "?controller=Admin&function=Inactive",
+			datatype: "json",
+			data: {id:id},
+			beforeSend: function () {
+				$('#loader').removeClass('hidden')
+			},
+			success: function (data) {
+				if (data == 1) {
+					getusermgmt_data();
+					Swal.fire({
+						title: 'Great job!! ',
+						text: 'User is now Inactive!!',
+						icon: 'success',
+					});
+				}
+				else if (data == 0) {
+					Swal.fire({
+						title: 'sorry!! ',
+						text: 'something went wrong!!',
+						icon: 'error',
+					});
+				}
+			},
+			complete: function () {
+				$('#loader').addClass('hidden')
+			}
+		})
+
+	})
 })
 
 // var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
