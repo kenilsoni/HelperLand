@@ -170,15 +170,81 @@ $(document).ready(function(){
 		getusermgmt_data();
 	})
 	getservice_data();
-	
-	$(document).on("click",".search",function(){
-		dt.search($('.myInputTextField').val()).draw() ;
-	})
-	$(document).on("click",".clear",function(){
+
+	// $.fn.dataTable.ext.search.push(( function( settings, data, dataIndex ) {
+	// 	var datetime=new Date($('#fromDate').datepicker("getDate"));
+	// var min =  ("0"+datetime.getDate()).slice(-2) + "-" + ("0"+(datetime.getMonth()+1)).slice(-2) + "-" + datetime.getFullYear();
 		
-		dt.search($('.myInputTextField').val("")).draw();
+	// var datetime=new Date($('#toDate').datepicker("getDate"));
+	// var max =  ("0"+datetime.getDate()).slice(-2) + "-" + ("0"+(datetime.getMonth()+1)).slice(-2) + "-" + datetime.getFullYear();
+		
+	// 	var startDate = new Date(data[1]);
+	// 	if (min == null && max == null) { return true; }
+	// 	if (min == null && startDate <= max) { return true;}
+	// 	if(max == null && startDate >= min) {return true;}
+	// 	if (startDate <= max && startDate >= min) { return true; }
+	// 	return false;
+		
+	// }));
+	$(document).on("click",".search",function(){
+		
+	// console.log(strDateTime);
+		dt.search($('.myInputTextField').val() | $('#status').val() | $('#customer').val()).draw();
+		// dt.search).draw() ;
+		// dt.search().draw() ;
+		// dt.search(min).draw() ;
+		// console.log($('#fromDate').val());
+	
+		
+       
+    
 	})
 	
+	
+	$(document).on("click",".clear",function(){
+		$('.myInputTextField').val('');
+		$('#status').val('status');
+		$('#customer').val('customer');
+		$('#serviceProvider').val('serviceProvider');
+		
+   		 dt.search('').draw();
+		
+	})
+	
+	$(document).on("click",".search2",function(){
+		dt2.search($('#userName').val() | $('#userType').val() | $('#mobile').val()).draw() ;
+	
+		// dt.search($('#serviceProvider').val()).draw() ;
+		// console.log($('#fromDate').val());
+		// dt.search( function( settings, data, dataIndex ) {
+		// 	var min  = $('#fromDate').val();
+		// 	var max  = $('#toDate').val();
+		// 	var createdAt = data[1] || 0; // Our date column in the table
+	
+		// 	if  ( 
+		// 			( min == "" || max == "" )
+		// 			|| 
+		// 			( moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max) ) 
+		// 		)
+		// 	{
+		// 		return true;
+		// 	}
+		// 	return false;
+		// }).draw() ;
+		
+       
+    
+	})
+		
+	$(document).on("click",".clear2",function(){
+		$('#userName').val('userName');
+		$('#userType').val('userType');
+		$('#mobile').val('');
+		// $('#serviceProvider').val('serviceProvider');
+		
+   		 dt2.search('').draw();
+		
+	})
 	function getservice_data(){
 
 		$.ajax({
@@ -194,6 +260,8 @@ $(document).ready(function(){
 				if (typeof obj === "object") {
 					var len = obj.length;
 					dt.clear().draw();
+					var user=[];
+					var serviceprovider=[];
 					for (var i = 0; i < len; i++) {
 						date_string(obj[i][0].ServiceStartDate, obj[i][0].SubTotal);
 
@@ -205,6 +273,11 @@ $(document).ready(function(){
 							let remainning = 5 - star;
 							var starfilled = "";
 							var starfilled1 = "";
+
+							user.push(obj[i][3].UserFullName);
+							// var newOption = $('<option value="'+val+'">'+val+'</option>');
+							// $('#customer').append(newOption);
+
 							for (let i = 0; i < star; i++) {
 								starfilled += '<img src="./assets/Images/starFilled.svg"/>';
 
@@ -237,7 +310,7 @@ $(document).ready(function(){
 							}
 								
 							if (obj[i][0].ServiceProviderId != null) {
-
+								serviceprovider.push(obj[i][5].SPFullName);
 						dt.row.add($(`<tr>
 						<input type="hidden" value="${obj[i][1].AddressLine1}" class="add1"/>
 						<input type="hidden" value="${obj[i][1].AddressLine2}" class="add2"/>
@@ -348,6 +421,23 @@ $(document).ready(function(){
 											</tr>`)).draw();
 											}
 					}
+					var unique = user.filter(function(itm, i, user) {
+						return i == user.indexOf(itm);
+					});
+					for(i=0;i<unique.length;i++){
+					var newOption = $('<option value="'+unique[i]+'">'+unique[i]+'</option>');
+					$('#customer').append(newOption);
+					}
+				
+
+					var unique2 = serviceprovider.filter(function(itm, i, serviceprovider) {
+						return i == serviceprovider.indexOf(itm);
+					});
+					for(i=0;i<unique.length;i++){
+					var newOption1 = $('<option value="'+unique2[i]+'">'+unique2[i]+'</option>');
+					$('#serviceProvider').append(newOption1);
+					}
+					
 				}
 			},
 			complete: function () {
@@ -432,6 +522,7 @@ $(document).ready(function(){
 				console.log(obj);
 				if (typeof obj === "object") {
 					var len = obj.length;
+					var username=[];
 					dt2.clear().draw();
 					for (var i = 0; i < len; i++) {
 						var d=new Date(obj[i].CreatedDate);
@@ -439,7 +530,7 @@ $(document).ready(function(){
 						var month = d.getMonth();
 						var year = d.getFullYear();
 						dateString = ("0" + date).slice(-2) + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
-
+						username.push(obj[i].FullName);
 
 						dt2.row.add($(`<tr>
 											<input type="hidden" class="userid" value="${obj[i].UserId}"/>
@@ -483,6 +574,13 @@ $(document).ready(function(){
 											</td>
 										</tr>`)).draw();
 											
+					}
+					var unique1 = username.filter(function(itm, i, username) {
+						return i == username.indexOf(itm);
+					});
+					for(i=0;i<unique1.length;i++){
+					var newOption = $('<option value="'+unique1[i]+'">'+unique1[i]+'</option>');
+					$('#userName').append(newOption);
 					}
 				}
 			},

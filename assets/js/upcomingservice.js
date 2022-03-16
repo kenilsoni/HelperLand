@@ -146,18 +146,32 @@ var dataTables_length = document.querySelector(".dt-buttons");
 $("#filter_pet").insertAfter(".dt-buttons");
 
 // ##########################################################################################################
-document.addEventListener('DOMContentLoaded', function() {
-	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-	  initialView: 'dayGridMonth',
-	  events: [
-		
-	  ],
-	  eventColor: '#378006'
-	});
+// document.addEventListener('DOMContentLoaded', function() {
+// 	var calendarEl = document.getElementById('calendar');
+// 	var calendar = new FullCalendar.Calendar(calendarEl, {
+// 	  initialView: 'dayGridMonth',
+// 	  events: [
+// 		{
+// 			id: 'a',
+// 			title: 'my event',
+// 			start: '2022-03-16'
+// 		  },
+// 		  {
+// 			id: 'a',
+// 			title: 'my event',
+// 			start: '2022-02-16'
+// 		  }
+// 	  ],
+// 	  eventColor: '#378006'
+// 	});
 	
-	calendar.render();
-  });
+// 	calendar.render();
+//   });
+
+
+
+
+
 // ####################################################################################################
 // my setting tab start
 function mysetting(){
@@ -543,7 +557,7 @@ function schedule_service(){
 	$(".service_schedule").show();
 	$(".mysetting,.upcoming_service,.dashboard,.newservicereq,.service_history,.my_ratings,.block_customer").hide();
 	$('.dashboard_btn,.upcomingservice_btn,.newservice_btn,.shistory_btn,.blockcust_btn,.ratings_btn').css('background','none');
-
+	scheduledata();
 	
 
 

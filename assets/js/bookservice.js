@@ -140,7 +140,6 @@ $(document).on("click", "#step3", function (e) {
 $(document).on("click", "#step2", function (e) {
 
 
-	// console.log(pincode);
 	var date=$(".date").val();
 	var time=$(".time").val();
 

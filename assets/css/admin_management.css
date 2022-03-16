@@ -113,7 +113,7 @@ div.logo a {
 #userName {
     max-width: 205px;
 }
-#userRole {
+#userType {
     max-width: 215px;
 }
 .input-group {
@@ -194,8 +194,8 @@ div.logo a {
 	background-size: 14px 8px;
 }
 
-.search,
-.clear {
+.search,.search2,
+.clear,.clear2 {
 	width: 84px;
 	display: block;
 	border: none;
@@ -205,12 +205,12 @@ div.logo a {
 	transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
-.search {
+.search,.search2 {
 	background: #1fb6ff;
 	color: #fff;
 }
 
-.clear {
+.clear,.clear2 {
 	color: #646464;
 	background: #fff;
 	border: 1px solid #dedddd;
@@ -221,6 +221,15 @@ div.logo a {
 }
 
 .clear:hover {
+	background: #646464;
+	border: 1px solid #646464;
+	color: #fff;
+}
+.search2:hover {
+	background: #0098e4;
+}
+
+.clear2:hover {
 	background: #646464;
 	border: 1px solid #646464;
 	color: #fff;

@@ -731,9 +731,9 @@ footer hr {
 	font-weight: bold;
 	cursor: pointer;
   }
-  #address-list form label:hover{
-	  background-color: #4f4f4f;
-	  color:white;
+  .favourite-worker  label:hover{
+	  background-color: #4f4f4f !important;
+	  color:white !important;
   }
   
   .address-check-box{
