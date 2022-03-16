@@ -176,6 +176,7 @@ class UpcomingServiceController
             echo 0;
         }
     }
+    
 
 }
 ?>

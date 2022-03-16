@@ -120,22 +120,18 @@ if (!isset($_SESSION['user_name'])) {
 				<input type="number" class="form-control m-0 box-shadow-none mw-sm-100 myInputTextField" name="sericeId" id="sericeId" placeholder="Service ID" />
 				<select name="customer" class="form-select m-0 box-shadow-none" id="customer">
 					<option selected value="customer">Customer</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+					
 				</select>
 				<select name="serviceProvider" class="form-select m-0 box-shadow-none" id="serviceProvider">
 					<option selected value="serviceProvider">Service Provider</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+					
 				</select>
 				<select name="status" id="status" class="form-select m-0 box-shadow-none">
 					<option selected value="status">Status</option>
-					<option value="new">New</option>
-					<option value="completed">Completed</option>
-					<option value="pending">Pending</option>
-					<option value="cancelled">Cancelled</option>
+					<option value="Assign">Assign</option>
+					<option value="Completed">Completed</option>
+					<option value="Pending">Pending</option>
+					<option value="Cancel">Cancel</option>
 				</select>
 				<label class="dateLabel d-flex align-items-center justify-content-start form-control box-shadow-none" for="fromDate">
 					<input type="text" class="m-0 top-0 start-0 box-shadow-none" name="fromDate" id="fromDate" />
@@ -289,20 +285,17 @@ if (!isset($_SESSION['user_name'])) {
 			</h2>
 			<form class="filterForm d-flex flex-wrap align-items-center justify-content-center bg-white">
 				<select name="userName" class="form-select m-0 box-shadow-none" id="userName">
-					<option selected value="userName">User Name</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+				<option selected value="userName">User Name</option>
 				</select>
-				<select name="userRole" class="form-select m-0 box-shadow-none" id="userRole">
-					<option selected value="userRole">User Role</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+				<select name="userRole" class="form-select m-0 box-shadow-none" id="userType">
+					<option selected value="userType">User Type</option>
+					<option value="Customer">Customer</option>
+					<option value="Service Provider">Service Provider</option>
+					
 				</select>
 				<div class="input-group m-0 row">
 					<input type="text" class="input-group-text col-2 col-sm-3 px-0" id="countryCode" placeholder="+91" />
-					<input type="text" class="form-control col-10 col-sm-9 box-shadow-none" placeholder="Mobile Number" aria-label="Mobile Number" autocomplete="off" />
+					<input type="text" class="form-control col-10 col-sm-9 box-shadow-none" placeholder="Mobile Number" aria-label="Mobile Number" autocomplete="off" id="mobile" />
 				</div>
 				<label class="dateLabel d-flex align-items-center justify-content-start form-control box-shadow-none" for="fromDate1">
 					<input type="text" class="m-0 top-0 start-0 box-shadow-none" name="fromDate1" id="fromDate1" />
@@ -318,8 +311,8 @@ if (!isset($_SESSION['user_name'])) {
 					</svg>
 					<div id="toDateOutput1">To Date</div>
 				</label>
-				<button class="search">Search</button>
-				<button class="clear">Clear</button>
+				<button class="search2"  type="button">Search</button>
+				<button class="clear2"  type="button">Clear</button>
 			</form>
 			<div class="tableFilterSm h4 d-flex align-items-center d-md-none px-1">
 				Filter Table :

@@ -19,11 +19,9 @@ class BookserviceController
         if (isset($_POST['pincode'])) {
            
             $pincode = $this->test_input($_POST['pincode']);
-            if ($pincode != '') {
+           
                 $this->model->check_pincode($pincode);
-            } else {
-                echo 0;
-            }
+          
         } else {
             echo 0;
         }

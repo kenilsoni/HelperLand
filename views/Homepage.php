@@ -100,7 +100,8 @@ Swal.fire({
         } ?>
 
 
-        <?php if (isset($_SESSION['checkemail'])) { ?>
+        <?php if (isset($_SESSION['checkemail'])) {
+            if($_SESSION['checkemail']==1){ ?>
             <script>
                 Swal.fire({
                     title: "sorry!",
@@ -108,7 +109,17 @@ Swal.fire({
                     icon: "warning",
                 });
             </script>
-        <?php unset($_SESSION['checkemail']);
+        <?php unset($_SESSION['checkemail']);}else if($_SESSION['checkemail']==2){?>
+            <script>
+                Swal.fire({
+                    title: "sorry!",
+                    text: "Your Are Currently Not Approved By Admin!",
+                    icon: "warning",
+                });
+            </script>
+
+        <?php
+       unset($_SESSION['checkemail']); }
         } ?>
         <?php if (isset($_SESSION['booking']) && isset($_SESSION['final_booking']) ) {
             if ($_SESSION['booking'] == 1) { ?>

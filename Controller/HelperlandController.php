@@ -77,13 +77,20 @@ class HelperlandController
             $email = $this->test_input($_POST['email']);
             $UserTypeId = $this->test_input($_POST['usertype']);
             $name = $fname . " " . $lname;
+            if($UserTypeId==1){
+                $IsActive=1;
+            }else{
+                $IsActive=0;
+            }
             $data = array(
                 'FirstName' => $fname,
                 'LastName' => $lname,
                 'Email' =>  $email,
                 'Password' => $password,
                 'Mobile' => $mobile,
-                'UserTypeId' => $UserTypeId
+                'UserTypeId' => $UserTypeId,
+                'IsActive'=>$IsActive
+                
                 
             );
             $email = array(

@@ -262,6 +262,8 @@ if (!isset($_SESSION['user_name'])) {
 			</div>
 			<div class="service_schedule">
 			<div id='calendar'></div>
+				
+			
 			</div>
 			<div class="service_history">
 			  <table id="servicehistoryTable">
