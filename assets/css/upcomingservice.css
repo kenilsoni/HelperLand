@@ -969,6 +969,22 @@ input[type=radio].htmlcheckbox{
 	}
 }
 /* calender */
+.arrow {
+	border: solid black;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 3px;
+  }
+  
+  .right {
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+  }
+  
+  .left {
+	transform: rotate(135deg);
+	-webkit-transform: rotate(135deg);
+  }
 .calendar {
     display: flex;
     flex-flow: column;
@@ -985,14 +1001,14 @@ input[type=radio].htmlcheckbox{
 }
 .calendar .days .day_name {
     width: calc(100% / 7);
-    border-right: 1px solid #2c7aca;
+    border-right: 1px solid  #fff;
     padding: 20px;
     text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
     color: #818589;
     color: #fff;
-    background-color: #448cd6;
+    background-color:#1d7a8c;
 }
 .calendar .days .day_name:nth-child(7) {
     border: none;
@@ -1020,11 +1036,11 @@ input[type=radio].htmlcheckbox{
     font-size: 14px;
     padding: 3px 6px;
     border-radius: 4px;
-    background-color: #f7c30d;
+    background-color: #1d7a8c;
     color: #fff;
     word-wrap: break-word;
 }
-.calendar .days .day_num .event.green {
+/* .calendar .days .day_num .event.green {
     background-color: #51ce57;
 }
 .calendar .days .day_num .event.blue {
@@ -1032,7 +1048,7 @@ input[type=radio].htmlcheckbox{
 }
 .calendar .days .day_num .event.red {
     background-color: #ce5151;
-}
+} */
 .calendar .days .day_num:nth-child(7n+1) {
     border-left: 1px solid #e6e9ea;
 }

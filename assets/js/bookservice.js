@@ -216,8 +216,8 @@ $(document).on("click", "#step2", function (e) {
 
 					if(($street && $house && $postal && $city && $phone) != ""){
 
-					
-					$(".box").append('<div class="address-check-box"><span><input type="radio" name="address1" value="' + $street + ',' + $house + ',' + $postal + ',' + $city + ',' + $phone + '" required/></span><span><p><strong>Address</strong>:' + ' ' + $street + ' ' + $house + ' ' + $city + ' ' + $postal + '</p><p><strong>Phone number:</strong><a name="phone">' + ' ' + $phone + '</a></p></span>	</div>');
+					// $(".box").append("");
+					$(".box").append('<div class="address-check-box"><span><input type="radio" name="address1" value="' + $street + ',' + $house + ',' + $city + ',' + $postal + ',' + $phone + '"/></span><span><p><strong>Address</strong>:' + ' ' + $street + ' ' + $house + ' ' + $city + ' ' + $postal + '</p><p><strong>Phone number:</strong><a name="phone">' + ' ' + $phone + '</a></p></span>	</div>');
 					$(".add-address-box").hide();
 					$(".add-address-btn").show();
 					}
