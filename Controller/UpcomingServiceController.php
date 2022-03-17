@@ -4,6 +4,7 @@ class UpcomingServiceController
     function __construct()
     {
         include('models/Connection.php');
+        include ('calender.php');
         $this->model = new Helperland();
     }
     public function upcoming_servicepage()
@@ -176,7 +177,27 @@ class UpcomingServiceController
             echo 0;
         }
     }
-    
+    function scheduledata(){
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            session_start();
+            $id = $_SESSION['user_id'];           
+            $date = $_POST['date'];
+            $this->Controller = new Calendar($date);
+            $result=$this->model->getserviceschedule_data($id);
+            $this->Controller = new Calendar($date);
+            $i=0;
+            foreach($result as $val){
+                $sdate = $val[0]['ServiceStartDate'];
+                $sid=$val[0]['ServiceRequestId'];
+                $subtotal = $val[0]['SubTotal'];
+                $stime=  date('H:i', strtotime($sdate));
+                $stime1 = str_replace(':', '.', $stime);
+                $etime = $stime1 + $subtotal;
+                $etime1 = str_replace('.', ':', $etime);
+                $this->Controller->add_event($stime."-".$etime1,date('Y-m-d',strtotime($sdate)), 1, 'green',$i++,$sid);
+            }
+            echo json_encode(['html' => $this->Controller->mycalendar(),'result' => $result]);
+        }
+    }
 
 }
-?>
