@@ -53,8 +53,8 @@ class AdminController
                 'ServiceStartDate'=> $combinedDT->format("Y-m-d H-i-s")
             );
             $this->model->reschedule_admin($date,$address);
-            // $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display);
-            // $this->model->reschedule_mail($combinedDT,$userid,$serviceid_display);
+             $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display);
+             $this->model->reschedule_mail($combinedDT,$userid,$serviceid_display);
         }
   
     }
