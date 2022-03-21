@@ -534,7 +534,9 @@ $(document).on("click", ".service_detail", function () {
 	var sid = $(this).closest('tr').find(".serviceid").val();
 
 
+
 	$(".date_time").text(datetime);
+	$(".date-time").text(datetime);
 	$(".service_id").text(serviceid);
 	$(".net_amount").text(amount);
 	$(".cust_name").text(custname);
@@ -649,12 +651,14 @@ $(document).on("click", ".dashboard_btn", function () {
 });
 $(document).on("click", ".accept_btn", function () {
 	var serviceid = $(".service_id").val();
+	var datetime=$(".date-time").text();
+
 
 	$.ajax({
 		type: "POST",
 		url: "?controller=UpcomingService&function=acceptService",
 		datatype: "json",
-		data: { serviceid: serviceid },
+		data: { serviceid: serviceid,datetime:datetime},
 		beforeSend: function () {
 			$('#loader').removeClass('hidden')
 		},
@@ -670,10 +674,22 @@ $(document).on("click", ".accept_btn", function () {
 			else if (data == 0) {
 				Swal.fire({
 					title: 'sorry!! ',
-					text: 'something went wrong!!',
+					text: 'Another Service Provider is already assigned this service!!',
 					icon: 'error',
 				});
+				getNewService()
 			}
+			else if (data == 3) {
+				Swal.fire({
+					title: 'sorry!! ',
+					text: 'You have not enough time to assign this service!!',
+					icon: 'error',
+				});
+				getNewService()
+			}
+		},
+		complete: function () {
+			$('#loader').addClass('hidden')
 		}
 	})
 })

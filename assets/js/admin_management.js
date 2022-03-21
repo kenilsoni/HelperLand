@@ -67,7 +67,7 @@ var dt = new DataTable("#adminUserManagementTable", {
 		lengthMenu: "Show_MENU_Entries",
 	},
 	columnDefs: [
-		{ orderable: false, targets: [5,6] },
+		{ orderable: false, targets: [5, 6] },
 		{ type: "serviceDate", targets: 1 },
 	],
 });
@@ -101,7 +101,7 @@ var dt2 = new DataTable("#adminUserManagementTable2", {
 		lengthMenu: "Show_MENU_Entries",
 	},
 	columnDefs: [
-		
+
 		{ orderable: false, targets: 5 },
 		{ orderable: false, targets: 6 },
 
@@ -109,19 +109,19 @@ var dt2 = new DataTable("#adminUserManagementTable2", {
 });
 // jquery plugin
 
-$(function() {
-    $("#fromDate").datepicker();
-    $("#toDate").datepicker();
+$(function () {
+	$("#fromDate").datepicker();
+	$("#toDate").datepicker();
 	$("#fromDate1").datepicker();
-    $("#toDate1").datepicker();
-	
+	$("#toDate1").datepicker();
+
 });
 
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
 var popoverList = popoverTriggerList.map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
 
-$(document).ready(function(){
-	
+$(document).ready(function () {
+
 	$(".service_request").addClass("color_click");
 	function date_string(date, total) {
 		let d = new Date(date);
@@ -154,15 +154,15 @@ $(document).ready(function(){
 		dateString = ("0" + date).slice(-2) + "-" + ("0" + (month + 1)).slice(-2) + "-" + year;
 		time = hour + ":" + minute + " - " + hr + ":" + min;
 	}
-	$(document).on("click",".service_request",function(){
+	$(document).on("click", ".service_request", function () {
 		$(".usermgmt_data").hide();
 		$(".servicereq_data").show();
 
 		$(".service_request").addClass("color_click");
 		$(".user_management").removeClass("color_click");
-		
+
 	})
-	$(document).on("click",".user_management",function(){
+	$(document).on("click", ".user_management", function () {
 		$(".servicereq_data").hide();
 		$(".usermgmt_data").show();
 		$(".service_request").removeClass("color_click");
@@ -174,53 +174,86 @@ $(document).ready(function(){
 	// $.fn.dataTable.ext.search.push(( function( settings, data, dataIndex ) {
 	// 	var datetime=new Date($('#fromDate').datepicker("getDate"));
 	// var min =  ("0"+datetime.getDate()).slice(-2) + "-" + ("0"+(datetime.getMonth()+1)).slice(-2) + "-" + datetime.getFullYear();
-		
+
 	// var datetime=new Date($('#toDate').datepicker("getDate"));
 	// var max =  ("0"+datetime.getDate()).slice(-2) + "-" + ("0"+(datetime.getMonth()+1)).slice(-2) + "-" + datetime.getFullYear();
-		
+
 	// 	var startDate = new Date(data[1]);
 	// 	if (min == null && max == null) { return true; }
 	// 	if (min == null && startDate <= max) { return true;}
 	// 	if(max == null && startDate >= min) {return true;}
 	// 	if (startDate <= max && startDate >= min) { return true; }
 	// 	return false;
-		
+
 	// }));
-	$(document).on("click",".search",function(){
-		
-	// console.log(strDateTime);
+	$(document).on("click", ".search", function () {
+
+		// console.log(strDateTime);
 		dt.search($('.myInputTextField').val() | $('#status').val() | $('#customer').val()).draw();
 		// dt.search).draw() ;
 		// dt.search().draw() ;
 		// dt.search(min).draw() ;
 		// console.log($('#fromDate').val());
-	
-		
-       
-    
+
+
+
+
 	})
-	
-	
-	$(document).on("click",".clear",function(){
+
+	$(document).on("click", ".refund_btn", function () {
+		var amount = $(this).closest('tr').find(".main_amt").text();
+		$(".calculate-amount").val('');
+		$("#calculated-amt").val('');
+
+		$(".paid-amt").text(amount);
+		$(".refunded-amt").text(amount);
+		$(".inbalance-amt").text(amount);
+		$(".paid-amt").text(amount);
+
+	})
+	$(".calculate-amount").on("change", function () {
+		if ($("#select-method").val() == 0) {
+			var percentToGet = Number($(this).val());
+			// console.log($('.paid-amt').text());
+			var amount = Number($(".paid-amt").text());
+			var remainning = Math.ceil((percentToGet / 100) * amount);
+			var last = Number($(".paid-amt").text()) - Number(remainning);
+			$(".inbalance-amt").text(last);
+			$(".refunded-amt").text(remainning);
+			$("#calculated-amt").val(remainning);
+		}
+		else {
+
+			var written = Number($(this).val());
+			var total = Number($(".paid-amt").text());
+			$("#calculated-amt").val(written);
+			var last = Number(total) - Number(written);
+			$(".inbalance-amt").text(last);
+			$(".refunded-amt").text(written);
+
+		}
+	})
+
+	$(document).on("click", ".clear", function () {
 		$('.myInputTextField').val('');
 		$('#status').val('status');
 		$('#customer').val('customer');
 		$('#serviceProvider').val('serviceProvider');
-		
-   		 dt.search('').draw();
-		
+
+		dt.search('').draw();
+
 	})
-	
-	$(document).on("click",".search2",function(){
-		dt2.search($('#userName').val() | $('#userType').val() | $('#mobile').val()).draw() ;
-	
+
+	$(document).on("click", ".search2", function () {
+		dt2.search($('#userName').val() | $('#userType').val() | $('#mobile').val()).draw();
+
 		// dt.search($('#serviceProvider').val()).draw() ;
 		// console.log($('#fromDate').val());
 		// dt.search( function( settings, data, dataIndex ) {
 		// 	var min  = $('#fromDate').val();
 		// 	var max  = $('#toDate').val();
 		// 	var createdAt = data[1] || 0; // Our date column in the table
-	
+
 		// 	if  ( 
 		// 			( min == "" || max == "" )
 		// 			|| 
@@ -231,21 +264,21 @@ $(document).ready(function(){
 		// 	}
 		// 	return false;
 		// }).draw() ;
-		
-       
-    
+
+
+
 	})
-		
-	$(document).on("click",".clear2",function(){
+
+	$(document).on("click", ".clear2", function () {
 		$('#userName').val('userName');
 		$('#userType').val('userType');
 		$('#mobile').val('');
 		// $('#serviceProvider').val('serviceProvider');
-		
-   		 dt2.search('').draw();
-		
+
+		dt2.search('').draw();
+
 	})
-	function getservice_data(){
+	function getservice_data() {
 
 		$.ajax({
 			type: "GET",
@@ -260,13 +293,13 @@ $(document).ready(function(){
 				if (typeof obj === "object") {
 					var len = obj.length;
 					dt.clear().draw();
-					var user=[];
-					var serviceprovider=[];
+					var user = [];
+					var serviceprovider = [];
 					for (var i = 0; i < len; i++) {
 						date_string(obj[i][0].ServiceStartDate, obj[i][0].SubTotal);
 
-					     	if(obj[i][4] != undefined){
-						 	var avg1 = Number(obj[i][4].AverageRating);
+						if (obj[i][4] != undefined) {
+							var avg1 = Number(obj[i][4].AverageRating);
 							var avg = avg1.toFixed(2);
 
 							let star = Math.round(avg);
@@ -285,33 +318,33 @@ $(document).ready(function(){
 							for (let i = 0; i < remainning; i++) {
 								starfilled1 += '<img src="./assets/Images/starUnfilled.svg"/>';
 							}
-						    }
+						}
 
-						
-							if (obj[i][0].Status == 1) {
-								var disabled = "";
-								var text = "Completed";
-								var popoverContent = `<div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
-							} else if (obj[i][0].Status == 2) {
-								var disabled = "";
-								
-								var text = "Pending";
-								var popoverContent = `<div  data-toggle='modal' data-target='#EditServiceRequest'class='custPopoverAnch' id="edit_btn">Edit & Reschedule</div><div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Cancel</div><div class='custPopoverAnch'>Change SP</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
-							}else if (obj[i][0].Status == 3) {
-								var disabled = "disabled";
-								
-								var text = "Cancel";
-								var popoverContent="";
-							}else if (obj[i][0].Status == 4) {
-								var disabled = "";
-							
-								var text = "Assign";
-								var popoverContent= `<div  data-toggle='modal' data-target='#EditServiceRequest'class='custPopoverAnch' id="edit_btn">Edit & Reschedule</div><div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Cancel</div><div class='custPopoverAnch'>Change SP</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
-							}
-								
-							if (obj[i][0].ServiceProviderId != null) {
-								serviceprovider.push(obj[i][5].SPFullName);
-						dt.row.add($(`<tr>
+
+						if (obj[i][0].Status == 1) {
+							var disabled = "";
+							var text = "Completed";
+							var popoverContent = `<div class='custPopoverAnch refund_btn' data-toggle='modal' data-target='#refund_modal'>Refund</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
+						} else if (obj[i][0].Status == 2) {
+							var disabled = "";
+
+							var text = "Pending";
+							var popoverContent = `<div  data-toggle='modal' data-target='#EditServiceRequest'class='custPopoverAnch' id="edit_btn">Edit & Reschedule</div><div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Cancel</div><div class='custPopoverAnch'>Change SP</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
+						} else if (obj[i][0].Status == 3) {
+							var disabled = "disabled";
+
+							var text = "Cancel";
+							var popoverContent = "";
+						} else if (obj[i][0].Status == 4) {
+							var disabled = "";
+
+							var text = "Assign";
+							var popoverContent = `<div  data-toggle='modal' data-target='#EditServiceRequest'class='custPopoverAnch' id="edit_btn">Edit & Reschedule</div><div class='custPopoverAnch'>Refund</div><div class='custPopoverAnch'>Cancel</div><div class='custPopoverAnch'>Change SP</div><div class='custPopoverAnch'>Escalate</div><div class='custPopoverAnch'>History Log</div><div class='custPopoverAnch'>Download Invoice</div>`;
+						}
+
+						if (obj[i][0].ServiceProviderId != null) {
+							serviceprovider.push(obj[i][5].SPFullName);
+							dt.row.add($(`<tr>
 						<input type="hidden" value="${obj[i][1].AddressLine1}" class="add1"/>
 						<input type="hidden" value="${obj[i][1].AddressLine2}" class="add2"/>
 						<input type="hidden" value="${obj[i][1].City}" class="city"/>
@@ -352,7 +385,7 @@ $(document).ready(function(){
 												</div>
 											</div>
 											</td>
-											<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i][0].TotalCost}</span></td>
+											<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span ><span class="main_amt">${obj[i][0].TotalCost}</span></span></td>
 											<td class="text-center"><span class='status ${text}'>${text}</span></td>
 											<td class="actionTd">
 											<div class="dropdown">
@@ -369,9 +402,9 @@ $(document).ready(function(){
 											</div>
 											</td>
 										</tr>`)).draw();
-											}
-											else{
-												dt.row.add($(`<tr>
+						}
+						else {
+							dt.row.add($(`<tr>
 												<input type="hidden" value="${obj[i][1].AddressLine1}" class="add1"/>
 												<input type="hidden" value="${obj[i][1].AddressLine2}" class="add2"/>
 												<input type="hidden" value="${obj[i][1].City}" class="city"/>
@@ -402,7 +435,7 @@ $(document).ready(function(){
 												<td>
 												
 												</td>
-												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i][0].TotalCost}</span></td>
+												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span ><span class="main_amt">${obj[i][0].TotalCost}</span></span></td>
 												<td class="text-center"><span class='status ${text}'>${text}</span></td>
 												<td class="actionTd">
 												<div class="dropdown">
@@ -419,34 +452,34 @@ $(document).ready(function(){
 											</div>
 												</td>
 											</tr>`)).draw();
-											}
+						}
 					}
-					var unique = user.filter(function(itm, i, user) {
+					var unique = user.filter(function (itm, i, user) {
 						return i == user.indexOf(itm);
 					});
-					for(i=0;i<unique.length;i++){
-					var newOption = $('<option value="'+unique[i]+'">'+unique[i]+'</option>');
-					$('#customer').append(newOption);
+					for (i = 0; i < unique.length; i++) {
+						var newOption = $('<option value="' + unique[i] + '">' + unique[i] + '</option>');
+						$('#customer').append(newOption);
 					}
-				
 
-					var unique2 = serviceprovider.filter(function(itm, i, serviceprovider) {
+
+					var unique2 = serviceprovider.filter(function (itm, i, serviceprovider) {
 						return i == serviceprovider.indexOf(itm);
 					});
-					for(i=0;i<unique.length;i++){
-					var newOption1 = $('<option value="'+unique2[i]+'">'+unique2[i]+'</option>');
-					$('#serviceProvider').append(newOption1);
+					for (i = 0; i < unique.length; i++) {
+						var newOption1 = $('<option value="' + unique2[i] + '">' + unique2[i] + '</option>');
+						$('#serviceProvider').append(newOption1);
 					}
-					
+
 				}
 			},
 			complete: function () {
-			$('#loader').addClass('hidden')
+				$('#loader').addClass('hidden')
 			}
-				
+
 		})
 	}
-	$(document).on("click",".dropdown",function(){
+	$(document).on("click", ".dropdown", function () {
 
 		var servicereqid = $(this).closest('tr').find(".servicereq_id").val();
 		var servicereqid_display = $(this).closest('tr').find(".serviceId").text().trim();
@@ -472,44 +505,62 @@ $(document).ready(function(){
 		$(".service_id").val(servicereqid);
 		$(".sp_id").val(spid);
 		$(".userid").val(userid);
-	
-	
+
+
 
 	})
-	$(document).on("click","#update_btn",function(){
-		$.ajax({
-			type: "POST",
-			url: "?controller=Admin&function=reschedule",
-			datatype: "json",
-			data: $("#form1").serialize(),
-			beforeSend: function () {
-				$('#loader').removeClass('hidden')
-			},
-			success: function (data) {
-				if (data == 1) {
-					getservice_data();
-					Swal.fire({
-						title: 'Great job!! ',
-						text: 'Data updated successfully!!',
-						icon: 'success',
-					});
+	$(document).on("click", "#update_btn", function () {
+		var add1 = $(".add1_modal").val();
+		var add2 = $(".add2_modal").val();
+		var postal = $(".postal_modal").val();
+		var city = $(".city_modal").val();
+		var date = $(".date_modal").val();
+		var time = $(".time_modal").val();
+
+		if ((add1 === "") || (add2 === "") || (postal === "") || (city === "") || (date === "") || (time === "")) {
+			Swal.fire({
+				title: 'sorry!! ',
+				text: 'All the fields are required!!',
+				icon: 'error',
+			});
+		}
+		else {
+			$.ajax({
+				type: "POST",
+				url: "?controller=Admin&function=reschedule",
+				datatype: "json",
+				data: $("#form1").serialize(),
+				beforeSend: function () {
+					$('#loader').removeClass('hidden')
+				},
+				success: function (data) {
+					if (data == 1) {
+						getservice_data();
+						Swal.fire({
+							title: 'Great job!! ',
+							text: 'Data updated successfully!!',
+							icon: 'success',
+						});
+					}
+					else if (data == 0) {
+						Swal.fire({
+							title: 'sorry!! ',
+							text: 'something went wrong!!',
+							icon: 'error',
+						});
+					}
+				},
+				complete: function () {
+					$('#loader').addClass('hidden')
 				}
-				else if (data == 0) {
-					Swal.fire({
-						title: 'sorry!! ',
-						text: 'something went wrong!!',
-						icon: 'error',
-					});
-				}
-			},
-			complete: function () {
-				$('#loader').addClass('hidden')
-			}
-		})
+
+			})
+
+		}
 
 	})
-	function getusermgmt_data(){
-		
+	function getusermgmt_data() {
+
 		$.ajax({
 			type: "GET",
 			url: "?controller=Admin&function=getuser_data",
@@ -522,10 +573,10 @@ $(document).ready(function(){
 				console.log(obj);
 				if (typeof obj === "object") {
 					var len = obj.length;
-					var username=[];
+					var username = [];
 					dt2.clear().draw();
 					for (var i = 0; i < len; i++) {
-						var d=new Date(obj[i].CreatedDate);
+						var d = new Date(obj[i].CreatedDate);
 						var date = d.getDate();
 						var month = d.getMonth();
 						var year = d.getFullYear();
@@ -547,7 +598,7 @@ $(document).ready(function(){
 											
 												
 													<div>
-													${obj[i].UserTypeId==1 ? "Customer":"Service Provider"}
+													${obj[i].UserTypeId == 1 ? "Customer" : "Service Provider"}
 													</div>
 												</td>
 												
@@ -557,8 +608,8 @@ $(document).ready(function(){
 												
 											</div>
 											</td>
-											<td><div>${obj[i].ZipCode == null ? "":obj[i].ZipCode}</div></td>
-											<td ><span class='status ${obj[i].IsActive == 1? "Active'>Active" : "Inactive'>Inactive"}</span></td>
+											<td><div>${obj[i].ZipCode == null ? "" : obj[i].ZipCode}</div></td>
+											<td ><span class='status ${obj[i].IsActive == 1 ? "Active'>Active" : "Inactive'>Inactive"}</span></td>
 											<td class="actionTd">
 											<div class="dropdown">
 												<div class="dropdown-toggle " 
@@ -568,35 +619,35 @@ $(document).ready(function(){
 												  </svg>
 												</div>
 												<ul class="dropdown-menu p-2">
-												${obj[i].IsActive == 1 ? `<div class='custPopoverAnch'>Edit</div><div class='custPopoverAnch' id="Inactive_btn">Deactive</div><div class='custPopoverAnch'>Service History</div>`:`<div class='custPopoverAnch'>Edit</div><div class='custPopoverAnch' id="active_btn">Active</div><div class='custPopoverAnch'>Service History</div>`}
+												${obj[i].IsActive == 1 ? `<div class='custPopoverAnch'>Edit</div><div class='custPopoverAnch' id="Inactive_btn">Deactive</div><div class='custPopoverAnch'>Service History</div>` : `<div class='custPopoverAnch'>Edit</div><div class='custPopoverAnch' id="active_btn">Active</div><div class='custPopoverAnch'>Service History</div>`}
 												</ul>
 											</div>
 											</td>
 										</tr>`)).draw();
-											
+
 					}
-					var unique1 = username.filter(function(itm, i, username) {
+					var unique1 = username.filter(function (itm, i, username) {
 						return i == username.indexOf(itm);
 					});
-					for(i=0;i<unique1.length;i++){
-					var newOption = $('<option value="'+unique1[i]+'">'+unique1[i]+'</option>');
-					$('#userName').append(newOption);
+					for (i = 0; i < unique1.length; i++) {
+						var newOption = $('<option value="' + unique1[i] + '">' + unique1[i] + '</option>');
+						$('#userName').append(newOption);
 					}
 				}
 			},
 			complete: function () {
-			$('#loader').addClass('hidden')
+				$('#loader').addClass('hidden')
 			}
-				
+
 		})
 	}
-	$(document).on("click","#active_btn",function(){
-		var id=$(this).closest('tr').find(".userid").val();
+	$(document).on("click", "#active_btn", function () {
+		var id = $(this).closest('tr').find(".userid").val();
 		$.ajax({
 			type: "POST",
 			url: "?controller=Admin&function=active",
 			datatype: "json",
-			data: {id:id},
+			data: { id: id },
 			beforeSend: function () {
 				$('#loader').removeClass('hidden')
 			},
@@ -623,13 +674,13 @@ $(document).ready(function(){
 		})
 
 	})
-	$(document).on("click","#Inactive_btn",function(){
-		var id=$(this).closest('tr').find(".userid").val();
+	$(document).on("click", "#Inactive_btn", function () {
+		var id = $(this).closest('tr').find(".userid").val();
 		$.ajax({
 			type: "POST",
 			url: "?controller=Admin&function=Inactive",
 			datatype: "json",
-			data: {id:id},
+			data: { id: id },
 			beforeSend: function () {
 				$('#loader').removeClass('hidden')
 			},

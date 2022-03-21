@@ -601,6 +601,7 @@ $(document).ready(function () {
 											<td>
 											<div class="tdHead d-flex align-items-center justify-content-start">
 											<input type="hidden" class="serviceid" name="serviceid" value="${obj[i].ServiceRequestId}"/>
+											<input type="hidden" class="subtotal" name="subtotal" value="${obj[i].SubTotal}"/>
 											<h5 class="service-id">${obj[i].ServiceId}</h5>
 										</div>
 							
@@ -649,6 +650,7 @@ $(document).ready(function () {
 												<input type="hidden" class="serviceid" name="serviceid" value="${obj[i].ServiceRequestId}"/>
 												<input type="hidden" class="serviceproviderid" name="serviceproviderid" value="${obj[i].ServiceProviderId}"/>
 												<h5 class="service-id">${obj[i].ServiceId}</h5>
+												<input type="hidden" class="subtotal" name="subtotal" value="${obj[i].SubTotal}"/>
 											</div>
 								
 												
@@ -716,8 +718,16 @@ $(document).ready(function () {
 		var time1 = $(this).closest('tr').find(".timing").text();
 		var tim1 = time1.split("-");
 		var date11 = $(this).closest('tr').find(".datenew").text();
+		var subtotal = $(this).closest('tr').find(".subtotal").val();
 		var parts = date11.split('-');
 		var mydate = parts[2] + "-" + parts[1] + "-" + parts[0];
+
+	
+		console.log(subtotal);
+		var first=tim1[0].trim();
+		// var second=tim1[1].trim();
+		// var final=Number(second[0],trim())-Number(first[0].trim())+":"+Number(second[1].trim())-Number(first[1].trim());
+		// console.log(first);
 
 		// hide previous date
 		var dtToday = new Date();
@@ -729,6 +739,7 @@ $(document).ready(function () {
 		if (day < 10)
 			day = '0' + day.toString();
 		var maxDate = year + '-' + month + '-' + day;
+		
 
 		if (spid != undefined) {
 			$(".sp_id").val(spid);
@@ -738,7 +749,8 @@ $(document).ready(function () {
 		$(".serviceid_display").val(serviceid_display);
 
 		$("#dates").val(mydate);
-		$("#times").val(tim1[0].trim());
+		$("#times").val(first);
+		$("#subtotal_modal").val(subtotal);
 
 
 	})
@@ -753,8 +765,10 @@ $(document).ready(function () {
 				$('#loader').removeClass('hidden')
 			},
 			success: function (data) {
-				if (data == 1) {
+	
+				if (data==1) {
 					onload_dashboard();
+					console.log(obj[1]);
 					Swal.fire({
 						title: 'Great job!! ',
 						text: 'Data updated successfully!!',
@@ -764,7 +778,7 @@ $(document).ready(function () {
 				else if (data == 0) {
 					Swal.fire({
 						title: 'sorry!! ',
-						text: 'something went wrong!!',
+						text: 'service provider has already assign the service at that time!!',
 						icon: 'error',
 					});
 				}
