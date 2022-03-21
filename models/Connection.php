@@ -209,6 +209,7 @@ class Helperland
     // for sending email
     public function reschedule_mail($combinedDT, $spid, $serviceid)
     {
+        $combinedDT = $combinedDT->format('d-m-Y H:i');
         if ($spid != "") {
             $sql = "SELECT Email FROM user WHERE UserId=?";
             $stmt = $this->conn->prepare($sql);
@@ -497,13 +498,37 @@ class Helperland
 
         return $success;
     }
-    public function reschedule($date, $id)
+    public function reschedule($date, $id, $for_validation, $spid)
     {
-        $sql = "UPDATE servicerequest SET ServiceStartDate=? WHERE ServiceRequestId=?";
+        $gettime = $for_validation->format('Y-m-d');
+        $date_update = $date->format('Y-m-d H:i:s');
+        $sql = "SELECT  DATE_FORMAT(SPAcceptedDate, '%H:%i') as ServiceStartTime,
+        DATE_FORMAT(SPAcceptedDate, '%d/%m/%Y') as ServiceStartDate FROM servicerequest 
+        WHERE Status=4 AND ServiceProviderId=$spid AND DATE(SPAcceptedDate) = DATE('$gettime')";
         $stmt = $this->conn->prepare($sql);
-        $success = $stmt->execute([$date, $id]);
-        if ($success) {
-            echo 1;
+        $success2 = $stmt->execute();
+        $userdata = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $date_array = [];
+        foreach ($userdata as $value) {
+            $d2 = new DateTime();
+            $date = explode('/', $value['ServiceStartDate']);
+            $time = explode(':', $value['ServiceStartTime']);
+
+            $d2->setDate($date[2], $date[1], $date[0])->setTime($time[0], $time[1])->format('d/m/Y H:i');
+            if ($for_validation < $d2) {
+                array_push($date_array, "1");
+            }
+        }
+        // print_r($date_array);die();
+        if (count($date_array) > 0) {
+            $sql = "UPDATE servicerequest SET ServiceStartDate=? WHERE ServiceRequestId=?";
+            $stmt = $this->conn->prepare($sql);
+            $success = $stmt->execute([$date_update, $id]);
+            if ($success) {
+                echo 1;
+            }
+        } else {
+            echo 0;
         }
     }
     public function cancel_service($id)
@@ -818,14 +843,47 @@ class Helperland
             echo 0;
         }
     }
-    public function acceptService_data($id, $serviceid, $date)
+    public function acceptService_data($id, $serviceid, $datetime)
     {
-        $sql = "UPDATE servicerequest SET Status=4,ServiceProviderId=$id,SPAcceptedDate=now() WHERE ServiceRequestId=$serviceid";
+        $sql = "SELECT ServiceProviderId FROM servicerequest WHERE ServiceRequestId=$serviceid";
         $stmt = $this->conn->prepare($sql);
         $success = $stmt->execute();
+        $userdata = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($userdata as $value) {
+            $spid = $value['ServiceProviderId'];
+        }
 
-        if ($success) {
-            echo 1;
+        if (is_null($spid)) {
+            $gettime = $datetime->format('Y-m-d');
+            $sql = "SELECT  DATE_FORMAT(ServiceStartDate, '%H:%i') as ServiceStartTime,DATE_FORMAT(ServiceStartDate, '%d/%m/%Y') as ServiceStartDate FROM servicerequest WHERE Status=4 AND ServiceProviderId=$id AND DATE(ServiceStartDate) = DATE('$gettime')";
+            $stmt = $this->conn->prepare($sql);
+            $success2 = $stmt->execute();
+            $userdata = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $date_array = [];
+            foreach ($userdata as $value) {
+                $d2 = new DateTime();
+                $date = explode('/', $value['ServiceStartDate']);
+                $time = explode(':', $value['ServiceStartTime']);
+
+                $d2->setDate($date[2], $date[1], $date[0])->setTime($time[0], $time[1])->format('d/m/Y g:i');
+                $interval = $datetime->diff($d2);
+                $data_1 = ($interval->days * 24) + $interval->h;
+                if ($data_1 < 1) {
+                    array_push($date_array, $data_1);
+                }
+            }
+
+            if (count($date_array) == 0) {
+                $sql = "UPDATE servicerequest SET Status=4,ServiceProviderId=$id,SPAcceptedDate=now() WHERE ServiceRequestId=$serviceid";
+                $stmt = $this->conn->prepare($sql);
+                $success = $stmt->execute();
+                if ($success) {
+                    echo 1;
+                }
+            } else {
+                echo 3;
+            }
         } else {
             echo 0;
         }
@@ -1064,6 +1122,7 @@ class Helperland
     }
     public function reschedule_admin($date, $address)
     {
+
         $sql = "UPDATE servicerequest SET ServiceStartDate=:ServiceStartDate WHERE ServiceRequestId=:ServiceRequestId";
         $stmt = $this->conn->prepare($sql);
         $success1 = $stmt->execute($date);
