@@ -1,7 +1,7 @@
 <!-- for homepage and become a provider page -->
 <!-- Navbar start -->
   <!-- Navbar start -->
-  <?php session_start(); if(!isset($_SESSION['user_name'],$_SESSION['user_type'])){?>
+  <?php  if(!isset($_SESSION['user_name'],$_SESSION['user_type'])){?>
   <nav class="mainnav d-md-flex align-items-center justify-content-between text-white fixed-top"  id="vlr">
 		<div class="logoDiv imsize">
 			<a class="d-block" href="?function=Homepage">

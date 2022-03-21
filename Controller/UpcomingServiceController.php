@@ -77,7 +77,19 @@ class UpcomingServiceController
             $id=$_SESSION['user_id'];
             $date=date("Y-m-d H:i:s");
             $serviceid= $_POST['serviceid'];
-            $this->model->acceptService_data($id,$serviceid,$date);
+            $assign_dt=$_POST['datetime'];
+            $array = explode(' ', $assign_dt);
+            $split=$array[0];
+            $array2 = explode('-', $split);
+            $final_date=$array2[2]."-".$array2[1]."-".$array2[0];
+            $time=explode(':', $array[3]);
+
+            $datetime = new DateTime();
+            $datetime->setDate($array2[2], $array2[1], $array2[0])->setTime($time[0],$time[1])->format('d/m/Y g:i');
+
+           
+            // die();
+            $this->model->acceptService_data($id,$serviceid,$datetime);
         
         }
         else{

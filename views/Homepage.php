@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Head tag start -->
-
+<?php session_start(); if(isset($_SESSION['user_type'])){if($_SESSION['user_type']==3){header("location:?controller=Admin&function=admin_management");} }?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

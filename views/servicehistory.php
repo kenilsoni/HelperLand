@@ -388,6 +388,7 @@ if (!isset($_SESSION['user_name'])) {
 													<input type="date" name="date" id="dates" />
 
 													<input type="time" name="time" id="times" />
+													<input type="hidden" name="subtotal_modal" id="subtotal_modal" />
 												</form>
 											</div>
 										</div>

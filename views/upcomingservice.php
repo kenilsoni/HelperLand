@@ -148,6 +148,7 @@ if (!isset($_SESSION['user_name'])) {
 									<div class="col-7">
 										<div class="sd_bdr">
 											<input type="hidden" class="service_id" />
+											<input type="hidden" class="date-time" />
 											<strong>Date and time:&nbsp;</strong><span class="date_time"></span><br>
 											<strong>Duration:&nbsp;</strong><span class="duration"></span>
 											<hr>

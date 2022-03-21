@@ -147,13 +147,32 @@ class ServicehistoryController
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $date = $_POST['date'];
             $time = $_POST['time'];
-            $serviceid = $_POST['serviceid'];
-            $serviceid_display=$_POST['serviceid_display'];
-            $spid=$_POST['spid'];
-            $combinedDT = date('Y-m-d H:i:s', strtotime("$date $time"));
+            $subtotal = $_POST['subtotal_modal'];
+            $stotal = explode(".", $subtotal);
+            if ($stotal[1] == 50) {
+                $stotal[1] = 30;
+            }
 
-            $this->model->reschedule($combinedDT, $serviceid);
-            $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display);
+
+            $for_validation = new DateTime();
+            $date = explode("-", $date);
+            $time3 = explode(":", $time);
+            $hour = (int)$time3[0] + (int)$stotal[0];
+            $minute = (int)$time3[1] + (int)$stotal[1];
+
+            $for_validation->setDate($date[0], $date[1], $date[2])->setTime($hour, $minute)->format('d/m/Y H:i');
+
+
+            $serviceid = $_POST['serviceid'];
+            $serviceid_display = $_POST['serviceid_display'];
+            $spid = $_POST['spid'];
+
+            $combinedDT = new DateTime();
+            $combinedDT->setDate($date[0], $date[1], $date[2])->setTime($time3[0], $time3[1])->format('Y-m-d H:i:s');
+
+
+            $this->model->reschedule($combinedDT, $serviceid, $for_validation, $spid);
+            $this->model->reschedule_mail($combinedDT, $spid, $serviceid_display);
         } else {
             echo 0;
         }
@@ -226,8 +245,8 @@ class ServicehistoryController
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             session_start();
             $id = $_SESSION['user_id'];
-            $spid=$_POST['spid'];
-            $this->model->update_fav_provider($id,$spid);
+            $spid = $_POST['spid'];
+            $this->model->update_fav_provider($id, $spid);
         } else {
             echo 0;
         }
@@ -237,8 +256,8 @@ class ServicehistoryController
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             session_start();
             $id = $_SESSION['user_id'];
-            $spid=$_POST['spid'];
-            $this->model->add_fav_provider($id,$spid);
+            $spid = $_POST['spid'];
+            $this->model->add_fav_provider($id, $spid);
         } else {
             echo 0;
         }
@@ -248,7 +267,7 @@ class ServicehistoryController
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             session_start();
             $id = $_SESSION['user_id'];
-          
+
             $this->model->getfp_detail($id);
         } else {
             echo 0;
@@ -259,8 +278,8 @@ class ServicehistoryController
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             session_start();
             $id = $_SESSION['user_id'];
-            $spid=$_POST['spid'];
-            $this->model-> addblock_fav_provider($id,$spid);
+            $spid = $_POST['spid'];
+            $this->model->addblock_fav_provider($id, $spid);
         } else {
             echo 0;
         }
@@ -270,12 +289,10 @@ class ServicehistoryController
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             session_start();
             $id = $_SESSION['user_id'];
-            $spid=$_POST['spid'];
-            $this->model->  removeblock_fav_provider($id,$spid);
+            $spid = $_POST['spid'];
+            $this->model->removeblock_fav_provider($id, $spid);
         } else {
             echo 0;
         }
     }
-   
-    
 }

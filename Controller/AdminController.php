@@ -32,7 +32,10 @@ class AdminController
             $postal=$this->test_input($_POST['postal_modal']);
             $serviceid=$_POST['service_id'];
             $spid=$_POST['sp_id'];
-            $combinedDT = date('Y-m-d H:i:s', strtotime("$date $time"));
+            $combinedDT = new DateTime();
+            $date = explode("-", $date);
+            $time3 = explode(":", $time);
+            $combinedDT->setDate($date[0], $date[1], $date[2])->setTime($time3[0], $time3[1]);
             $serviceid_display=$_POST['servicereqid_display'];
             $userid=$_POST['userid'];
 
@@ -42,16 +45,16 @@ class AdminController
                 'AddressLine1'=>$add1,
                 'AddressLine2'=>$add2,
                 'City'=> $city,
-                'PostalCode'=>$postal,
+                'PostalCode'=>$postal
                 
             );
             $date=array(
                 'ServiceRequestId'=> $serviceid,
-                'ServiceStartDate'=> $combinedDT
+                'ServiceStartDate'=> $combinedDT->format("Y-m-d H-i-s")
             );
             $this->model->reschedule_admin($date,$address);
-            $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display);
-            $this->model->reschedule_mail($combinedDT,$userid,$serviceid_display);
+            // $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display);
+            // $this->model->reschedule_mail($combinedDT,$userid,$serviceid_display);
         }
   
     }

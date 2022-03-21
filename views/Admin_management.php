@@ -19,12 +19,12 @@ if (!isset($_SESSION['user_name'])) {
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 	<link rel="shortcut icon" href="./assets/Images/favicon.png" type="image/x-icon" />
 
-	
+
 
 </head>
 
 <body>
-<div id="loader" class="lds-dual-ring hidden overlay" style="
+	<div id="loader" class="lds-dual-ring hidden overlay" style="
     width: 100vw;
     height: 100vh;
 "></div>
@@ -120,11 +120,11 @@ if (!isset($_SESSION['user_name'])) {
 				<input type="number" class="form-control m-0 box-shadow-none mw-sm-100 myInputTextField" name="sericeId" id="sericeId" placeholder="Service ID" />
 				<select name="customer" class="form-select m-0 box-shadow-none" id="customer">
 					<option selected value="customer">Customer</option>
-					
+
 				</select>
 				<select name="serviceProvider" class="form-select m-0 box-shadow-none" id="serviceProvider">
 					<option selected value="serviceProvider">Service Provider</option>
-					
+
 				</select>
 				<select name="status" id="status" class="form-select m-0 box-shadow-none">
 					<option selected value="status">Status</option>
@@ -164,118 +164,192 @@ if (!isset($_SESSION['user_name'])) {
 				</thead>
 				<tbody></tbody>
 			</table>
-				<!-- Model For Edit and Reschedule Service -->
-				<div class="modal fade" id="EditServiceRequest" tabindex="-1"  aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title" id="staticBackdropLabel">Edit Service Request</h4>
-								<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
-							</div>
-							<div class="modal-body">
-								<form id="form1">
-									<input type="hidden" name="service_id" class="service_id"/>
-									<input type="hidden" name="sp_id" class="sp_id"/>
-									<input type="hidden" name="userid" class="userid"/>
-									<input type="hidden" name="servicereqid_display" class="servicereqid_display"/>
-									<div class="row">
-										<div  class="col-sm-6">
+			<!-- Model For Edit and Reschedule Service -->
+			<div class="modal fade" id="EditServiceRequest" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="staticBackdropLabel">Edit Service Request</h4>
+							<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
+						</div>
+						<div class="modal-body">
+							<form id="form1">
+								<input type="hidden" name="service_id" class="service_id" />
+								<input type="hidden" name="sp_id" class="sp_id" />
+								<input type="hidden" name="userid" class="userid" />
+								<input type="hidden" name="servicereqid_display" class="servicereqid_display" />
+								<div class="row">
+									<div class="col-sm-6">
 										<div class="form-group">
 											<label>Date</label>
 											<input type="date" name="date_modal" class="form-control1 size date_modal">
 										</div>
-										</div>
-										<div  class="col-sm-6">
-											<div class="form-group">
-												<label>Time</label>
-												<input type="time" name="time_modal" class="form-control1 size time_modal">
-											</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>Time</label>
+											<input type="time" name="time_modal" class="form-control1 size time_modal">
 										</div>
 									</div>
-									<h5>Service Address</h5>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Street name</label>
-												<input type="text" name="add1_modal" class="form-control1 size add1_modal">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>House number</label>
-												<input type="text" name="add2_modal" class="form-control1 size add2_modal">
-											</div>
+								</div>
+								<h5>Service Address</h5>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Street name</label>
+											<input type="text" name="add1_modal" class="form-control1 size add1_modal">
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="postalcode">Postal Code</label>
-												<input type="text" name="postal_modal" class="form-control1 size postal_modal">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="city">City</label>
-												<input type="text" name="city_modal" class="form-control1 size city_modal">
-											</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>House number</label>
+											<input type="text" name="add2_modal" class="form-control1 size add2_modal">
 										</div>
 									</div>
-									<h5>Invoice Address</h5>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Street name</label>
-												<input type="text" name="add1_modal" class="form-control1 size add1_modal">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>House number</label>
-												<input type="text" name="add2_modal" class="form-control1 size add2_modal">
-											</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="postalcode">Postal Code</label>
+											<input type="text" name="postal_modal" class="form-control1 size postal_modal">
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Postal Code</label>
-												<input type="text" name="postal_modal" class="form-control1 size postal_modal">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label for="city">City</label>
-												<input type="text" name="city_modal" class="form-control1 size city_modal">
-											</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="city">City</label>
+											<input type="text" name="city_modal" class="form-control1 size city_modal">
 										</div>
 									</div>
+								</div>
+								<h5>Invoice Address</h5>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Street name</label>
+											<input type="text"  class="form-control1 size add1_modal" readonly="readonly">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>House number</label>
+											<input type="text"  class="form-control1 size add2_modal" readonly="readonly">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Postal Code</label>
+											<input type="text"  class="form-control1 size postal_modal" readonly="readonly">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="city">City</label>
+											<input type="text"  class="form-control1 size city_modal" readonly="readonly">
+										</div>
+									</div>
+								</div>
 
-									<h5>Why do you want to rechedule service requests?</h5>
-									<div class="row">
-										<div class="col">
-											<textarea rows="5" class="form-control1 size2" name="comment_modal" placeholder="why do you want to rechedule service requests?"></textarea>
+								<h5>Why do you want to rechedule service requests?</h5>
+								<div class="row">
+									<div class="col">
+										<textarea rows="5" class="form-control1 size2" name="comment_modal" placeholder="why do you want to rechedule service requests?"></textarea>
+									</div>
+								</div>
+								<h5>Call Center EMP notes</h5>
+								<div class="row">
+									<div class="col">
+										<textarea rows="5" class="form-control1 size2" name="comment2_modal" placeholder="Enter Notes"></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<button style="background:#1fb6ff;color:white" type="button" class="btn btn-modal form-control1 size3" data-dismiss="modal" id="update_btn">Update</button>
+									</div>
+								</div>
+							</form>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- End Model -->
+			<!-- Model For Refund Amount -->
+			<div class="modal fade" id="refund_modal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="staticBackdropLabel">Refund Amount</h4>
+							<a href="#" data-dismiss="modal" aria-label="Close" id="close"></a>
+						</div>
+						<div class="modal-body">
+							<form id="form-refund">
+								<input type="hidden" name="re-servid" id="refund_serv_id">
+								<div class="row mb-3">
+									
+											<div class="col-4">
+												Paid Amount<br>
+												<span class="paid-amt"></span>€
+											</div>
+											<div class="col-4">
+												Refunded Amount<br>
+												<span class="refunded-amt"></span>€
+											</div>
+										
+									<div class="col-4">
+										In Balance Amount<br>
+										<span class="inbalance-amt"></span>€
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+											<label for="">Amount</label>
+											<div class="input-group mb-3">
+												<input type="text" name="re-amount" class="form-control calculate-amount" aria-label="Text input with dropdown button">
+												<select name="method" name="re-method" id="select-method">
+													<option value="0" selected>Percentage</option>
+													<option value="1">Euro</option>
+												</select>
+											</div>
 										</div>
 									</div>
-									<h5>Call Center EMP notes</h5>
-									<div class="row">
-										<div class="col">
-											<textarea rows="5" class="form-control1 size2" name="comment2_modal" placeholder="Enter Notes"></textarea>
+									<div class="col-6">
+										<div class="form-group">
+											<label for="">Calculate (In €)</label>
+											<input type="text" name="re-total" class="form-control" id="calculated-amt" readonly="readonly">
 										</div>
 									</div>
-									<div class="row">
-										<div class="col">
-											<button style="background:#1fb6ff;color:white" type="button" class="btn btn-modal form-control1 size3" data-dismiss="modal" id="update_btn">Update</button>
-										</div>
+								</div>
+								<br>
+								<div class="divtitle">Why you want to refund amount?</div>
+								<div class="row">
+									<div class="col">
+										<textarea name="re-comment" rows="3" class="form-control refund-comment" placeholder="Why you want to refund amount?"></textarea>
 									</div>
-								</form>
-								
-							</div> 
-							
+								</div>
+
+								<br>
+								<div class="divtitle">Call Center EMP notes</div>
+								<div class="row mb-3">
+									<div class="col">
+										<textarea name="" id="" rows="3" class="form-control" placeholder="Enter Notes?" ></textarea>
+									</div>
+								</div>
+
+								<div class="row ">
+									<div class="col">
+										<button style="background:#1fb6ff;color:white" class="btn btn-modal form-control" name="refund" id="btn_refund">Refund</button>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-				<!-- End Model -->
+			</div>
+			<!-- End Model -->
 			<footer>©2018 Helperland. All rights reserved.</footer>
 		</div>
 		<div class="dataDiv usermgmt_data">
@@ -285,13 +359,13 @@ if (!isset($_SESSION['user_name'])) {
 			</h2>
 			<form class="filterForm d-flex flex-wrap align-items-center justify-content-center bg-white">
 				<select name="userName" class="form-select m-0 box-shadow-none" id="userName">
-				<option selected value="userName">User Name</option>
+					<option selected value="userName">User Name</option>
 				</select>
 				<select name="userRole" class="form-select m-0 box-shadow-none" id="userType">
 					<option selected value="userType">User Type</option>
 					<option value="Customer">Customer</option>
 					<option value="Service Provider">Service Provider</option>
-					
+
 				</select>
 				<div class="input-group m-0 row">
 					<input type="text" class="input-group-text col-2 col-sm-3 px-0" id="countryCode" placeholder="+91" />
@@ -311,8 +385,8 @@ if (!isset($_SESSION['user_name'])) {
 					</svg>
 					<div id="toDateOutput1">To Date</div>
 				</label>
-				<button class="search2"  type="button">Search</button>
-				<button class="clear2"  type="button">Clear</button>
+				<button class="search2" type="button">Search</button>
+				<button class="clear2" type="button">Clear</button>
 			</form>
 			<div class="tableFilterSm h4 d-flex align-items-center d-md-none px-1">
 				Filter Table :
@@ -355,8 +429,9 @@ if (!isset($_SESSION['user_name'])) {
 						<th>Action</th>
 					</tr>
 				</thead>
-				<tbody ></tbody>
+				<tbody></tbody>
 			</table>
+
 
 			<footer>©2018 Helperland. All rights reserved.</footer>
 		</div>
@@ -367,8 +442,8 @@ if (!isset($_SESSION['user_name'])) {
 </body>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
