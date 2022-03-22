@@ -147,7 +147,7 @@ if (!isset($_SESSION['user_name'])) {
 								<div class="row">
 									<div class="col-7">
 										<div class="sd_bdr">
-											<input type="hidden" class="service_id" />
+											<input type="hidden" class="serviceid" />
 											<input type="hidden" class="date-time" />
 											<strong>Date and time:&nbsp;</strong><span class="date_time"></span><br>
 											<strong>Duration:&nbsp;</strong><span class="duration"></span>
@@ -168,11 +168,9 @@ if (!isset($_SESSION['user_name'])) {
 											<p class="service_pet"></p>
 											<hr>
 										</div>
-										<div class="d-flex">
-											<button data-dismiss="modal" class="cancel_modal position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" id="cancel_btn">
-												<span>&#10540;</span>&nbsp;Cancel</button>
-											<button data-dismiss="modal" class="complete_modal position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" id="complete_btn">
-												<span>&#10003;</span>&nbsp;Complete</button>
+										<div class="d-flex btn_modal">
+											
+											
 										</div>
 									</div>
 									<div class="col-5 modal-section-map">
@@ -226,7 +224,7 @@ if (!isset($_SESSION['user_name'])) {
 								<div class="row">
 									<div class="col-7">
 										<div class="sd_bdr">
-											<input type="hidden" class="service_id" />
+											<input type="hidden" class="serviceid" />
 											<strong>Date and time:&nbsp;</strong><span class="date_time"></span><br>
 											<strong>Duration:&nbsp;</strong><span class="duration"></span>
 											<hr>
@@ -296,7 +294,7 @@ if (!isset($_SESSION['user_name'])) {
 								<div class="row">
 									<div class="col-7">
 										<div class="sd_bdr">
-											<input type="hidden" class="service_id" />
+											<input type="hidden" class="serviceid" />
 											<strong>Date and time:&nbsp;</strong><span class="date_time"></span><br>
 											<strong>Duration:&nbsp;</strong><span class="duration"></span>
 											<hr>

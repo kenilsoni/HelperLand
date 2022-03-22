@@ -145,6 +145,7 @@ class ServicehistoryController
     public function reschedule()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $name = "customer";
             $date = $_POST['date'];
             $time = $_POST['time'];
             $subtotal = $_POST['subtotal_modal'];
@@ -152,8 +153,6 @@ class ServicehistoryController
             if ($stotal[1] == 50) {
                 $stotal[1] = 30;
             }
-
-
             $for_validation = new DateTime();
             $date = explode("-", $date);
             $time3 = explode(":", $time);
@@ -172,7 +171,7 @@ class ServicehistoryController
 
 
             $this->model->reschedule($combinedDT, $serviceid, $for_validation, $spid);
-            $this->model->reschedule_mail($combinedDT, $spid, $serviceid_display);
+            $this->model->reschedule_mail($combinedDT, $spid, $serviceid_display,$name);
         } else {
             echo 0;
         }

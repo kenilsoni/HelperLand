@@ -85,10 +85,10 @@ class UpcomingServiceController
             $time=explode(':', $array[3]);
 
             $datetime = new DateTime();
-            $datetime->setDate($array2[2], $array2[1], $array2[0])->setTime($time[0],$time[1])->format('d/m/Y g:i');
+             $datetime->setDate($array2[2], $array2[1], $array2[0])->setTime($time[0]+1,$time[1])->format('d/m/Y H:i');
 
            
-            // die();
+            
             $this->model->acceptService_data($id,$serviceid,$datetime);
         
         }

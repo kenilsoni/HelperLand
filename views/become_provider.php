@@ -1,3 +1,4 @@
+<?php session_start(); if(isset($_SESSION['user_type'])){if($_SESSION['user_type']==3){header("location:?controller=Admin&function=admin_management");} }?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -18,7 +19,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
 	</head>
 	<body>
-	<?php include "header-2.php"; ?>
+	<?php  include "header-2.php"; ?>
 
 
 	<?php include "Login_modal.php"; ?>

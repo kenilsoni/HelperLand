@@ -48,7 +48,7 @@
 			</a>
 		</div>
 		<div class="navMenu collapsed text-white d-flex align-items-start align-items-md-center justify-content-center">
-            <div class="navItem highlight"><a href="?function=bookservice_page">Book now</a></div>
+		<?php if($_SESSION['user_type']==1){?> <div class="navItem highlight"><a href="?function=bookservice_page">Book now</a></div> <?php }?>
             <div class="navItem active"><a href="?function=pricepage">Prices & Services</a></div>
             <div class="navItem"><a href="#">Warranty</a></div>
             <div class="navItem"><a href="#">Blog</a></div>

@@ -68,7 +68,7 @@ class HelperlandController
     public function createaccount_user()
     {
         if (isset($_POST['submit'])) {
-           
+        //    echo "okdd";
             $fname = $this->test_input($_POST['fname']);
             $lname = $this->test_input($_POST['lname']);
             $password = $this->test_input($_POST['password']);

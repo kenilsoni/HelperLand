@@ -19,7 +19,7 @@
     width: 100vw;
     height: 100vh;
 "></div>
-	<?php include "header.php";  ?>
+	<?php  include "header.php";  ?>
 	<?php include "Login_modal.php";
 	?>
 	<?php if (!isset($_SESSION['user_id'])) {

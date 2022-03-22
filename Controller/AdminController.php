@@ -24,6 +24,7 @@ class AdminController
     public function reschedule()
     {
         if($_SERVER['REQUEST_METHOD']== "POST"){
+            $name="admin";
             $date=$_POST['date_modal'];
             $time=$_POST['time_modal'];
             $add1=$this->test_input($_POST['add1_modal']);
@@ -53,8 +54,8 @@ class AdminController
                 'ServiceStartDate'=> $combinedDT->format("Y-m-d H-i-s")
             );
             $this->model->reschedule_admin($date,$address);
-             $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display);
-             $this->model->reschedule_mail($combinedDT,$userid,$serviceid_display);
+            $this->model->reschedule_mail($combinedDT,$spid,$serviceid_display,$name);
+            $this->model->reschedule_mail($combinedDT,$userid,$serviceid_display,$name);
         }
   
     }
