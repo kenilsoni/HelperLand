@@ -53,6 +53,7 @@ class Helperland
                 header("location:?function=become_providerpage");
             }
         } else {
+            // echo "gg";
             $sql = "INSERT INTO user (FirstName,LastName,Email,Password,Mobile,UserTypeId,IsActive)
         VALUES (:FirstName,:LastName,:Email,:Password,:Mobile,:UserTypeId,:IsActive)";
             $stmt = $this->conn->prepare($sql);
@@ -63,9 +64,11 @@ class Helperland
                 if ($usertype == 1) {
                     header("location:?function=Homepage");
                 } else {
+                    
                     header("location:?function=become_providerpage");
                 }
             } else {
+                // echo "ok";
                 $_SESSION['registration'] = 2;
                 if ($usertype == 1) {
                     header("location:?function=Homepage");
@@ -207,8 +210,9 @@ class Helperland
     }
     ###########################################################################################################################
     // for sending email
-    public function reschedule_mail($combinedDT, $spid, $serviceid)
+    public function reschedule_mail($combinedDT, $spid, $serviceid,$name)
     {
+        
         $combinedDT = $combinedDT->format('d-m-Y H:i');
         if ($spid != "") {
             $sql = "SELECT Email FROM user WHERE UserId=?";
@@ -226,7 +230,7 @@ class Helperland
                     $email->addTo($users['Email']);
                     $email->addContent(
                         "text/html",
-                        "<h1>Service Request $serviceid has been rescheduled by customer. New date and time are $combinedDT</h1><br><a href='http://localhost/helperland/1st_submission/?controller=Helperland&function=HomePage'>Please Click Here to Login</a>"
+                        "<h1>Service Request $serviceid has been rescheduled by $name. New date and time are $combinedDT</h1><br><a href='http://localhost/helperland/1st_submission/?controller=Helperland&function=HomePage'>Please Click Here to Login</a>"
 
                     );
                     $sendgrid = new \SendGrid("");
@@ -514,13 +518,14 @@ class Helperland
             $date = explode('/', $value['ServiceStartDate']);
             $time = explode(':', $value['ServiceStartTime']);
 
-            $d2->setDate($date[2], $date[1], $date[0])->setTime($time[0], $time[1])->format('d/m/Y H:i');
-            if ($for_validation < $d2) {
+           $d2->setDate($date[2], $date[1], $date[0])->setTime($time[0], $time[1])->format('d/m/Y H:i');
+            if ($for_validation > $d2) {
                 array_push($date_array, "1");
             }
         }
-        // print_r($date_array);die();
-        if (count($date_array) > 0) {
+        // print_r($userdata);
+        // die();
+        if (count($date_array) == 0) {
             $sql = "UPDATE servicerequest SET ServiceStartDate=? WHERE ServiceRequestId=?";
             $stmt = $this->conn->prepare($sql);
             $success = $stmt->execute([$date_update, $id]);
@@ -813,14 +818,11 @@ class Helperland
         foreach ($success1 as $val) {
             $postal = $val['ZipCode'];
         }
-        $sql = "SELECT s.*,y.*,z.* FROM (SELECT AddressLine1,ServiceRequestId,AddressLine2,City,PostalCode FROM servicerequestaddress WHERE PostalCode=$postal) as s,(SELECT ServiceId,UserId,ServiceStartDate,TotalCost,PaymentDone,Status,ServiceRequestId,ServiceHours,SubTotal FROM servicerequest WHERE Status=2) as y ,(SELECT UserId,FirstName,LastName FROM user) as z
+        $sql = "SELECT s.*,y.*,z.* FROM (SELECT AddressLine1,ServiceRequestId,AddressLine2,City,PostalCode FROM servicerequestaddress WHERE PostalCode=$postal) as s,(SELECT ServiceId,UserId,ServiceStartDate,TotalCost,PaymentDone,Status,ServiceRequestId,ServiceHours,SubTotal FROM servicerequest WHERE (Status=2) AND (ServiceProviderId IS NULL OR ServiceProviderId=$id))  as y ,(SELECT UserId,FirstName,LastName FROM user) as z
         WHERE s.ServiceRequestId=y.ServiceRequestId AND y.UserId=z.UserId";
-
-
         $stmt = $this->conn->prepare($sql);
         $success = $stmt->execute();
         $success1 = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         if (count($success3) > 0) {
             $data_main[0] = $success1;
             $data_main[1] = $success3;
@@ -832,10 +834,6 @@ class Helperland
             $data_main[0] = $success1;
             $data_main[1] = array(array('UserId' => ''));
         }
-
-
-
-        // echo "<pre>";print_r($data_main);
         if ($success) {
 
             echo json_encode($data_main);
@@ -845,15 +843,16 @@ class Helperland
     }
     public function acceptService_data($id, $serviceid, $datetime)
     {
-        $sql = "SELECT ServiceProviderId FROM servicerequest WHERE ServiceRequestId=$serviceid";
+        $sql = "SELECT ServiceProviderId,SPAcceptedDate FROM servicerequest WHERE ServiceRequestId=$serviceid";
         $stmt = $this->conn->prepare($sql);
         $success = $stmt->execute();
         $userdata = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($userdata as $value) {
             $spid = $value['ServiceProviderId'];
+            $sdate=$value['SPAcceptedDate'];
         }
 
-        if (is_null($spid)) {
+        if (is_null($spid) || is_null($sdate)) {
             $gettime = $datetime->format('Y-m-d');
             $sql = "SELECT  DATE_FORMAT(ServiceStartDate, '%H:%i') as ServiceStartTime,DATE_FORMAT(ServiceStartDate, '%d/%m/%Y') as ServiceStartDate FROM servicerequest WHERE Status=4 AND ServiceProviderId=$id AND DATE(ServiceStartDate) = DATE('$gettime')";
             $stmt = $this->conn->prepare($sql);
@@ -866,15 +865,15 @@ class Helperland
                 $date = explode('/', $value['ServiceStartDate']);
                 $time = explode(':', $value['ServiceStartTime']);
 
-                $d2->setDate($date[2], $date[1], $date[0])->setTime($time[0], $time[1])->format('d/m/Y g:i');
-                $interval = $datetime->diff($d2);
-                $data_1 = ($interval->days * 24) + $interval->h;
-                if ($data_1 < 1) {
-                    array_push($date_array, $data_1);
+            $d2->setDate($date[2], $date[1], $date[0])->setTime($time[0], $time[1])->format('d/m/Y H:i');
+                // $interval = $datetime->diff($d2);
+                // $data_1 = ($interval->days * 24) + $interval->h;
+                if ($datetime > $d2) {
+                    array_push($date_array, "1");
                 }
             }
-
-            if (count($date_array) == 0) {
+            // die();
+            if (count($date_array)==0) {
                 $sql = "UPDATE servicerequest SET Status=4,ServiceProviderId=$id,SPAcceptedDate=now() WHERE ServiceRequestId=$serviceid";
                 $stmt = $this->conn->prepare($sql);
                 $success = $stmt->execute();
