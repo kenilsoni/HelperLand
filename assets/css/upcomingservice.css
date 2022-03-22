@@ -111,7 +111,9 @@ nav {
 .verticalNavItems .verticalNavItem.active {
 	background: #146371;
 }
-
+.serviceevent{
+	cursor: pointer;
+}
 .serviceHistoryTableContainer {
 	flex: 1;
 	min-width: 0;
@@ -192,6 +194,7 @@ tbody tr {
 
 		
 .cancel {
+	/* display: none; */
 	background-color: #ff6b6b;
 		color: white;
 		padding: 10px;

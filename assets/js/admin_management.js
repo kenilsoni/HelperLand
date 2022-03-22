@@ -110,10 +110,10 @@ var dt2 = new DataTable("#adminUserManagementTable2", {
 // jquery plugin
 
 $(function () {
-	$("#fromDate").datepicker();
-	$("#toDate").datepicker();
-	$("#fromDate1").datepicker();
-	$("#toDate1").datepicker();
+	$("#fromDate").datepicker({ dateFormat: 'dd-mm-yy' });
+	$("#toDate").datepicker({ dateFormat: 'dd-mm-yy' });
+	$("#fromDate1").datepicker({ dateFormat: 'dd-mm-yy' });
+	$("#toDate1").datepicker({ dateFormat: 'dd-mm-yy' });
 
 });
 
@@ -188,12 +188,40 @@ $(document).ready(function () {
 	// }));
 	$(document).on("click", ".search", function () {
 
-		// console.log(strDateTime);
-		dt.search($('.myInputTextField').val() | $('#status').val() | $('#customer').val()).draw();
-		// dt.search).draw() ;
-		// dt.search().draw() ;
-		// dt.search(min).draw() ;
-		// console.log($('#fromDate').val());
+		if ($('.myInputTextField').val() != "") {
+			dt.search($('.myInputTextField').val()).draw();
+		}
+		if ($('#status').val() != "status") {
+			dt.search($('#status').val()).draw();
+		}
+		if ($('#customer').val() != "customer") {
+			dt.search($('#customer').val()).draw();
+		}
+		if ($('#serviceProvider').val() != "serviceProvider") {
+			dt.search($('#serviceProvider').val()).draw();
+		}
+
+		// var min1  = new Date(($("#fromDate").val()).split('-').reverse().join('/'));
+		// var max  = new Date(($("#toDate").val()).split('-').reverse().join('/'));
+		// while(min1 <= max){
+
+		// 	console.log(min1)
+		// 	dt.search().draw();
+		// }
+		// console.log(min);
+		// 		dt.search(function( settings, data, dataIndex ) {
+
+		// 			var createdAt =new Date( data[1] || 0); 			
+		// 			if ( 
+		// 			( min <= createdAt   && createdAt <= max ) )
+		// 	   {
+		// 		   return true;
+		// 	   }
+		// 	   return false;
+		//    }).draw() ;
+		// if($("#fromDate").val() != ""){
+		// dt.search($('#serviceProvider').val()).draw() ;}
+		// console.log($("#fromDate").val());
 
 
 
@@ -245,7 +273,17 @@ $(document).ready(function () {
 	})
 
 	$(document).on("click", ".search2", function () {
-		dt2.search($('#userName').val() | $('#userType').val() | $('#mobile').val()).draw();
+		if ($('#userName').val() != "userName") {
+			dt2.search($('#userName').val()).draw();
+		}
+
+		if ($('#userType').val() != "userType") {
+			dt2.search($('#userType').val()).draw();
+		}
+
+		if ($('#mobile').val() != "") {
+			dt2.search($('#mobile').val()).draw();
+		}
 
 		// dt.search($('#serviceProvider').val()).draw() ;
 		// console.log($('#fromDate').val());
@@ -466,10 +504,11 @@ $(document).ready(function () {
 					var unique2 = serviceprovider.filter(function (itm, i, serviceprovider) {
 						return i == serviceprovider.indexOf(itm);
 					});
-					for (i = 0; i < unique.length; i++) {
+					for (i = 0; i < unique2.length; i++) {
 						var newOption1 = $('<option value="' + unique2[i] + '">' + unique2[i] + '</option>');
 						$('#serviceProvider').append(newOption1);
 					}
+
 
 				}
 			},
@@ -708,6 +747,3 @@ $(document).ready(function () {
 
 	})
 })
-
-// var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-// var popoverList = popoverTriggerList.map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));

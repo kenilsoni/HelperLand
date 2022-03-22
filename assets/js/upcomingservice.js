@@ -179,7 +179,8 @@ $(document).on('click', '.rightclick', function () {
 });
 
 $(document).on('click', '.serviceevent', function () {
-	var id = $(".sid_cal").val();
+	var id = $(this).closest('.day_num').find(".sid_cal").val();
+	// console.log(id);
 	for (var i = 0; i < emparray.length; i++) {
 
 		if (emparray[i][0].ServiceRequestId == id) {
@@ -540,7 +541,7 @@ $(document).on("click", ".service_detail", function () {
 	$(".service_id").text(serviceid);
 	$(".net_amount").text(amount);
 	$(".cust_name").text(custname);
-	$(".service_id").val(sid);
+	$(".serviceid").val(sid);
 
 	$.ajax({
 		type: "POST",
@@ -570,14 +571,17 @@ $(document).on("click", ".service_detail", function () {
 			var now = new Date();
 
 			var userTime = new Date(numarray[2], Number(numarray[1]) - 1, numarray[0], numarray2[0], numarray2[1]);
-
+			$('.btn_modal').html('');
 			if (userTime.getTime() < now.getTime()) {
-
-				$("#complete_btn").show();
+				$(".btn_modal").append(`<button data-dismiss="modal" class="complete_modal position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" id="complete_btn">
+				<span>&#10003;</span>&nbsp;Complete</button>`);
+				// $("#complete_btn").show();
 
 			}
 			else {
-				$('#complete_btn').attr('style', 'display: none !important');
+				$(".btn_modal").append(`<button data-dismiss="modal" class="cancel_modal position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" id="cancel_btn">
+				<span>&#10540;</span>&nbsp;Cancel</button>`);
+				// $('#complete_btn').attr('style', 'display: none !important');
 
 			}
 			for (var i = 0; i < len; i++) {
@@ -650,15 +654,16 @@ $(document).on("click", ".dashboard_btn", function () {
 
 });
 $(document).on("click", ".accept_btn", function () {
-	var serviceid = $(".service_id").val();
-	var datetime=$(".date-time").text();
+	var serviceid = $(".serviceid").val();
+	// console.log(serviceid);
+	var datetime = $(".date-time").text();
 
 
 	$.ajax({
 		type: "POST",
 		url: "?controller=UpcomingService&function=acceptService",
 		datatype: "json",
-		data: { serviceid: serviceid,datetime:datetime},
+		data: { serviceid: serviceid, datetime: datetime },
 		beforeSend: function () {
 			$('#loader').removeClass('hidden')
 		},
@@ -708,6 +713,7 @@ function getNewService() {
 		},
 		success: function (data) {
 			obj = JSON.parse(data);
+			console.log(obj);
 
 			if (typeof obj === "object") {
 				var len = obj[0].length;
@@ -733,7 +739,7 @@ function getNewService() {
 											
 													</td>
 													<td>
-													<div class="tdHead service_detail d-flex align-items-center justify-content-start" style="width:7rem;"  type="button" data-toggle="modal" data-target="#servicedetail_btn" >
+													<div class="tdHead service_detail d-flex align-items-center justify-content-start" style="width:8rem;"  type="button" data-toggle="modal" data-target="#servicedetail_btn" >
 													<img src="./assets/Images/calender.png" />
 															<h5 class="datenew">${dateString}</h5>
 														</div>
@@ -1119,6 +1125,7 @@ function getUpcomingService() {
 		},
 		success: function (data) {
 			obj = JSON.parse(data);
+			console.log(obj);
 			if (typeof obj === "object") {
 				var len = obj.length;
 
@@ -1126,7 +1133,14 @@ function getUpcomingService() {
 				myTable.clear().draw();
 				for (var i = 0; i < len; i++) {
 					date_string(obj[i][0].ServiceStartDate, obj[i][0].SubTotal);
-
+					var str = dateString.toString();
+					var numarray = str.split('-');
+					var str = time.toString();
+					var numarray1 = str.split(' ');
+					var data11 = numarray1[2];
+					var numarray2 = data11.split(':');
+					var now = new Date();
+					var userTime = new Date(numarray[2], Number(numarray[1]) - 1, numarray[0], numarray2[0], numarray2[1]);
 					myTable.row.add($(`<tr>
 											<td>
 											<div class="tdHead d-flex align-items-center justify-content-center">
@@ -1138,7 +1152,7 @@ function getUpcomingService() {
 											
 													</td>
 													<td>
-													<div class="tdHead service_detail d-flex align-items-center justify-content-start" style="width:7rem;"  type="button" data-toggle="modal" data-target="#servicedetail_upcoming" >
+													<div class="tdHead service_detail d-flex align-items-center justify-content-start" style="width:8rem;"  type="button" data-toggle="modal" data-target="#servicedetail_upcoming" >
 													<img src="./assets/Images/calender.png" />
 															<h5 class="datenew">${dateString}</h5>
 														</div>
@@ -1155,8 +1169,10 @@ function getUpcomingService() {
 												<td><span class="paymentAmount d-xs-inline-block d-sm-block "><span class="paymentSign">€</span>${obj[i][0].TotalCost}</span></td>
 												<td></td>
 													<td class="action d-flex justify-content-around">
-													<button class="cancel position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap service_detail" type="button" data-toggle="modal" data-target="#servicedetail_upcoming">Cancel</button>
+													${userTime.getTime() < now.getTime() ? '<button class="complete_modal  position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap" type="button" id="complete_btn">Complete</button>' : '<button class="cancel  position-relative d-flex align-items-center justify-content-center rounded-pill text-nowrap service_detail" type="button" id="cancel_btn">Cancel</button>'}
 													
+													
+												
 													</td>
 												</tr>`)).draw();
 
@@ -1180,7 +1196,8 @@ function upcoming_service() {
 }
 getUpcomingService();
 $(document).on("click", "#cancel_btn", function () {
-	var serviceid = $(".service_id").val();
+	var serviceid = $(".serviceid").val();
+	console.log(serviceid);
 	$.ajax({
 		type: "POST",
 		url: "?controller=UpcomingService&function=cancelService",
@@ -1209,7 +1226,8 @@ $(document).on("click", "#cancel_btn", function () {
 	})
 })
 $(document).on("click", "#complete_btn", function () {
-	var serviceid = $(".service_id").val();
+	var serviceid = $(".serviceid").val();
+	console.log(serviceid);
 	$.ajax({
 		type: "POST",
 		url: "?controller=UpcomingService&function=completeservice",
