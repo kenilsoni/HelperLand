@@ -171,21 +171,6 @@ $(document).ready(function () {
 	})
 	getservice_data();
 
-	// $.fn.dataTable.ext.search.push(( function( settings, data, dataIndex ) {
-	// 	var datetime=new Date($('#fromDate').datepicker("getDate"));
-	// var min =  ("0"+datetime.getDate()).slice(-2) + "-" + ("0"+(datetime.getMonth()+1)).slice(-2) + "-" + datetime.getFullYear();
-
-	// var datetime=new Date($('#toDate').datepicker("getDate"));
-	// var max =  ("0"+datetime.getDate()).slice(-2) + "-" + ("0"+(datetime.getMonth()+1)).slice(-2) + "-" + datetime.getFullYear();
-
-	// 	var startDate = new Date(data[1]);
-	// 	if (min == null && max == null) { return true; }
-	// 	if (min == null && startDate <= max) { return true;}
-	// 	if(max == null && startDate >= min) {return true;}
-	// 	if (startDate <= max && startDate >= min) { return true; }
-	// 	return false;
-
-	// }));
 	$(document).on("click", ".search", function () {
 
 		if ($('.myInputTextField').val() != "") {
@@ -200,31 +185,12 @@ $(document).ready(function () {
 		if ($('#serviceProvider').val() != "serviceProvider") {
 			dt.search($('#serviceProvider').val()).draw();
 		}
-
-		// var min1  = new Date(($("#fromDate").val()).split('-').reverse().join('/'));
-		// var max  = new Date(($("#toDate").val()).split('-').reverse().join('/'));
-		// while(min1 <= max){
-
-		// 	console.log(min1)
-		// 	dt.search().draw();
-		// }
-		// console.log(min);
-		// 		dt.search(function( settings, data, dataIndex ) {
-
-		// 			var createdAt =new Date( data[1] || 0); 			
-		// 			if ( 
-		// 			( min <= createdAt   && createdAt <= max ) )
-		// 	   {
-		// 		   return true;
-		// 	   }
-		// 	   return false;
-		//    }).draw() ;
-		// if($("#fromDate").val() != ""){
-		// dt.search($('#serviceProvider').val()).draw() ;}
-		// console.log($("#fromDate").val());
-
-
-
+		if ($('#fromDate').val() != "") {
+			dt.search($("#fromDate").val()).draw();
+		}
+		if ($('#toDate').val() != "") {
+			dt.search($("#toDate").val()).draw();
+		}
 
 	})
 
@@ -242,7 +208,6 @@ $(document).ready(function () {
 	$(".calculate-amount").on("change", function () {
 		if ($("#select-method").val() == 0) {
 			var percentToGet = Number($(this).val());
-			// console.log($('.paid-amt').text());
 			var amount = Number($(".paid-amt").text());
 			var remainning = Math.ceil((percentToGet / 100) * amount);
 			var last = Number($(".paid-amt").text()) - Number(remainning);
@@ -267,6 +232,8 @@ $(document).ready(function () {
 		$('#status').val('status');
 		$('#customer').val('customer');
 		$('#serviceProvider').val('serviceProvider');
+		$('#fromDate').datepicker('setDate', null);
+		$('#toDate').datepicker('setDate', null);
 
 		dt.search('').draw();
 
@@ -284,34 +251,21 @@ $(document).ready(function () {
 		if ($('#mobile').val() != "") {
 			dt2.search($('#mobile').val()).draw();
 		}
-
-		// dt.search($('#serviceProvider').val()).draw() ;
-		// console.log($('#fromDate').val());
-		// dt.search( function( settings, data, dataIndex ) {
-		// 	var min  = $('#fromDate').val();
-		// 	var max  = $('#toDate').val();
-		// 	var createdAt = data[1] || 0; // Our date column in the table
-
-		// 	if  ( 
-		// 			( min == "" || max == "" )
-		// 			|| 
-		// 			( moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max) ) 
-		// 		)
-		// 	{
-		// 		return true;
-		// 	}
-		// 	return false;
-		// }).draw() ;
-
-
+		if ($('#fromDate1').val() != "") {
+			dt2.search($("#fromDate1").val()).draw();
+		}
+		if ($('#toDate1').val() != "") {
+			dt2.search($("#toDate1").val()).draw();
+		}
 
 	})
 
 	$(document).on("click", ".clear2", function () {
 		$('#userName').val('userName');
 		$('#userType').val('userType');
+		$('#fromDate1').datepicker('setDate', null);
+		$('#toDate1').datepicker('setDate', null);
 		$('#mobile').val('');
-		// $('#serviceProvider').val('serviceProvider');
 
 		dt2.search('').draw();
 
