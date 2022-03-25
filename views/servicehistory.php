@@ -34,6 +34,7 @@ if (!isset($_SESSION['user_name'])) {
 			</a>
 		</div>
 		<div class="navMenu collapsed text-white d-flex align-items-start align-items-md-center justify-content-center">
+			<div class="navItem highlight"><a href="?function=bookservice_page">Book now</a></div>
 			<div class="navItem"><a href="?function=pricepage">Plans & Services</a></div>
 			<div class="navItem"><a href="#">Warranty</a></div>
 			<div class="navItem"><a href="#">Blog</a></div>

@@ -1,5 +1,6 @@
   <!-- Navbar start -->
-<?php session_start(); if(!isset($_SESSION['user_name'],$_SESSION['user_type'])){?>
+<?php session_start(); if(!isset($_SESSION['user_name'],$_SESSION['user_type'])){
+	?>
   <nav class="mainnav d-md-flex align-items-center justify-content-between text-white">
 		<div class="divlogo">
 			<a class="d-block" href="?function=Homepage">
@@ -39,7 +40,8 @@
 			</div>
 		</div>
 	</nav>
-<?php }else if(isset($_SESSION['user_type'])){ ?>
+<?php }else if(isset($_SESSION['user_type'])){ 
+	if($_SESSION['user_type']==3){header("location:?controller=Admin&function=admin_management");}?>
 
     <nav class="mainnav d-md-flex align-items-center justify-content-between text-white">
 		<div class="divlogo">
